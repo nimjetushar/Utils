@@ -36,21 +36,13 @@ window.Utils = (function (window) {
             return typeof Ctor === "function" && _fnToString.call(Ctor) === _ObjectFunctionString;
         };
 
+    // creates deep copy of a object
     function deepCopy() {
         var options, name, src, copy, copyIsArray, clone,
-            target = arguments[0] || {},
             i = 1,
+            target = arguments[0] || {},
             length = arguments.length,
-            deep = false;
-
-        // Handle a deep copy situation
-        if (typeof target === "boolean") {
-            deep = target;
-
-            // Skip the boolean and the target
-            target = arguments[i] || {};
-            i++;
-        }
+            deep = true;
 
         // Handle case when target is a string or something (possible in deep copy)
         if (typeof target !== "object" && !_isFunction(target)) {
@@ -122,13 +114,28 @@ window.Utils = (function (window) {
         return true;
     }
 
+    function createMap(data, objKey) {
+        var map = {};
+        if (typeof data === 'object' && Array.instanceof(data)) {
+            var i, len = data.length;
+            for (i = 0; i < len; i++) {
+                var obj = data[i];
+                map[obj[objKey]] = obj;
+            }
+        } else {
+            throw 'Required Array';
+        }
+        return map;
+    }
+
     return {
         deepCopy: deepCopy,
         setDataToLocal: setDataToLocal,
         getDataFromLocal: getDataFromLocal,
         removeItemFromLocal: removeItemFromLocal,
         isDefined: isDefined,
-        isEmptyObject: isEmptyObject
+        isEmptyObject: isEmptyObject,
+        createMap: createMap
     };
 
 }(window));
