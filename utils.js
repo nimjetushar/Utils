@@ -120,7 +120,11 @@ window.Utils = (function (window) {
             var i, len = data.length;
             for (i = 0; i < len; i++) {
                 var obj = data[i];
-                map[obj[objKey]] = obj;
+                if (objKey) {
+                    map[obj[objKey]] = obj;
+                } else {
+                    map[i] = obj;
+                }
             }
         } else {
             throw 'Required Array';
