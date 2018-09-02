@@ -9,17 +9,13 @@ import isEmpty from "./core/isEmpty";
 import createMap from "./core/createMap";
 import isArray from "./core/isArray";
 
-const utils = (window.utils = (function() {
-  return {
-    deepCopy: deepCopy,
-    setDataToLocal: setDataToLocal,
-    getDataFromLocal: getDataFromLocal,
-    removeItemFromLocal: removeItemFromLocal,
-    isDefined: isDefined,
-    isEmpty: isEmpty,
-    createMap: createMap,
-    isArray: isArray
-  };
-})());
-
-export default utils;
+export {
+  deepCopy,
+  setDataToLocal,
+  getDataFromLocal,
+  removeItemFromLocal,
+  isDefined,
+  isEmpty,
+  createMap,
+  isArray
+};
