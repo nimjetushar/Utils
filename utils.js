@@ -8,6 +8,8 @@ import isDefined from "./core/isDefined";
 import isEmpty from "./core/isEmpty";
 import createMap from "./core/createMap";
 import isArray from "./core/isArray";
+import isObject from "./core/isObject";
+import isBoolean from "./core/isBoolean";
 
 export {
   deepCopy,
@@ -17,5 +19,7 @@ export {
   isDefined,
   isEmpty,
   createMap,
-  isArray
+  isArray,
+  isObject,
+  isBoolean
 };
