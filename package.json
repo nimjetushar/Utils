@@ -5,7 +5,10 @@
   "main": "utils.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "webpack --config webpack.config.js"
+    "build-util": "webpack --config webpack.config.js",
+    "build-util-min": "webpack --env.build_type=prod --config webpack.config.js",
+    "build-logger": "webpack --env.build_lib=logger --config webpack.config.js",
+    "build-logger-min": "webpack --env.build_lib=logger --env.build_type=prod --config webpack.config.js"
   },
   "repository": {
     "type": "git",
