@@ -10,6 +10,11 @@ import createMap from "./core/createMap";
 import isArray from "./core/isArray";
 import isObject from "./core/isObject";
 import isBoolean from "./core/isBoolean";
+import {
+  setDataToSession,
+  getDataFromSession,
+  removeItemFromSession
+} from "./core/sessionOperations";
 
 export {
   deepCopy,
@@ -21,5 +26,8 @@ export {
   createMap,
   isArray,
   isObject,
-  isBoolean
+  isBoolean,
+  setDataToSession,
+  getDataFromSession,
+  removeItemFromSession
 };
