@@ -1,9 +1,4 @@
 import deepCopy from "./core/deepClone";
-import {
-  setDataToLocal,
-  getDataFromLocal,
-  removeItemFromLocal
-} from "./core/localOperations";
 import isDefined from "./core/isDefined";
 import isEmpty from "./core/isEmpty";
 import createMap from "./core/createMap";
@@ -15,6 +10,11 @@ import {
   getDataFromSession,
   removeItemFromSession
 } from "./core/sessionOperations";
+import {
+  setDataToLocal,
+  getDataFromLocal,
+  removeItemFromLocal
+} from "./core/localOperations";
 
 export {
   deepCopy,

@@ -1,5 +1,5 @@
 function isEmptyObject(obj) {
-  for (var name in obj) {
+  for (const name in obj) {
     return false;
   }
   return true;

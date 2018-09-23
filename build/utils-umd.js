@@ -1,5 +1,14 @@
-module.exports =
-/******/ (function(modules) { // webpackBootstrap
+(function webpackUniversalModuleDefinition(root, factory) {
+	if(typeof exports === 'object' && typeof module === 'object')
+		module.exports = factory();
+	else if(typeof define === 'function' && define.amd)
+		define("utils", [], factory);
+	else if(typeof exports === 'object')
+		exports["utils"] = factory();
+	else
+		root["utils"] = factory();
+})(window, function() {
+return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
 /******/
@@ -430,3 +439,4 @@ exports.removeItemFromLocal = removeItemFromLocal;
 
 /***/ })
 /******/ ]);
+});

@@ -10,7 +10,7 @@ export default class Logger {
 
   setlevel(key = this.info) {
     if (!key) {
-      throw "Logger level is required";
+      throw new Error("Logger level is required");
     }
 
     switch (key) {
@@ -23,7 +23,7 @@ export default class Logger {
       case this.info:
         break;
       default:
-        throw "invalid choice";
+        throw new Error("invalid choice");
     }
   }
 }

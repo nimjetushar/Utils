@@ -14,14 +14,12 @@ function _isFunction(obj) {
 }
 
 function _isPlainObject(obj) {
-  let proto, Ctor;
-
   // Detect obvious negatives
   if (!obj || _toString.call(obj) !== "[object Object]") {
     return false;
   }
 
-  proto = _getProto(obj);
+  const proto = _getProto(obj);
 
   // Objects with no prototype (e.g., `Object.create( null )`) are plain
   if (!proto) {
@@ -29,7 +27,7 @@ function _isPlainObject(obj) {
   }
 
   // Objects with prototype are plain iff they were constructed by a global Object function
-  Ctor = _hasOwn.call(proto, "constructor") && proto.constructor;
+  const Ctor = _hasOwn.call(proto, "constructor") && proto.constructor;
   return (
     typeof Ctor === "function" &&
     _fnToString.call(Ctor) === _ObjectFunctionString
@@ -45,9 +43,8 @@ function deepCopy() {
     copyIsArray,
     clone,
     i = 1,
-    target = arguments[0] || {},
-    length = arguments.length,
-    deep = true;
+    target = arguments[0] || {};
+  const length = arguments.length;
 
   // Handle case when target is a string or something (possible in deep copy)
   if (typeof target !== "object" && !_isFunction(target)) {
@@ -56,7 +53,7 @@ function deepCopy() {
 
   for (; i < length; i++) {
     // Only deal with non-null/undefined values
-    if ((options = arguments[i]) != null) {
+    if ((options = arguments[i]) !== null) {
       // Extend the base object
       for (name in options) {
         src = target[name];
@@ -64,6 +61,7 @@ function deepCopy() {
 
         // Prevent never-ending loop
         if (target === copy) {
+          // eslint-disable-next-line no-continue
           continue;
         }
 
