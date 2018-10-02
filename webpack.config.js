@@ -1,5 +1,4 @@
-const path = require("path"),
-  webpack = require("webpack");
+const path = require("path");
 
 let libraryName = "utils",
   entryFile = "./utils.js",
