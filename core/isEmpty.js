@@ -5,4 +5,4 @@ function isEmptyObject(obj) {
   return true;
 }
 
-export default isEmptyObject;
+export { isEmptyObject };

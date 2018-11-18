@@ -1,4 +1,5 @@
-const path = require("path");
+const path = require("path"),
+  webpack = require("webpack");
 
 let libraryName = "utils",
   entryFile = "./utils.js",
@@ -6,6 +7,12 @@ let libraryName = "utils",
   isMinified = false,
   isUmdBuild = false,
   libType = "commonjs2";
+
+const libComment = `/**
+* @author Tushar Nimje
+* @description Utility functions
+*/
+/* eslint-disable */`;
 
 module.exports = env => {
   if (env && env.build_lib && env.build_lib === "logger") {
@@ -62,6 +69,7 @@ module.exports = env => {
           }
         }
       ]
-    }
+    },
+    plugins: [new webpack.BannerPlugin({ banner: libComment, raw: true })]
   };
 };

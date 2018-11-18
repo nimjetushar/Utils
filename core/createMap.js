@@ -17,4 +17,4 @@ function createMap(data, objKey) {
   return map;
 }
 
-export default createMap;
+export { createMap };

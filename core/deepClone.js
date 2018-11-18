@@ -92,4 +92,4 @@ function deepCopy() {
   return target;
 }
 
-export default deepCopy;
+export { deepCopy };

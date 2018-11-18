@@ -1,3 +1,8 @@
+/**
+* @author Tushar Nimje
+* @description Utility functions
+*/
+/* eslint-disable */
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object')
 		module.exports = factory();
@@ -104,55 +109,114 @@ return /******/ (function(modules) { // webpackBootstrap
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.removeItemFromSession = exports.getDataFromSession = exports.setDataToSession = exports.isBoolean = exports.isObject = exports.isArray = exports.createMap = exports.isEmpty = exports.isDefined = exports.removeItemFromLocal = exports.getDataFromLocal = exports.setDataToLocal = exports.deepCopy = undefined;
 
 var _deepClone = __webpack_require__(1);
 
-var _deepClone2 = _interopRequireDefault(_deepClone);
+Object.keys(_deepClone).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function get() {
+      return _deepClone[key];
+    }
+  });
+});
 
 var _isDefined = __webpack_require__(2);
 
-var _isDefined2 = _interopRequireDefault(_isDefined);
+Object.keys(_isDefined).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function get() {
+      return _isDefined[key];
+    }
+  });
+});
 
 var _isEmpty = __webpack_require__(3);
 
-var _isEmpty2 = _interopRequireDefault(_isEmpty);
+Object.keys(_isEmpty).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function get() {
+      return _isEmpty[key];
+    }
+  });
+});
 
 var _createMap = __webpack_require__(4);
 
-var _createMap2 = _interopRequireDefault(_createMap);
+Object.keys(_createMap).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function get() {
+      return _createMap[key];
+    }
+  });
+});
 
 var _isArray = __webpack_require__(5);
 
-var _isArray2 = _interopRequireDefault(_isArray);
+Object.keys(_isArray).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function get() {
+      return _isArray[key];
+    }
+  });
+});
 
 var _isObject = __webpack_require__(6);
 
-var _isObject2 = _interopRequireDefault(_isObject);
+Object.keys(_isObject).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function get() {
+      return _isObject[key];
+    }
+  });
+});
 
 var _isBoolean = __webpack_require__(7);
 
-var _isBoolean2 = _interopRequireDefault(_isBoolean);
+Object.keys(_isBoolean).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function get() {
+      return _isBoolean[key];
+    }
+  });
+});
 
 var _sessionOperations = __webpack_require__(8);
 
+Object.keys(_sessionOperations).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function get() {
+      return _sessionOperations[key];
+    }
+  });
+});
+
 var _localOperations = __webpack_require__(9);
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-exports.deepCopy = _deepClone2.default;
-exports.setDataToLocal = _localOperations.setDataToLocal;
-exports.getDataFromLocal = _localOperations.getDataFromLocal;
-exports.removeItemFromLocal = _localOperations.removeItemFromLocal;
-exports.isDefined = _isDefined2.default;
-exports.isEmpty = _isEmpty2.default;
-exports.createMap = _createMap2.default;
-exports.isArray = _isArray2.default;
-exports.isObject = _isObject2.default;
-exports.isBoolean = _isBoolean2.default;
-exports.setDataToSession = _sessionOperations.setDataToSession;
-exports.getDataFromSession = _sessionOperations.getDataFromSession;
-exports.removeItemFromSession = _sessionOperations.removeItemFromSession;
+Object.keys(_localOperations).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function get() {
+      return _localOperations[key];
+    }
+  });
+});
 
 /***/ }),
 /* 1 */
@@ -255,7 +319,7 @@ function deepCopy() {
   return target;
 }
 
-exports.default = deepCopy;
+exports.deepCopy = deepCopy;
 
 /***/ }),
 /* 2 */
@@ -271,7 +335,7 @@ function isDefined(data) {
   return !(data === null || data === undefined || data === "");
 }
 
-exports.default = isDefined;
+exports.isDefined = isDefined;
 
 /***/ }),
 /* 3 */
@@ -290,7 +354,7 @@ function isEmptyObject(obj) {
   return true;
 }
 
-exports.default = isEmptyObject;
+exports.isEmptyObject = isEmptyObject;
 
 /***/ }),
 /* 4 */
@@ -324,7 +388,7 @@ function createMap(data, objKey) {
   return map;
 }
 
-exports.default = createMap;
+exports.createMap = createMap;
 
 /***/ }),
 /* 5 */
@@ -343,7 +407,7 @@ function isArray(obj) {
   return (typeof obj === "undefined" ? "undefined" : _typeof(obj)) === "object" && obj instanceof Array;
 }
 
-exports.default = isArray;
+exports.isArray = isArray;
 
 /***/ }),
 /* 6 */
@@ -363,7 +427,7 @@ function isObject(value) {
   return value !== null && (type === "object" || type === "function");
 }
 
-exports.default = isObject;
+exports.isObject = isObject;
 
 /***/ }),
 /* 7 */
@@ -379,7 +443,7 @@ function isBoolean(value) {
   return value === true || value === false;
 }
 
-exports.default = isBoolean;
+exports.isBoolean = isBoolean;
 
 /***/ }),
 /* 8 */

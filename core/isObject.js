@@ -3,4 +3,4 @@ function isObject(value) {
   return value !== null && (type === "object" || type === "function");
 }
 
-export default isObject;
+export { isObject };
