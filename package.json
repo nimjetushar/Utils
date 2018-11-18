@@ -12,7 +12,8 @@
     "build-util-umd": "webpack --env.libType=umd --config webpack.config.js",
     "build-util-umd:min": "webpack --env.libType=umd --env.build_type=prod --config webpack.config.js",
     "build-logger-umd": "webpack --env.libType=umd --env.build_lib=logger --config webpack.config.js",
-    "build-logger-umd:min": "webpack --env.libType=umd --env.build_lib=logger --env.build_type=prod --config webpack.config.js"
+    "build-logger-umd:min": "webpack --env.libType=umd --env.build_lib=logger --env.build_type=prod --config webpack.config.js",
+    "test": "jest"
   },
   "repository": {
     "type": "git",
@@ -38,5 +39,8 @@
     "jest": "23.6.0",
     "webpack": "4.19.1",
     "webpack-cli": "3.1.0"
+  },
+  "jest": {
+    "verbose": true
   }
 }

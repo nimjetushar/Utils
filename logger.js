@@ -1,4 +1,4 @@
-export default class Logger {
+export class Logger {
   constructor() {
     this.info = 1;
     this.warn = 2;
