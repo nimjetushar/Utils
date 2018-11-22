@@ -1,6 +1,8 @@
+import { isArray } from "./isArray";
+
 function createMap(data, objKey) {
   const map = {};
-  if (typeof data === "object" && data instanceof Array) {
+  if (isArray(data)) {
     let i;
     const len = data.length;
     for (i = 0; i < len; i++) {

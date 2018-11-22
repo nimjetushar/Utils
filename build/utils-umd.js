@@ -96,7 +96,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 0);
+/******/ 	return __webpack_require__(__webpack_require__.s = 1);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -110,7 +110,26 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _deepClone = __webpack_require__(1);
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
+function isArray(obj) {
+  return (typeof obj === "undefined" ? "undefined" : _typeof(obj)) === "object" && obj instanceof Array;
+}
+
+exports.isArray = isArray;
+
+/***/ }),
+/* 1 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _deepClone = __webpack_require__(2);
 
 Object.keys(_deepClone).forEach(function (key) {
   if (key === "default" || key === "__esModule") return;
@@ -122,7 +141,7 @@ Object.keys(_deepClone).forEach(function (key) {
   });
 });
 
-var _isDefined = __webpack_require__(2);
+var _isDefined = __webpack_require__(3);
 
 Object.keys(_isDefined).forEach(function (key) {
   if (key === "default" || key === "__esModule") return;
@@ -134,7 +153,7 @@ Object.keys(_isDefined).forEach(function (key) {
   });
 });
 
-var _isEmpty = __webpack_require__(3);
+var _isEmpty = __webpack_require__(4);
 
 Object.keys(_isEmpty).forEach(function (key) {
   if (key === "default" || key === "__esModule") return;
@@ -146,7 +165,7 @@ Object.keys(_isEmpty).forEach(function (key) {
   });
 });
 
-var _createMap = __webpack_require__(4);
+var _createMap = __webpack_require__(5);
 
 Object.keys(_createMap).forEach(function (key) {
   if (key === "default" || key === "__esModule") return;
@@ -158,7 +177,7 @@ Object.keys(_createMap).forEach(function (key) {
   });
 });
 
-var _isArray = __webpack_require__(5);
+var _isArray = __webpack_require__(0);
 
 Object.keys(_isArray).forEach(function (key) {
   if (key === "default" || key === "__esModule") return;
@@ -219,7 +238,7 @@ Object.keys(_localOperations).forEach(function (key) {
 });
 
 /***/ }),
-/* 1 */
+/* 2 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -322,7 +341,7 @@ function deepCopy() {
 exports.deepCopy = deepCopy;
 
 /***/ }),
-/* 2 */
+/* 3 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -338,7 +357,7 @@ function isDefined(data) {
 exports.isDefined = isDefined;
 
 /***/ }),
-/* 3 */
+/* 4 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -357,7 +376,7 @@ function isEmptyObject(obj) {
 exports.isEmptyObject = isEmptyObject;
 
 /***/ }),
-/* 4 */
+/* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -366,12 +385,13 @@ exports.isEmptyObject = isEmptyObject;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.createMap = undefined;
 
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+var _isArray = __webpack_require__(0);
 
 function createMap(data, objKey) {
   var map = {};
-  if ((typeof data === "undefined" ? "undefined" : _typeof(data)) === "object" && data instanceof Array) {
+  if ((0, _isArray.isArray)(data)) {
     var i = void 0;
     var len = data.length;
     for (i = 0; i < len; i++) {
@@ -389,25 +409,6 @@ function createMap(data, objKey) {
 }
 
 exports.createMap = createMap;
-
-/***/ }),
-/* 5 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-
-function isArray(obj) {
-  return (typeof obj === "undefined" ? "undefined" : _typeof(obj)) === "object" && obj instanceof Array;
-}
-
-exports.isArray = isArray;
 
 /***/ }),
 /* 6 */
