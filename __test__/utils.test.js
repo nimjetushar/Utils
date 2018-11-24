@@ -10,38 +10,40 @@ import {
   setDataToSession
 } from "../utils";
 
-test("should have isArray method", () => {
-  expect(isArray).toBeDefined();
-});
+describe("Utils", () => {
+  it("should have isArray method", () => {
+    expect(isArray).toBeDefined();
+  });
 
-test("should have createMap method", () => {
-  expect(createMap).toBeDefined();
-});
+  it("should have createMap method", () => {
+    expect(createMap).toBeDefined();
+  });
 
-test("should have deepCopy method", () => {
-  expect(deepCopy).toBeDefined();
-});
+  it("should have deepCopy method", () => {
+    expect(deepCopy).toBeDefined();
+  });
 
-test("should have isBoolean method", () => {
-  expect(isBoolean).toBeDefined();
-});
+  it("should have isBoolean method", () => {
+    expect(isBoolean).toBeDefined();
+  });
 
-test("should have isDefined method", () => {
-  expect(isDefined).toBeDefined();
-});
+  it("should have isDefined method", () => {
+    expect(isDefined).toBeDefined();
+  });
 
-test("should have isEmptyObject method", () => {
-  expect(isEmptyObject).toBeDefined();
-});
+  it("should have isEmptyObject method", () => {
+    expect(isEmptyObject).toBeDefined();
+  });
 
-test("should have isObject method", () => {
-  expect(isObject).toBeDefined();
-});
+  it("should have isObject method", () => {
+    expect(isObject).toBeDefined();
+  });
 
-test("should have setDataToLocal method", () => {
-  expect(setDataToLocal).toBeDefined();
-});
+  it("should have setDataToLocal method", () => {
+    expect(setDataToLocal).toBeDefined();
+  });
 
-test("should have setDataToSession method", () => {
-  expect(setDataToSession).toBeDefined();
+  it("should have setDataToSession method", () => {
+    expect(setDataToSession).toBeDefined();
+  });
 });
