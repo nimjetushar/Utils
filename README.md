@@ -11,7 +11,7 @@ Import the js files from build folder and start working.
 
 ## Testing
 
-use index.html from sample for testing the utility into the console.
+Use index.html from sample for testing the utility into the console.
 
 ## Dependencies
 
