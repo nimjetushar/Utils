@@ -87,159 +87,18 @@ module.exports =
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 1);
+/******/ 	return __webpack_require__(__webpack_require__.s = 0);
 /******/ })
 /************************************************************************/
 /******/ ([
 /* 0 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+__webpack_require__.r(__webpack_exports__);
 
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-
-function isArray(obj) {
-  return (typeof obj === "undefined" ? "undefined" : _typeof(obj)) === "object" && obj instanceof Array;
-}
-
-exports.isArray = isArray;
-
-/***/ }),
-/* 1 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _deepClone = __webpack_require__(2);
-
-Object.keys(_deepClone).forEach(function (key) {
-  if (key === "default" || key === "__esModule") return;
-  Object.defineProperty(exports, key, {
-    enumerable: true,
-    get: function get() {
-      return _deepClone[key];
-    }
-  });
-});
-
-var _isDefined = __webpack_require__(3);
-
-Object.keys(_isDefined).forEach(function (key) {
-  if (key === "default" || key === "__esModule") return;
-  Object.defineProperty(exports, key, {
-    enumerable: true,
-    get: function get() {
-      return _isDefined[key];
-    }
-  });
-});
-
-var _isEmpty = __webpack_require__(4);
-
-Object.keys(_isEmpty).forEach(function (key) {
-  if (key === "default" || key === "__esModule") return;
-  Object.defineProperty(exports, key, {
-    enumerable: true,
-    get: function get() {
-      return _isEmpty[key];
-    }
-  });
-});
-
-var _createMap = __webpack_require__(5);
-
-Object.keys(_createMap).forEach(function (key) {
-  if (key === "default" || key === "__esModule") return;
-  Object.defineProperty(exports, key, {
-    enumerable: true,
-    get: function get() {
-      return _createMap[key];
-    }
-  });
-});
-
-var _isArray = __webpack_require__(0);
-
-Object.keys(_isArray).forEach(function (key) {
-  if (key === "default" || key === "__esModule") return;
-  Object.defineProperty(exports, key, {
-    enumerable: true,
-    get: function get() {
-      return _isArray[key];
-    }
-  });
-});
-
-var _isObject = __webpack_require__(6);
-
-Object.keys(_isObject).forEach(function (key) {
-  if (key === "default" || key === "__esModule") return;
-  Object.defineProperty(exports, key, {
-    enumerable: true,
-    get: function get() {
-      return _isObject[key];
-    }
-  });
-});
-
-var _isBoolean = __webpack_require__(7);
-
-Object.keys(_isBoolean).forEach(function (key) {
-  if (key === "default" || key === "__esModule") return;
-  Object.defineProperty(exports, key, {
-    enumerable: true,
-    get: function get() {
-      return _isBoolean[key];
-    }
-  });
-});
-
-var _sessionOperations = __webpack_require__(8);
-
-Object.keys(_sessionOperations).forEach(function (key) {
-  if (key === "default" || key === "__esModule") return;
-  Object.defineProperty(exports, key, {
-    enumerable: true,
-    get: function get() {
-      return _sessionOperations[key];
-    }
-  });
-});
-
-var _localOperations = __webpack_require__(9);
-
-Object.keys(_localOperations).forEach(function (key) {
-  if (key === "default" || key === "__esModule") return;
-  Object.defineProperty(exports, key, {
-    enumerable: true,
-    get: function get() {
-      return _localOperations[key];
-    }
-  });
-});
-
-/***/ }),
-/* 2 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+// CONCATENATED MODULE: ./core/deepClone.js
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 var _getProto = Object.getPrototypeOf,
     _class2type = {},
@@ -262,32 +121,31 @@ function _isPlainObject(obj) {
     return false;
   }
 
-  var proto = _getProto(obj);
+  var proto = _getProto(obj); // Objects with no prototype (e.g., `Object.create( null )`) are plain
 
-  // Objects with no prototype (e.g., `Object.create( null )`) are plain
+
   if (!proto) {
     return true;
-  }
+  } // Objects with prototype are plain iff they were constructed by a global Object function
 
-  // Objects with prototype are plain iff they were constructed by a global Object function
+
   var Ctor = _hasOwn.call(proto, "constructor") && proto.constructor;
   return typeof Ctor === "function" && _fnToString.call(Ctor) === _ObjectFunctionString;
-}
+} // creates deep copy of a object
 
-// creates deep copy of a object
+
 function deepCopy() {
-  var options = void 0,
-      name = void 0,
-      src = void 0,
-      copy = void 0,
-      copyIsArray = void 0,
-      clone = void 0,
+  var options,
+      name,
+      src,
+      copy,
+      copyIsArray,
+      clone,
       i = 1,
       target = arguments[0] || {};
-  var length = arguments.length;
+  var length = arguments.length; // Handle case when target is a string or something (possible in deep copy)
 
-  // Handle case when target is a string or something (possible in deep copy)
-  if ((typeof target === "undefined" ? "undefined" : _typeof(target)) !== "object" && !_isFunction(target)) {
+  if (_typeof(target) !== "object" && !_isFunction(target)) {
     target = {};
   }
 
@@ -297,96 +155,73 @@ function deepCopy() {
       // Extend the base object
       for (name in options) {
         src = target[name];
-        copy = options[name];
+        copy = options[name]; // Prevent never-ending loop
 
-        // Prevent never-ending loop
         if (target === copy) {
           // eslint-disable-next-line no-continue
           continue;
-        }
+        } // Recurse if we're merging plain objects or arrays
 
-        // Recurse if we're merging plain objects or arrays
+
         if (copy && (_isPlainObject(copy) || (copyIsArray = Array.isArray(copy)))) {
           if (copyIsArray) {
             copyIsArray = false;
             clone = src && Array.isArray(src) ? src : [];
           } else {
             clone = src && _isPlainObject(src) ? src : {};
-          }
+          } // Never move original objects, clone them
 
-          // Never move original objects, clone them
-          target[name] = deepCopy(clone, copy);
 
-          // Don't bring in undefined values
+          target[name] = deepCopy(clone, copy); // Don't bring in undefined values
         } else if (copy !== undefined) {
           target[name] = copy;
         }
       }
     }
-  }
+  } // Return the modified object
 
-  // Return the modified object
+
   return target;
 }
 
-exports.deepCopy = deepCopy;
 
-/***/ }),
-/* 3 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
+// CONCATENATED MODULE: ./core/isDefined.js
 function isDefined(data) {
   return !(data === null || data === undefined || data === "");
 }
 
-exports.isDefined = isDefined;
 
-/***/ }),
-/* 4 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
+// CONCATENATED MODULE: ./core/isEmpty.js
 function isEmptyObject(obj) {
   for (var name in obj) {
     return false;
   }
+
   return true;
 }
 
-exports.isEmptyObject = isEmptyObject;
 
-/***/ }),
-/* 5 */
-/***/ (function(module, exports, __webpack_require__) {
+// CONCATENATED MODULE: ./core/isArray.js
+function isArray_typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { isArray_typeof = function _typeof(obj) { return typeof obj; }; } else { isArray_typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return isArray_typeof(obj); }
 
-"use strict";
+function isArray(obj) {
+  return isArray_typeof(obj) === "object" && obj instanceof Array;
+}
 
 
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.createMap = undefined;
+// CONCATENATED MODULE: ./core/createMap.js
 
-var _isArray = __webpack_require__(0);
 
 function createMap(data, objKey) {
   var map = {};
-  if ((0, _isArray.isArray)(data)) {
-    var i = void 0;
+
+  if (isArray(data)) {
+    var i;
     var len = data.length;
+
     for (i = 0; i < len; i++) {
       var obj = data[i];
+
       if (objKey) {
         map[obj[objKey]] = obj;
       } else {
@@ -396,57 +231,28 @@ function createMap(data, objKey) {
   } else {
     throw new Error("Required Array");
   }
+
   return map;
 }
 
-exports.createMap = createMap;
 
-/***/ }),
-/* 6 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+// CONCATENATED MODULE: ./core/isObject.js
+function isObject_typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { isObject_typeof = function _typeof(obj) { return typeof obj; }; } else { isObject_typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return isObject_typeof(obj); }
 
 function isObject(value) {
-  var type = typeof value === "undefined" ? "undefined" : _typeof(value);
+  var type = isObject_typeof(value);
+
   return value !== null && (type === "object" || type === "function");
 }
 
-exports.isObject = isObject;
 
-/***/ }),
-/* 7 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
+// CONCATENATED MODULE: ./core/isBoolean.js
 function isBoolean(value) {
   return value === true || value === false;
 }
 
-exports.isBoolean = isBoolean;
 
-/***/ }),
-/* 8 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
+// CONCATENATED MODULE: ./core/sessionOperations.js
 var _ls = window.sessionStorage;
 
 function setDataToSession(key, data) {
@@ -461,37 +267,46 @@ function removeItemFromSession(key) {
   return _ls.removeItem(key);
 }
 
-exports.setDataToSession = setDataToSession;
-exports.getDataFromSession = getDataFromSession;
-exports.removeItemFromSession = removeItemFromSession;
 
-/***/ }),
-/* 9 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-var _ls = window.localStorage;
+// CONCATENATED MODULE: ./core/localOperations.js
+var localOperations_ls = window.localStorage;
 
 function setDataToLocal(key, data) {
-  _ls.setItem(key, JSON.stringify(data));
+  localOperations_ls.setItem(key, JSON.stringify(data));
 }
 
 function getDataFromLocal(key) {
-  return JSON.parse(_ls.getItem(key));
+  return JSON.parse(localOperations_ls.getItem(key));
 }
 
 function removeItemFromLocal(key) {
-  return _ls.removeItem(key);
+  return localOperations_ls.removeItem(key);
 }
 
-exports.setDataToLocal = setDataToLocal;
-exports.getDataFromLocal = getDataFromLocal;
-exports.removeItemFromLocal = removeItemFromLocal;
+
+// CONCATENATED MODULE: ./utils.js
+/* concated harmony reexport deepCopy */__webpack_require__.d(__webpack_exports__, "deepCopy", function() { return deepCopy; });
+/* concated harmony reexport isDefined */__webpack_require__.d(__webpack_exports__, "isDefined", function() { return isDefined; });
+/* concated harmony reexport isEmptyObject */__webpack_require__.d(__webpack_exports__, "isEmptyObject", function() { return isEmptyObject; });
+/* concated harmony reexport createMap */__webpack_require__.d(__webpack_exports__, "createMap", function() { return createMap; });
+/* concated harmony reexport isArray */__webpack_require__.d(__webpack_exports__, "isArray", function() { return isArray; });
+/* concated harmony reexport isObject */__webpack_require__.d(__webpack_exports__, "isObject", function() { return isObject; });
+/* concated harmony reexport isBoolean */__webpack_require__.d(__webpack_exports__, "isBoolean", function() { return isBoolean; });
+/* concated harmony reexport setDataToSession */__webpack_require__.d(__webpack_exports__, "setDataToSession", function() { return setDataToSession; });
+/* concated harmony reexport getDataFromSession */__webpack_require__.d(__webpack_exports__, "getDataFromSession", function() { return getDataFromSession; });
+/* concated harmony reexport removeItemFromSession */__webpack_require__.d(__webpack_exports__, "removeItemFromSession", function() { return removeItemFromSession; });
+/* concated harmony reexport setDataToLocal */__webpack_require__.d(__webpack_exports__, "setDataToLocal", function() { return setDataToLocal; });
+/* concated harmony reexport getDataFromLocal */__webpack_require__.d(__webpack_exports__, "getDataFromLocal", function() { return getDataFromLocal; });
+/* concated harmony reexport removeItemFromLocal */__webpack_require__.d(__webpack_exports__, "removeItemFromLocal", function() { return removeItemFromLocal; });
+
+
+
+
+
+
+
+
+
 
 /***/ })
 /******/ ]);
