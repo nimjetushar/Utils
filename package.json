@@ -1,5 +1,5 @@
 {
-  "name": "utils",
+  "name": "n-utilities",
   "version": "1.0.0",
   "description": "Utility functions",
   "main": "utils.js",
