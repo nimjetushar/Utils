@@ -42,7 +42,7 @@
     "jest": "23.6.0",
     "webpack": "4.29.6",
     "webpack": "4.29.6",
-    "webpack-cli": "3.2.3"
+    "webpack-cli": "3.3.0"
   },
   "resolutions": {
     "babel-core": "7.0.0-bridge"
