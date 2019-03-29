@@ -1,9 +1,9 @@
 # Utils
 
+[![Build Status](https://semaphoreci.com/api/v1/nimjetushar/utils/branches/master/shields_badge.svg)](https://semaphoreci.com/nimjetushar/utils)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/86a61b646ab041c0b64e502b3d8be7a7)](https://www.codacy.com/app/tushar/Utils?utm_source=github.com&utm_medium=referral&utm_content=nimjetushar/Utils&utm_campaign=Badge_Grade)
 [![Codacy Badge](https://api.codacy.com/project/badge/Coverage/86a61b646ab041c0b64e502b3d8be7a7)](https://www.codacy.com/app/tushar/Utils?utm_source=github.com&utm_medium=referral&utm_content=nimjetushar/Utils&utm_campaign=Badge_Coverage)
-[![Greenkeeper badge](https://badges.greenkeeper.io/nimjetushar/Utils.svg)](https://greenkeeper.io/)
-[![Build Status](https://semaphoreci.com/api/v1/nimjetushar/utils/branches/master/shields_badge.svg)](https://semaphoreci.com/nimjetushar/utils)
+[![Dependabot Status](https://api.dependabot.com/badges/status?host=github&repo=nimjetushar/Utils)](https://dependabot.com)
 
 ## This utility provides basic utility functions which are mainly used in day to day coding and not ment perform various utility operations which are handled by other utility lib.
 
