@@ -37,7 +37,6 @@ function _isPlainObject(obj) {
 // creates deep copy of a object
 function deepCopy() {
   let options,
-    name,
     src,
     copy,
     copyIsArray,
@@ -55,7 +54,7 @@ function deepCopy() {
     // Only deal with non-null/undefined values
     if ((options = arguments[i]) !== null) {
       // Extend the base object
-      for (name in options) {
+      for (const name in options) {
         src = target[name];
         copy = options[name];
 

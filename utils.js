@@ -7,3 +7,4 @@ export * from "./core/isObject";
 export * from "./core/isBoolean";
 export * from "./core/sessionOperations";
 export * from "./core/localOperations";
+export * from "./core/isEqual";

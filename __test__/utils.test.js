@@ -7,7 +7,8 @@ import {
   isEmptyObject,
   isObject,
   setDataToLocal,
-  setDataToSession
+  setDataToSession,
+  isEqual
 } from "../utils";
 
 describe("Utils", () => {
@@ -45,5 +46,9 @@ describe("Utils", () => {
 
   it("should have setDataToSession method", () => {
     expect(setDataToSession).toBeDefined();
+  });
+
+  it("should have isEqual method", () => {
+    expect(isEqual).toBeDefined();
   });
 });
