@@ -1,27 +1,19 @@
-import { isObject } from "util";
+import { isFunction } from "./isFunction";
+import { isObject } from "./isObject";
+import { hasKey as has } from "./hasKey";
 
 /* eslint-disable no-self-compare */
 // eslint-disable-next-line no-undef
 const SymbolProto = typeof Symbol !== "undefined" ? Symbol.prototype : null,
-    ObjProto = Object.prototype,
-    hasOwnProperty = ObjProto.hasOwnProperty,
     nativeKeys = Object.keys,
     hasEnumBug = !{ toString: null }.propertyIsEnumerable("toString"),
     nonEnumerableProps = ["valueOf", "isPrototypeOf", "toString",
         "propertyIsEnumerable", "hasOwnProperty", "toLocaleString"];
 
-function isFunction(obj) {
-    return typeof obj === "function" || false;
-}
-
-function has(obj, path) {
-    return obj !== null && hasOwnProperty.call(obj, path);
-}
-
 function collectNonEnumProps(obj, keys) {
     let nonEnumIdx = nonEnumerableProps.length;
     const constructor = obj.constructor,
-        proto = isFunction(constructor) && constructor.prototype || ObjProto;
+        proto = isFunction(constructor) && constructor.prototype || Object.prototype;
 
     // Constructor is a special case.
     let prop = "constructor";

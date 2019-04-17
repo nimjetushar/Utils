@@ -126,5 +126,15 @@ describe("isEqual", () => {
         a = function () { return true; };
         b = function () { return true; };
         expect(isEqual(a, b)).toBeFalsy();
+
+        class Class1 {
+            constructor(param) { this.param = param; }
+        }
+
+        class Class2 {
+            constructor(param) { this.param = param; }
+        }
+
+        expect(new Class1(1)).toEqual(new Class2(1));
     });
 });
