@@ -8,7 +8,9 @@ import {
   isObject,
   setDataToLocal,
   setDataToSession,
-  isEqual
+  isEqual,
+  isFunction,
+  hasKey
 } from "../utils";
 
 describe("Utils", () => {
@@ -50,5 +52,13 @@ describe("Utils", () => {
 
   it("should have isEqual method", () => {
     expect(isEqual).toBeDefined();
+  });
+
+  it("should have isFunction method", () => {
+    expect(isFunction).toBeDefined();
+  });
+
+  it("should have hasKey method", () => {
+    expect(hasKey).toBeDefined();
   });
 });
