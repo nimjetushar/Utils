@@ -36,4 +36,8 @@ describe("deepCopy", () => {
     expect(clonedObj.getValue).toBeDefined();
     expect(clonedObj.getValue()).toBe(100);
   });
+
+  it("should merge object", () => {
+    expect(deepCopy({}, { test: 'test' }, { demo: 'demo' }, { 1: 123 })).toEqual({ test: 'test', demo: 'demo', 1: 123 });
+  })
 });
