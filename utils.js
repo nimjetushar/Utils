@@ -10,3 +10,4 @@ export * from "./core/localOperations";
 export * from "./core/isEqual";
 export * from "./core/isFunction";
 export * from "./core/hasKey";
+export * from "./core/multiSort";

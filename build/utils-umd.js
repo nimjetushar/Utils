@@ -517,6 +517,36 @@ function isEqual(param1, param2) {
 }
 
 
+// CONCATENATED MODULE: ./core/multiSort.js
+/* eslint-disable eqeqeq */
+function getSortMethod() {
+  var _args = Array.prototype.slice.call(arguments);
+
+  return function (a, b) {
+    for (var x in _args) {
+      var ax = a[_args[x].substring(1)],
+          bx = b[_args[x].substring(1)],
+          cx = void 0;
+
+      ax = typeof ax == "string" ? ax.toLowerCase() : ax / 1;
+      bx = typeof bx == "string" ? bx.toLowerCase() : bx / 1;
+
+      if (_args[x].substring(0, 1) == "-") {
+        cx = ax;
+        ax = bx;
+        bx = cx;
+      }
+
+      if (ax != bx) {
+        return ax < bx ? -1 : 1;
+      }
+    }
+  };
+}
+
+function sort(data, comparator) {
+  return data.sort(getSortMethod(comparator));
+}
 // CONCATENATED MODULE: ./utils.js
 /* concated harmony reexport deepCopy */__webpack_require__.d(__webpack_exports__, "deepCopy", function() { return deepCopy; });
 /* concated harmony reexport isDefined */__webpack_require__.d(__webpack_exports__, "isDefined", function() { return isDefined; });
@@ -534,6 +564,8 @@ function isEqual(param1, param2) {
 /* concated harmony reexport isEqual */__webpack_require__.d(__webpack_exports__, "isEqual", function() { return isEqual; });
 /* concated harmony reexport isFunction */__webpack_require__.d(__webpack_exports__, "isFunction", function() { return isFunction; });
 /* concated harmony reexport hasKey */__webpack_require__.d(__webpack_exports__, "hasKey", function() { return hasKey; });
+/* concated harmony reexport sort */__webpack_require__.d(__webpack_exports__, "sort", function() { return sort; });
+
 
 
 
