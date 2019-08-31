@@ -518,7 +518,7 @@ function isEqual(param1, param2) {
 
 
 // CONCATENATED MODULE: ./core/multiSort.js
-/* eslint-disable eqeqeq */
+/* eslint-disable eqeqeq, consistent-return */
 function getSortMethod() {
   var _args = Array.prototype.slice.call(arguments);
 
@@ -545,9 +545,39 @@ function getSortMethod() {
 }
 
 function sort(data, comparator) {
-  return data.sort(getSortMethod(comparator));
+  var formatedComp = [];
+  var _iteratorNormalCompletion = true;
+  var _didIteratorError = false;
+  var _iteratorError = undefined;
+
+  try {
+    for (var _iterator = comparator[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+      var item = _step.value;
+
+      if (!["-", "+"].includes(item[0])) {
+        item = "+".concat(item);
+      }
+
+      formatedComp.push(item);
+    }
+  } catch (err) {
+    _didIteratorError = true;
+    _iteratorError = err;
+  } finally {
+    try {
+      if (!_iteratorNormalCompletion && _iterator["return"] != null) {
+        _iterator["return"]();
+      }
+    } finally {
+      if (_didIteratorError) {
+        throw _iteratorError;
+      }
+    }
+  }
+
+  return data.sort(getSortMethod.apply(void 0, formatedComp));
 }
-// CONCATENATED MODULE: ./utils.js
+// CONCATENATED MODULE: ./index.js
 /* concated harmony reexport deepCopy */__webpack_require__.d(__webpack_exports__, "deepCopy", function() { return deepCopy; });
 /* concated harmony reexport isDefined */__webpack_require__.d(__webpack_exports__, "isDefined", function() { return isDefined; });
 /* concated harmony reexport isEmptyObject */__webpack_require__.d(__webpack_exports__, "isEmptyObject", function() { return isEmptyObject; });

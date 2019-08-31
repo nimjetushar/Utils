@@ -1,8 +1,8 @@
 {
-  "name": "n-utilities",
+  "name": "tutility",
   "version": "1.0.0",
   "description": "Utility functions",
-  "main": "utils.js",
+  "main": "index.js",
   "scripts": {
     "build": "npm run build-util && npm run build-logger && npm run build-util-umd && npm run build-logger-umd",
     "build:min": "npm run build-util-umd:min && npm run build-logger-umd:min",
@@ -27,6 +27,15 @@
     "url": "https://github.com/tusharnimje21/Utils/issues"
   },
   "homepage": "https://github.com/tusharnimje21/Utils#readme",
+  "keywords": [
+    "utility",
+    "javaScript-utility",
+    "helper-functions",
+    "utils",
+    "utilities",
+    "utility-functions",
+    "tutility"
+  ],
   "devDependencies": {
     "@babel/cli": "7.4.4",
     "@babel/preset-env": "7.4.5",

@@ -2,7 +2,7 @@ const path = require("path"),
   webpack = require("webpack");
 
 let libraryName = "utils",
-  entryFile = "./utils.js",
+  entryFile = "./index.js",
   outputFile,
   isMinified = false,
   isUmdBuild = false,
