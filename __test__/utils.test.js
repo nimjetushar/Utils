@@ -11,7 +11,7 @@ import {
   isEqual,
   isFunction,
   hasKey
-} from "../utils";
+} from "../index";
 
 describe("Utils", () => {
   it("should have isArray method", () => {
