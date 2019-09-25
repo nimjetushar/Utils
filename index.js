@@ -11,3 +11,4 @@ export * from "./core/isEqual";
 export * from "./core/isFunction";
 export * from "./core/hasKey";
 export * from "./core/multiSort";
+export * from "./core/noop";
