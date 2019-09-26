@@ -568,6 +568,8 @@ function sort(data, comparator) {
 
   return data.sort(getSortMethod.apply(void 0, formatedComp));
 }
+// CONCATENATED MODULE: ./core/noop.js
+var noop = function noop() {};
 // CONCATENATED MODULE: ./index.js
 /* concated harmony reexport deepCopy */__webpack_require__.d(__webpack_exports__, "deepCopy", function() { return deepCopy; });
 /* concated harmony reexport isDefined */__webpack_require__.d(__webpack_exports__, "isDefined", function() { return isDefined; });
@@ -586,6 +588,8 @@ function sort(data, comparator) {
 /* concated harmony reexport isFunction */__webpack_require__.d(__webpack_exports__, "isFunction", function() { return isFunction; });
 /* concated harmony reexport hasKey */__webpack_require__.d(__webpack_exports__, "hasKey", function() { return hasKey; });
 /* concated harmony reexport sort */__webpack_require__.d(__webpack_exports__, "sort", function() { return sort; });
+/* concated harmony reexport noop */__webpack_require__.d(__webpack_exports__, "noop", function() { return noop; });
+
 
 
 
