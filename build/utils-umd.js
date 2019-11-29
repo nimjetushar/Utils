@@ -317,6 +317,7 @@ function isEqual_typeof(obj) { if (typeof Symbol === "function" && typeof Symbol
 
 var SymbolProto = typeof Symbol !== "undefined" ? Symbol.prototype : null,
     nativeKeys = Object.keys,
+    isEqual_toString = Object.prototype.toString,
     hasEnumBug = !{
   toString: null
 }.propertyIsEnumerable("toString"),
@@ -399,9 +400,9 @@ function eq(a, b, aStack, bStack) {
 
 function deepEq(a, b, aStack, bStack) {
   // Compare `[[Class]]` names.
-  var className = toString.call(a);
+  var className = isEqual_toString.call(a);
 
-  if (className !== toString.call(b)) {
+  if (className !== isEqual_toString.call(b)) {
     return false;
   }
 

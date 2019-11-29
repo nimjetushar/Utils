@@ -6,6 +6,7 @@ import { hasKey as has } from "./hasKey";
 // eslint-disable-next-line no-undef
 const SymbolProto = typeof Symbol !== "undefined" ? Symbol.prototype : null,
     nativeKeys = Object.keys,
+    toString = Object.prototype.toString,
     hasEnumBug = !{ toString: null }.propertyIsEnumerable("toString"),
     nonEnumerableProps = ["valueOf", "isPrototypeOf", "toString",
         "propertyIsEnumerable", "hasOwnProperty", "toLocaleString"];
