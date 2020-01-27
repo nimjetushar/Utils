@@ -13,17 +13,22 @@ import {
   hasKey
 } from "../index";
 
+const utils = require('../build/utils');
+
 describe("Utils", () => {
   it("should have isArray method", () => {
     expect(isArray).toBeDefined();
+    expect(utils.isArray).toBeDefined();
   });
 
   it("should have createMap method", () => {
     expect(createMap).toBeDefined();
+    expect(utils.createMap).toBeDefined();
   });
 
   it("should have deepCopy method", () => {
     expect(deepCopy).toBeDefined();
+    expect(utils.deepCopy).toBeDefined();
   });
 
   it("should have isBoolean method", () => {
