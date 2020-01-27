@@ -186,7 +186,7 @@ function deepCopy() {
 
 // CONCATENATED MODULE: ./core/isDefined.js
 function isDefined(data) {
-  return !(data === null || data === undefined || data === "");
+  return !(data == null || data === "");
 }
 
 
