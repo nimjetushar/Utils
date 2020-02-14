@@ -15,7 +15,9 @@
     "build-logger-umd:min": "webpack --env.libType=umd --env.build_lib=logger --env.build_type=prod --config webpack.config.js",
     "test": "jest",
     "test-with-coverage": "jest --coverage && codacy-coverage -t 5bce5aece0e04478b72ff03a0a6d530d < ./coverage/lcov.info",
-    "test-with-coverage-ci": "jest --coverage && cat ./coverage/lcov.info | codacy-coverage -t 5bce5aece0e04478b72ff03a0a6d530d"
+    "test-with-coverage-ci": "jest --coverage && cat ./coverage/lcov.info | codacy-coverage -t 5bce5aece0e04478b72ff03a0a6d530d",
+    "doc": "gulp",
+    "deploy-doc": "gh-pages -d docs"
   },
   "repository": {
     "type": "git",
@@ -38,8 +40,8 @@
   ],
   "devDependencies": {
     "@babel/cli": "7.8.3",
-    "@babel/preset-env": "7.8.3",
     "@babel/core": "7.8.3",
+    "@babel/preset-env": "7.8.3",
     "babel-core": "7.0.0-bridge.0",
     "babel-eslint": "10.0.3",
     "babel-loader": "8.0.6",
@@ -48,9 +50,12 @@
     "eslint": "6.8.0",
     "eslint-loader": "3.0.3",
     "eslint-plugin-babel": "5.3.0",
+    "gh-pages": "^2.2.0",
+    "gulp": "^4.0.2",
+    "gulp-jsdoc3": "^2.0.0",
     "jest": "24.9.0",
-    "webpack-cli": "3.3.10",
-    "webpack": "4.41.5"
+    "webpack": "4.41.5",
+    "webpack-cli": "3.3.10"
   },
   "resolutions": {
     "babel-core": "7.0.0-bridge"

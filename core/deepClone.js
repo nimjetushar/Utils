@@ -34,7 +34,13 @@ function _isPlainObject(obj) {
   );
 }
 
-// creates deep copy of a object
+/**
+ * Creates deep copy of all the passed object merging all the data into 1st parameter that is target object.
+ * @param {*} target - An object that will receive the new properties if additional objects are passed in.
+ * @param {*} source1 - An object containing additional properties to merge in.
+ * @param {*} sourceN - Additional objects containing properties to merge in.
+ * @returns {*} Deep copied object containing all the properties of passed parameters.
+ */
 function deepCopy() {
   let options,
     src,
