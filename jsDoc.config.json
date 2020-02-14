@@ -1,0 +1,25 @@
+{
+  "tags": {
+    "allowUnknownTags": true
+  },
+  "opts": {
+    "destination": "./docs"
+  },
+  "plugins": [
+    "plugins/markdown"
+  ],
+  "templates": {
+    "systemName": "Utility",
+    "copyright": "@Tushar Nimje",
+    "monospaceLinks": false,
+    "default": {
+      "outputSourceFiles": true
+    },
+    "syntaxTheme": "dark",
+    "path": "ink-docstrap",
+    "theme": "united",
+    "navType": "vertical",
+    "linenums": true,
+    "dateFormat": "MMMM Do YYYY, h:mm:ss a"
+  }
+}
