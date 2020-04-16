@@ -62,7 +62,7 @@
       1,
       "property"
     ],
-    "eqeqeq": 1,
+    "eqeqeq": ["error", "smart"],
     "guard-for-in": 0,
     "no-alert": 1,
     "no-caller": 1,

@@ -143,8 +143,12 @@ function deepEq(a, b, aStack, bStack) {
     return true;
 }
 
-function isEqual(param1, param2) {
-    return eq(param1, param2);
-}
+/**
+ * Compares two parameter of same type and returns true if equal.
+ * @param {*} param1 Parameter 1
+ * @param {*} param2 Parameter 2
+ * @returns {boolean} true if both parameter are equal
+ */
+const isEqual = eq;
 
 export { isEqual };
