@@ -107,7 +107,7 @@ return /******/ (function(modules) { // webpackBootstrap
 __webpack_require__.r(__webpack_exports__);
 
 // CONCATENATED MODULE: ./core/deepClone.js
-function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 var _getProto = Object.getPrototypeOf,
     _class2type = {},
@@ -140,7 +140,14 @@ function _isPlainObject(obj) {
 
   var Ctor = _hasOwn.call(proto, "constructor") && proto.constructor;
   return typeof Ctor === "function" && _fnToString.call(Ctor) === _ObjectFunctionString;
-} // creates deep copy of a object
+}
+/**
+ * Creates deep copy of all the passed object merging all the data into 1st parameter ( target object ).
+ * @param {T} target - An object that will receive the new properties if additional objects are passed in.
+ * @param {T} source1 - An object containing additional properties to merge in.
+ * @param {Array<T>} sourceN - Additional objects containing properties to merge in.
+ * @returns {T} Deep copied object containing all the properties of passed parameters.
+ */
 
 
 function deepCopy() {
@@ -194,13 +201,29 @@ function deepCopy() {
 
 
 // CONCATENATED MODULE: ./core/isDefined.js
+/**
+ * Identifies if argument is defined or not that is its value should not be null, undefined or ''.
+ * @param {*} data Source data which need to be identitied if Array or not.
+ * @returns {boolean} status as true if Array and false if not.
+ */
 function isDefined(data) {
   return !(data == null || data === "");
 }
 
 
 // CONCATENATED MODULE: ./core/isEmpty.js
+function isEmpty_typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { isEmpty_typeof = function _typeof(obj) { return typeof obj; }; } else { isEmpty_typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return isEmpty_typeof(obj); }
+
+/**
+ * Identifies if Object is empty or not.
+ * @param {*} obj Source data which need to be validated.
+ * @returns {boolean} status as true if not an empty Object and false if empty.
+ */
 function isEmptyObject(obj) {
+  if (isEmpty_typeof(obj) != "object") {
+    throw new Error("Invalid data type requires object");
+  }
+
   for (var name in obj) {
     return false;
   }
@@ -210,15 +233,27 @@ function isEmptyObject(obj) {
 
 
 // CONCATENATED MODULE: ./core/isArray.js
-function isArray_typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { isArray_typeof = function _typeof(obj) { return typeof obj; }; } else { isArray_typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return isArray_typeof(obj); }
+function isArray_typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { isArray_typeof = function _typeof(obj) { return typeof obj; }; } else { isArray_typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return isArray_typeof(obj); }
 
-function isArray(obj) {
-  return isArray_typeof(obj) === "object" && obj instanceof Array;
+/**
+ * Identifies if argument is Array or not.
+ * @param {*} data Source data which need to be identitied if Array or not.
+ * @returns {boolean} status as true if Array and false if not.
+ */
+function isArray(data) {
+  return isArray_typeof(data) === "object" && data instanceof Array;
 }
 
 
 // CONCATENATED MODULE: ./core/createMap.js
 
+/**
+ * Creates map {unique value data} for array of object {data} taking supplied key {objKey} into consideration.
+ * @param {Array} data Array Object who's map is to be created.
+ * @param {string} objKey Parameter against which key value is created for map.
+ * @returns {Object} map of data element with respect to specified {objKey} where key is the objKey and
+ * value is specific element.
+ */
 
 function createMap(data, objKey) {
   var map = {};
@@ -245,16 +280,26 @@ function createMap(data, objKey) {
 
 
 // CONCATENATED MODULE: ./core/isObject.js
-function isObject_typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { isObject_typeof = function _typeof(obj) { return typeof obj; }; } else { isObject_typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return isObject_typeof(obj); }
+function isObject_typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { isObject_typeof = function _typeof(obj) { return typeof obj; }; } else { isObject_typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return isObject_typeof(obj); }
 
+/**
+ * Verifies if passed argument is Object or not
+ * @param {*} value Argument which needs to be validated
+ * @returns {boolean} return true if passed argument is Object
+ */
 function isObject(value) {
   var type = isObject_typeof(value);
 
-  return value !== null && (type === "object" || type === "function");
+  return value != null && (type === "object" || type === "function");
 }
 
 
 // CONCATENATED MODULE: ./core/isBoolean.js
+/**
+ * Identifies if argument is boolean or not.
+ * @param {*} value Source data which is defined or not.
+ * @returns {boolean} status as true if defined and false if not.
+ */
 function isBoolean(value) {
   return value === true || value === false;
 }
@@ -262,14 +307,32 @@ function isBoolean(value) {
 
 // CONCATENATED MODULE: ./core/sessionOperations.js
 var _ls = window.sessionStorage;
+/**
+ * Sets passed data into session storage against key.
+ * @param {sting} key key against which data need to be stored into session storage.
+ * @param {*} data Data need to be stored in storage.
+ * @return {void}
+ */
 
 function setDataToSession(key, data) {
   _ls.setItem(key, JSON.stringify(data));
 }
+/**
+ * Fetches data from session storage for passed key.
+ * @param {*} key For which data needs be fetched.
+ * @returns {*} data which is stored against key.
+ */
+
 
 function getDataFromSession(key) {
   return JSON.parse(_ls.getItem(key));
 }
+/**
+ * Removes particular data for the key from storage.
+ * @param {*} key Data which need to be removed / deleted.
+ * @returns {void}
+ */
+
 
 function removeItemFromSession(key) {
   return _ls.removeItem(key);
@@ -278,14 +341,32 @@ function removeItemFromSession(key) {
 
 // CONCATENATED MODULE: ./core/localOperations.js
 var localOperations_ls = window.localStorage;
+/**
+ * Sets passed data into local storage against key.
+ * @param {sting} key key against which data need to be stored into local storage.
+ * @param {*} data Data need to be stored in storage.
+ * @return {void}
+ */
 
 function setDataToLocal(key, data) {
   localOperations_ls.setItem(key, JSON.stringify(data));
 }
+/**
+ * Fetches data from local storage for passed key.
+ * @param {*} key For which data needs be fetched.
+ * @returns {*} data which is stored against key.
+ */
+
 
 function getDataFromLocal(key) {
   return JSON.parse(localOperations_ls.getItem(key));
 }
+/**
+ * Removes particular data for the key from storage.
+ * @param {*} key Data which need to be removed / deleted.
+ * @returns {void}
+ */
+
 
 function removeItemFromLocal(key) {
   return localOperations_ls.removeItem(key);
@@ -293,21 +374,32 @@ function removeItemFromLocal(key) {
 
 
 // CONCATENATED MODULE: ./core/isFunction.js
-function isFunction(obj) {
-  return typeof obj === "function" || false;
+/**
+ * Identifies if passed argument is function or not.
+ * @param {*} param Parameter which needs to be validated.
+ * @returns {boolean} return true is parameter is function.
+ */
+function isFunction(param) {
+  return typeof param === "function" || false;
 }
 
 
 // CONCATENATED MODULE: ./core/hasKey.js
 var hasKey_hasOwnProperty = Object.prototype.hasOwnProperty;
+/**
+ * Identifies if a particular key is present into Object or not and based on this returns boolean.
+ * @param {Object} obj Source Object against which key needs to be identified.
+ * @param {string} key Property which need to be verified into source object.
+ * @returns {boolean} true if key exists and false if not.
+ */
 
-function hasKey(obj, path) {
-  return obj !== null && hasKey_hasOwnProperty.call(obj, path);
+function hasKey(obj, key) {
+  return obj !== null && hasKey_hasOwnProperty.call(obj, key);
 }
 
 
 // CONCATENATED MODULE: ./core/isEqual.js
-function isEqual_typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { isEqual_typeof = function _typeof(obj) { return typeof obj; }; } else { isEqual_typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return isEqual_typeof(obj); }
+function isEqual_typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { isEqual_typeof = function _typeof(obj) { return typeof obj; }; } else { isEqual_typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return isEqual_typeof(obj); }
 
 
 
@@ -512,11 +604,15 @@ function deepEq(a, b, aStack, bStack) {
   bStack.pop();
   return true;
 }
+/**
+ * Compares two parameter of same type and returns true if equal.
+ * @param {*} param1 Parameter 1
+ * @param {*} param2 Parameter 2
+ * @returns {boolean} true if both parameter are equal
+ */
 
-function isEqual(param1, param2) {
-  return eq(param1, param2);
-}
 
+var isEqual = eq;
 
 // CONCATENATED MODULE: ./core/multiSort.js
 /* eslint-disable eqeqeq, consistent-return */
@@ -579,6 +675,11 @@ function sort(data, comparator) {
   return data.sort(getSortMethod.apply(void 0, formatedComp));
 }
 // CONCATENATED MODULE: ./core/noop.js
+/**
+ * noop
+ * @param {*} value accepts anyumber of arguments.
+ * @returns {void} return undefined
+ */
 var noop = function noop() {};
 // CONCATENATED MODULE: ./index.js
 /* concated harmony reexport deepCopy */__webpack_require__.d(__webpack_exports__, "deepCopy", function() { return deepCopy; });
