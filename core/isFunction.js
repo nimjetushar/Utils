@@ -4,7 +4,7 @@
  * @returns {boolean} return true is parameter is function.
  */
 function isFunction(param) {
-    return typeof param === "function" || false;
+    return typeof param === 'function' || false;
 }
 
 export { isFunction };

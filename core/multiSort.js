@@ -8,10 +8,10 @@ function getSortMethod() {
                 bx = b[_args[x].substring(1)],
                 cx;
 
-            ax = typeof ax == "string" ? ax.toLowerCase() : ax / 1;
-            bx = typeof bx == "string" ? bx.toLowerCase() : bx / 1;
+            ax = typeof ax == 'string' ? ax.toLowerCase() : ax / 1;
+            bx = typeof bx == 'string' ? bx.toLowerCase() : bx / 1;
 
-            if (_args[x].substring(0, 1) == "-") {
+            if (_args[x].substring(0, 1) == '-') {
                 cx = ax;
                 ax = bx;
                 bx = cx;
@@ -26,7 +26,7 @@ function getSortMethod() {
 export function sort(data, comparator) {
     const formatedComp = [];
     for (let item of comparator) {
-        if (!["-", "+"].includes(item[0])) {
+        if (!['-', '+'].includes(item[0])) {
             item = `+${item}`;
         }
         formatedComp.push(item);

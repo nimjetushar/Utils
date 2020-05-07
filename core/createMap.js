@@ -1,4 +1,4 @@
-import { isArray } from "./isArray";
+import { isArray } from './isArray';
 
 /**
  * Creates map {unique value data} for array of object {data} taking supplied key {objKey} into consideration.
@@ -21,7 +21,7 @@ function createMap(data, objKey) {
       }
     }
   } else {
-    throw new Error("Required Array");
+    throw new Error('Required Array');
   }
   return map;
 }

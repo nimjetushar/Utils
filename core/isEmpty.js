@@ -4,8 +4,8 @@
  * @returns {boolean} status as true if not an empty Object and false if empty.
  */
 function isEmptyObject(obj) {
-  if (typeof obj != "object") {
-    throw new Error("Invalid data type requires object");
+  if (typeof obj != 'object') {
+    throw new Error('Invalid data type requires object');
   }
   for (const name in obj) {
     return false;

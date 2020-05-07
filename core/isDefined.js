@@ -4,7 +4,7 @@
  * @returns {boolean} status as true if Array and false if not.
  */
 function isDefined(data) {
-  return !(data == null || data === "");
+  return !(data == null || data === '');
 }
 
 export { isDefined };

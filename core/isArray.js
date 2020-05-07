@@ -5,7 +5,7 @@
  * @returns {boolean} status as true if Array and false if not.
  */
 function isArray(data) {
-  return typeof data === "object" && data instanceof Array;
+  return typeof data === 'object' && data instanceof Array;
 }
 
 export { isArray };
