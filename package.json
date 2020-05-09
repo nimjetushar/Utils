@@ -59,7 +59,7 @@
     "gulp-run": "^1.7.1",
     "jest": "25.1.0",
     "webpack": "4.41.5",
-    "webpack-cli": "3.3.10"
+    "webpack-cli": "3.3.11"
   },
   "resolutions": {
     "babel-core": "7.0.0-bridge"
