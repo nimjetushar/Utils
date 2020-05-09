@@ -124,7 +124,7 @@ function () {
       var key = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : this.info;
 
       if (!key) {
-        throw new Error("Logger level is required");
+        throw new Error('Logger level is required');
       }
 
       switch (key) {
@@ -141,7 +141,7 @@ function () {
           break;
 
         default:
-          throw new Error("invalid choice");
+          throw new Error('invalid choice');
       }
     }
   }]);

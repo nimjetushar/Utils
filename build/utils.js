@@ -112,12 +112,12 @@ function _isFunction(obj) {
   // In some browsers, typeof returns "function" for HTML <object> elements
   // (i.e., `typeof document.createElement( "object" ) === "function"`).
   // We don't want to classify *any* DOM node as a function.
-  return typeof obj === "function" && typeof obj.nodeType !== "number";
+  return typeof obj === 'function' && typeof obj.nodeType !== 'number';
 }
 
 function _isPlainObject(obj) {
   // Detect obvious negatives
-  if (!obj || _toString.call(obj) !== "[object Object]") {
+  if (!obj || _toString.call(obj) !== '[object Object]') {
     return false;
   }
 
@@ -129,8 +129,8 @@ function _isPlainObject(obj) {
   } // Objects with prototype are plain iff they were constructed by a global Object function
 
 
-  var Ctor = _hasOwn.call(proto, "constructor") && proto.constructor;
-  return typeof Ctor === "function" && _fnToString.call(Ctor) === _ObjectFunctionString;
+  var Ctor = _hasOwn.call(proto, 'constructor') && proto.constructor;
+  return typeof Ctor === 'function' && _fnToString.call(Ctor) === _ObjectFunctionString;
 }
 /**
  * Creates deep copy of all the passed object merging all the data into 1st parameter ( target object ).
@@ -151,7 +151,7 @@ function deepCopy() {
       target = arguments[0] || {};
   var length = arguments.length; // Handle case when target is a string or something (possible in deep copy)
 
-  if (_typeof(target) !== "object" && !_isFunction(target)) {
+  if (_typeof(target) !== 'object' && !_isFunction(target)) {
     target = {};
   }
 
@@ -198,7 +198,7 @@ function deepCopy() {
  * @returns {boolean} status as true if Array and false if not.
  */
 function isDefined(data) {
-  return !(data == null || data === "");
+  return !(data == null || data === '');
 }
 
 
@@ -211,8 +211,8 @@ function isEmpty_typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === 
  * @returns {boolean} status as true if not an empty Object and false if empty.
  */
 function isEmptyObject(obj) {
-  if (isEmpty_typeof(obj) != "object") {
-    throw new Error("Invalid data type requires object");
+  if (isEmpty_typeof(obj) != 'object') {
+    throw new Error('Invalid data type requires object');
   }
 
   for (var name in obj) {
@@ -232,7 +232,7 @@ function isArray_typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === 
  * @returns {boolean} status as true if Array and false if not.
  */
 function isArray(data) {
-  return isArray_typeof(data) === "object" && data instanceof Array;
+  return isArray_typeof(data) === 'object' && data instanceof Array;
 }
 
 
@@ -263,7 +263,7 @@ function createMap(data, objKey) {
       }
     }
   } else {
-    throw new Error("Required Array");
+    throw new Error('Required Array');
   }
 
   return map;
@@ -281,7 +281,7 @@ function isObject_typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol ===
 function isObject(value) {
   var type = isObject_typeof(value);
 
-  return value != null && (type === "object" || type === "function");
+  return value != null && (type === 'object' || type === 'function');
 }
 
 
@@ -371,7 +371,7 @@ function removeItemFromLocal(key) {
  * @returns {boolean} return true is parameter is function.
  */
 function isFunction(param) {
-  return typeof param === "function" || false;
+  return typeof param === 'function' || false;
 }
 
 
@@ -398,20 +398,20 @@ function isEqual_typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === 
 /* eslint-disable no-self-compare */
 // eslint-disable-next-line no-undef
 
-var SymbolProto = typeof Symbol !== "undefined" ? Symbol.prototype : null,
+var SymbolProto = typeof Symbol !== 'undefined' ? Symbol.prototype : null,
     nativeKeys = Object.keys,
     isEqual_toString = Object.prototype.toString,
     hasEnumBug = !{
   toString: null
-}.propertyIsEnumerable("toString"),
-    nonEnumerableProps = ["valueOf", "isPrototypeOf", "toString", "propertyIsEnumerable", "hasOwnProperty", "toLocaleString"];
+}.propertyIsEnumerable.call('toString'),
+    nonEnumerableProps = ['valueOf', 'isPrototypeOf', 'toString', 'propertyIsEnumerable', 'hasOwnProperty', 'toLocaleString'];
 
 function collectNonEnumProps(obj, keys) {
   var nonEnumIdx = nonEnumerableProps.length;
   var constructor = obj.constructor,
       proto = isFunction(constructor) && constructor.prototype || Object.prototype; // Constructor is a special case.
 
-  var prop = "constructor";
+  var prop = 'constructor';
 
   if (hasKey(obj, prop) && !keys.includes(prop)) {
     keys.push(prop);
@@ -472,7 +472,7 @@ function eq(a, b, aStack, bStack) {
 
   var type = isEqual_typeof(a);
 
-  if (type !== "function" && type !== "object" && isEqual_typeof(b) !== "object") {
+  if (type !== 'function' && type !== 'object' && isEqual_typeof(b) !== 'object') {
     return false;
   } // eslint-disable-next-line no-use-before-define
 
@@ -491,14 +491,14 @@ function deepEq(a, b, aStack, bStack) {
 
   switch (className) {
     // Strings, numbers, regular expressions, dates, and booleans are compared by value.
-    case "[object RegExp]": // RegExps are coerced to strings for comparison (Note: '' + /a/i === '/a/i')
+    case '[object RegExp]': // RegExps are coerced to strings for comparison (Note: '' + /a/i === '/a/i')
 
-    case "[object String]":
+    case '[object String]':
       // Primitives and their corresponding object wrappers are equivalent; thus, `"5"` is
       // equivalent to `new String("5")`.
-      return "" + a === "" + b;
+      return '' + a === '' + b;
 
-    case "[object Number]":
+    case '[object Number]':
       // `NaN`s are equivalent, but non-reflexive.
       // Object(NaN) is equivalent to NaN.
       if (+a !== +a) {
@@ -508,21 +508,21 @@ function deepEq(a, b, aStack, bStack) {
 
       return +a === 0 ? 1 / +a === 1 / b : +a === +b;
 
-    case "[object Date]":
-    case "[object Boolean]":
+    case '[object Date]':
+    case '[object Boolean]':
       // Coerce dates and booleans to numeric primitive values. Dates are compared by their
       // millisecond representations. Note that invalid dates with millisecond representations
       // of `NaN` are not equivalent.
       return +a === +b;
 
-    case "[object Symbol]":
+    case '[object Symbol]':
       return SymbolProto.valueOf.call(a) === SymbolProto.valueOf.call(b);
   }
 
-  var areArrays = className === "[object Array]";
+  var areArrays = className === '[object Array]';
 
   if (!areArrays) {
-    if (isEqual_typeof(a) !== "object" || isEqual_typeof(b) !== "object") {
+    if (isEqual_typeof(a) !== 'object' || isEqual_typeof(b) !== 'object') {
       return false;
     } // Objects with different constructors are not equivalent, but `Object`s or `Array`s
     // from different frames are.
@@ -531,7 +531,7 @@ function deepEq(a, b, aStack, bStack) {
     var aCtor = a.constructor,
         bCtor = b.constructor;
 
-    if (aCtor !== bCtor && !(isFunction(aCtor) && aCtor instanceof aCtor && isFunction(bCtor) && bCtor instanceof bCtor) && "constructor" in a && "constructor" in b) {
+    if (aCtor !== bCtor && !(isFunction(aCtor) && aCtor instanceof aCtor && isFunction(bCtor) && bCtor instanceof bCtor) && 'constructor' in a && 'constructor' in b) {
       return false;
     }
   } // Assume equality for cyclic structures. The algorithm for detecting cyclic
@@ -603,8 +603,9 @@ function deepEq(a, b, aStack, bStack) {
  */
 
 
-var isEqual = eq;
-
+function isEqual(param1, param2) {
+  return eq(param1, param2);
+}
 // CONCATENATED MODULE: ./core/multiSort.js
 /* eslint-disable eqeqeq, consistent-return */
 function getSortMethod() {
@@ -616,10 +617,10 @@ function getSortMethod() {
           bx = b[_args[x].substring(1)],
           cx = void 0;
 
-      ax = typeof ax == "string" ? ax.toLowerCase() : ax / 1;
-      bx = typeof bx == "string" ? bx.toLowerCase() : bx / 1;
+      ax = typeof ax == 'string' ? ax.toLowerCase() : ax / 1;
+      bx = typeof bx == 'string' ? bx.toLowerCase() : bx / 1;
 
-      if (_args[x].substring(0, 1) == "-") {
+      if (_args[x].substring(0, 1) == '-') {
         cx = ax;
         ax = bx;
         bx = cx;
@@ -642,7 +643,7 @@ function sort(data, comparator) {
     for (var _iterator = comparator[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
       var item = _step.value;
 
-      if (!["-", "+"].includes(item[0])) {
+      if (!['-', '+'].includes(item[0])) {
         item = "+".concat(item);
       }
 
@@ -671,7 +672,7 @@ function sort(data, comparator) {
  * @param {*} value accepts anyumber of arguments.
  * @returns {void} return undefined
  */
-var noop = function noop() {};
+function noop() {}
 // CONCATENATED MODULE: ./index.js
 /* concated harmony reexport deepCopy */__webpack_require__.d(__webpack_exports__, "deepCopy", function() { return deepCopy; });
 /* concated harmony reexport isDefined */__webpack_require__.d(__webpack_exports__, "isDefined", function() { return isDefined; });
