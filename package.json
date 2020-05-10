@@ -55,7 +55,7 @@
     "eslint-plugin-babel": "5.3.0",
     "gh-pages": "2.2.0",
     "gulp": "4.0.2",
-    "gulp-jsdoc3": "2.0.0",
+    "gulp-jsdoc3": "3.0.0",
     "gulp-run": "^1.7.1",
     "jest": "25.1.0",
     "webpack": "4.41.5",
