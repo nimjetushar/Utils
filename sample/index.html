@@ -8,6 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="../build/utils-umd.js"></script>
     <script src="../build/logger-umd.js"></script>
+    <script src="../build//detect-umd.js"></script>
 </head>
 <style>
     * {
@@ -16,9 +17,8 @@
     }
 
     .wrapper {
-        width: 100%;
         height: auto;
-        padding: 2% 0;
+        padding: 2% 4%;
     }
 
     h1 {
@@ -31,19 +31,36 @@
         padding: 1% 0;
         font-size: 22px;
     }
+
+    ul {
+        font-size: 1.1rem;
+        padding: 0 1%;
+        line-height: 2.4rem;
+    }
 </style>
 
 <body>
     <div class="wrapper">
-        <h1>Utility Sample Page </h1>
-        <p>The library is loaded onto the webpage. Use console for accessing various
-            functions
-            of the utils library.</p>
+        <h1>Utility Sample Page</h1>
+        <p>The library (umd) is loaded onto the webpage. Use console for accessing various
+            functions of the library. Usage of umd version may differ. Different modules can be invoked as mentioned :-
+        </p>
+        <ul>
+            <li>Utility Module -> utils.'name of function' eg. utils.deepCopy(param1, param2)</li>
+            <li>Logger module -> new logger.default() create class instance for Logger</li>
+            <li>Detect module -> new detect.default() create class instance for Detect</li>
+        </ul>
     </div>
 </body>
 
 <script>
-    console.log('The script is loaded. Type utils in console to access the functonility');
+    console.log('The script is loaded. Type utils in console to access the functonility.');
+    console.info('-------------utility module----------------');
+    console.info(utils);
+    console.info('------------logger module-----------------');
+    console.info(new logger.default());
+    console.info('------------detect module-----------------');
+    console.info(new detect.default());
 </script>
 
 </html>
