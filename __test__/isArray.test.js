@@ -1,27 +1,27 @@
-import { isArray } from "../core/isArray";
+import { isArray } from '../core/isArray';
 
-describe("isArray", () => {
-  it("should return a function", () => {
+describe('isArray', () => {
+  it('should return a function', () => {
     expect(isArray).toBeDefined();
 
     const type = typeof isArray;
-    expect(type).toBe("function");
+    expect(type).toBe('function');
   });
 
-  it("should identify passed variable is array or not", () => {
+  it('should identify passed variable is array or not', () => {
     let isDtArray = isArray([]);
     expect(isDtArray).toBeTruthy();
 
-    isDtArray = isArray([1, 2, "it"]);
+    isDtArray = isArray([1, 2, 'it']);
     expect(isDtArray).toBeTruthy();
 
-    isDtArray = isArray({ it: "it" });
+    isDtArray = isArray({ it: 'it' });
     expect(isDtArray).toBeFalsy();
 
     isDtArray = isArray(1);
     expect(isDtArray).toBeFalsy();
 
-    isDtArray = isArray("it string");
+    isDtArray = isArray('it string');
     expect(isDtArray).toBeFalsy();
 
     isDtArray = isArray(new Date());

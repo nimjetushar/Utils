@@ -1,12 +1,12 @@
-import { isDefined } from "../core/isDefined";
+import { isDefined } from '../core/isDefined';
 
-describe("isDefined", () => {
-  it("should check variable is defined", () => {
+describe('isDefined', () => {
+  it('should check variable is defined', () => {
     const data1 = undefined,
       data2 = null,
-      data3 = "",
+      data3 = '',
       data4 = 12,
-      data5 = "demo",
+      data5 = 'demo',
       data6 = {},
       data7 = [],
       data8 = false;
