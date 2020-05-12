@@ -57,7 +57,7 @@
     "gulp": "4.0.2",
     "gulp-jsdoc3": "3.0.0",
     "gulp-run": "^1.7.1",
-    "jest": "25.1.0",
+    "jest": "26.0.1",
     "webpack": "4.41.5",
     "webpack-cli": "3.3.11"
   },
