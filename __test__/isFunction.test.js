@@ -1,19 +1,19 @@
-import { isFunction } from "../core/isFunction";
+import { isFunction } from '../core/isFunction';
 
-describe("isFunction", () => {
-    it("should return a true for functions", () => {
-        const test = function () { };
+describe('isFunction', () => {
+    it('should return a true for functions', () => {
+        const test = () => { };
         expect(isFunction(test)).toBeTruthy();
 
         function demo() { }
         expect(isFunction(demo)).toBeTruthy();
 
-        const selfCall = (function () { })();
+        const selfCall = (() => { })();
         expect(isFunction(selfCall)).toBeFalsy();
     });
 
-    it("should return a false for non functions", () => {
-        const test = "function () { }";
+    it('should return a false for non functions', () => {
+        const test = 'function () { }';
         expect(isFunction(test)).toBeFalsy();
 
         const fun = Function;

@@ -1,9 +1,9 @@
-import { isEmptyObject } from "../core/isEmpty";
+import { isEmptyObject } from '../core/isEmpty';
 
-describe("isEmpty", () => {
-  it("should check for empty object", () => {
+describe('isEmpty', () => {
+  it('should check for empty object', () => {
     expect(isEmptyObject({})).toBeTruthy();
 
-    expect(isEmptyObject({ it: "it" })).toBeFalsy();
+    expect(isEmptyObject({ it: 'it' })).toBeFalsy();
   });
 });

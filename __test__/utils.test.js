@@ -11,59 +11,64 @@ import {
   isEqual,
   isFunction,
   hasKey
-} from "../index";
+} from '../index';
+import { noop } from '../core/noop';
 
 const utils = require('../build/utils');
 
-describe("Utils", () => {
-  it("should have isArray method", () => {
+describe('Utils', () => {
+  it('should have isArray method', () => {
     expect(isArray).toBeDefined();
     expect(utils.isArray).toBeDefined();
   });
 
-  it("should have createMap method", () => {
+  it('should have createMap method', () => {
     expect(createMap).toBeDefined();
     expect(utils.createMap).toBeDefined();
   });
 
-  it("should have deepCopy method", () => {
+  it('should have deepCopy method', () => {
     expect(deepCopy).toBeDefined();
     expect(utils.deepCopy).toBeDefined();
   });
 
-  it("should have isBoolean method", () => {
+  it('should have isBoolean method', () => {
     expect(isBoolean).toBeDefined();
   });
 
-  it("should have isDefined method", () => {
+  it('should have isDefined method', () => {
     expect(isDefined).toBeDefined();
   });
 
-  it("should have isEmptyObject method", () => {
+  it('should have isEmptyObject method', () => {
     expect(isEmptyObject).toBeDefined();
   });
 
-  it("should have isObject method", () => {
+  it('should have isObject method', () => {
     expect(isObject).toBeDefined();
   });
 
-  it("should have setDataToLocal method", () => {
+  it('should have setDataToLocal method', () => {
     expect(setDataToLocal).toBeDefined();
   });
 
-  it("should have setDataToSession method", () => {
+  it('should have setDataToSession method', () => {
     expect(setDataToSession).toBeDefined();
   });
 
-  it("should have isEqual method", () => {
+  it('should have isEqual method', () => {
     expect(isEqual).toBeDefined();
   });
 
-  it("should have isFunction method", () => {
+  it('should have isFunction method', () => {
     expect(isFunction).toBeDefined();
   });
 
-  it("should have hasKey method", () => {
+  it('should have hasKey method', () => {
     expect(hasKey).toBeDefined();
+  });
+
+  it('should have noop method', () => {
+    expect(noop).toBeDefined();
   });
 });

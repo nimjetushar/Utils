@@ -1,9 +1,9 @@
-import { deepCopy } from "../core/deepClone";
-import { isEqual } from "../core/isEqual";
+import { deepCopy } from '../core/deepClone';
+import { isEqual } from '../core/isEqual';
 
-describe("deepCopy", () => {
-  it("should verify variable to be deep copy", () => {
-    const data = { id: 123, name: "name" };
+describe('deepCopy', () => {
+  it('should verify variable to be deep copy', () => {
+    const data = { id: 123, name: 'name' };
     const clonedObj = deepCopy({}, data);
     expect(data).toEqual(clonedObj);
 
@@ -12,13 +12,13 @@ describe("deepCopy", () => {
     expect(isChanged).toBeTruthy();
   });
 
-  it("should copy complex variable", () => {
-    const data = { id: 123, name: ["a", "v", "d"], obj: { a: 299, list: [1, 2, 3, 4, 34, 35, 75] } };
+  it('should copy complex variable', () => {
+    const data = { id: 123, name: ['a', 'v', 'd'], obj: { a: 299, list: [1, 2, 3, 4, 34, 35, 75] } };
     const clonedObj = deepCopy({}, data);
     expect(data).toEqual(clonedObj);
 
     clonedObj.id = 100;
-    clonedObj.name.push("t");
+    clonedObj.name.push('t');
     let isChanged = data.id !== clonedObj.id;
     expect(isChanged).toBeTruthy();
 
@@ -26,9 +26,9 @@ describe("deepCopy", () => {
     expect(isChanged).toBeTruthy();
   });
 
-  it("should copy object proto", () => {
+  it('should copy object proto', () => {
     function Demo() { }
-    Demo.prototype.getValue = function () { return 100; };
+    Demo.prototype.getValue = () => { return 100; };
 
     const obj = new Demo();
     const clonedObj = deepCopy({}, obj);
@@ -37,7 +37,7 @@ describe("deepCopy", () => {
     expect(clonedObj.getValue()).toBe(100);
   });
 
-  it("should merge object", () => {
+  it('should merge object', () => {
     expect(deepCopy({}, { test: 'test' }, { demo: 'demo' }, { 1: 123 })).toEqual({ test: 'test', demo: 'demo', 1: 123 });
-  })
+  });
 });

@@ -1,7 +1,7 @@
-import { isObject } from "../core/isObject";
+import { isObject } from '../core/isObject';
 
-describe("isObject", () => {
-  it("should check for null", () => {
+describe('isObject', () => {
+  it('should check for null', () => {
     let status = isObject();
     expect(status).toBeFalsy();
 
@@ -9,11 +9,11 @@ describe("isObject", () => {
     expect(status).toBeFalsy();
   });
 
-  it("should identify object", () => {
+  it('should identify object', () => {
     let status = isObject({});
     expect(status).toBeTruthy();
 
-    status = isObject({ key: "demo" });
+    status = isObject({ key: 'demo' });
     expect(status).toBeTruthy();
   });
 });
