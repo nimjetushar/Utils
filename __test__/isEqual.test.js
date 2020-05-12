@@ -1,7 +1,7 @@
-import { isEqual } from "../core/isEqual";
+import { isEqual } from '../core/isEqual';
 
-describe("isEqual", () => {
-    it("should compare number", () => {
+describe('isEqual', () => {
+    it('should compare number', () => {
         expect(isEqual(1, 1)).toBeTruthy();
 
         expect(isEqual(1.234, 1.234)).toBeTruthy();
@@ -27,31 +27,31 @@ describe("isEqual", () => {
         expect(isEqual(a, b)).toBeTruthy();
     });
 
-    it("should compare string", () => {
-        expect(isEqual("hello", "hello")).toBeTruthy();
+    it('should compare string', () => {
+        expect(isEqual('hello', 'hello')).toBeTruthy();
 
-        let a = "new string", b = "new string";
+        let a = 'new string', b = 'new string';
         expect(isEqual(a, b)).toBeTruthy();
 
-        expect(isEqual("    test    ", "test")).toBeFalsy();
+        expect(isEqual('    test    ', 'test')).toBeFalsy();
 
-        a = "   update";
-        b = "   update";
+        a = '   update';
+        b = '   update';
         expect(isEqual(a, b)).toBeTruthy();
 
-        a = String("hello");
-        b = String("hello");
+        a = String('hello');
+        b = String('hello');
         expect(isEqual(a, b)).toBeTruthy();
 
-        a = String("hello");
-        b = String("hello1");
+        a = String('hello');
+        b = String('hello1');
         expect(isEqual(a, b)).toBeFalsy();
 
-        b = "hello";
+        b = 'hello';
         expect(isEqual(a, b)).toBeTruthy();
     });
 
-    it("should compare Object", () => {
+    it('should compare Object', () => {
         expect(isEqual({}, {})).toBeTruthy();
 
         let a = {}, b = {};
@@ -61,12 +61,12 @@ describe("isEqual", () => {
         b = { a: 1 };
         expect(isEqual(a, b)).toBeTruthy();
 
-        a = { a: [1, 2, 3, 4], b: { c: [{ a: 1 }] }, str: "hello" };
-        b = { a: [1, 2, 3, 4], b: { c: [{ a: 1 }] }, str: "hello" };
+        a = { a: [1, 2, 3, 4], b: { c: [{ a: 1 }] }, str: 'hello' };
+        b = { a: [1, 2, 3, 4], b: { c: [{ a: 1 }] }, str: 'hello' };
         expect(isEqual(a, b)).toBeTruthy();
 
-        a = { a: [1, 2, 3, 4], b: { c: [{ a: 1 }] }, str: "hello " };
-        b = { a: [1, 2, 3, 4], b: { c: [{ a: 1 }] }, str: "hello" };
+        a = { a: [1, 2, 3, 4], b: { c: [{ a: 1 }] }, str: 'hello ' };
+        b = { a: [1, 2, 3, 4], b: { c: [{ a: 1 }] }, str: 'hello' };
         expect(isEqual(a, b)).toBeFalsy();
 
         a = b;
@@ -90,7 +90,7 @@ describe("isEqual", () => {
         expect(isEqual(a, b)).toBeTruthy();
     });
 
-    it("should compare Array", () => {
+    it('should compare Array', () => {
         let a = [], b = [];
         expect(isEqual(a, b)).toBeTruthy();
 
@@ -111,20 +111,20 @@ describe("isEqual", () => {
         expect(isEqual(a, b)).toBeTruthy();
     });
 
-    it("should compare other data types", () => {
-        expect(isEqual(1, "1")).toBeFalsy();
+    it('should compare other data types', () => {
+        expect(isEqual(1, '1')).toBeFalsy();
 
-        expect(isEqual(true, "true")).toBeFalsy();
+        expect(isEqual(true, 'true')).toBeFalsy();
 
-        let a = function () { };
+        let a = () => { };
         function test() { }
         expect(isEqual(a, test)).toBeFalsy();
 
-        let b = function () { };
+        let b = () => { };
         expect(isEqual(a, b)).toBeFalsy();
 
-        a = function () { return true; };
-        b = function () { return true; };
+        a = () => { return true; };
+        b = () => { return true; };
         expect(isEqual(a, b)).toBeFalsy();
 
         class Class1 {
