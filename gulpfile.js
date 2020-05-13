@@ -4,7 +4,7 @@ const gulp = require('gulp'),
     config = require('./jsDoc.config.json');
 
 function createDoc(cb) {
-    return gulp.src(['README.md', './core/*.js'], { read: false }).pipe(jsdoc(config, cb));
+    return gulp.src(['README.md', './core/*.js', './logger.js'], { read: false }).pipe(jsdoc(config, cb));
 }
 
 function build(cb) {

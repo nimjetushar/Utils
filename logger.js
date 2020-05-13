@@ -1,12 +1,22 @@
-export class Logger {
+import { noop } from './core/noop';
+
+/**
+ * Enable / disable logging across various environment
+ * new Logger().setlevel(level) where level are :-
+ * - 1 -> All console methods are enabled.
+ * - 2 -> console log and info methods are diabled while other works as expected
+ * - 3 -> console.error method will be enabled while other are disabled
+ * - 4 -> All console methods are disabled
+ * @export
+ * @class Logger
+ */
+export default class Logger {
   constructor() {
     this.info = 1;
     this.warn = 2;
     this.error = 3;
     this.disable = 4;
   }
-
-  _noop() {}
 
   setlevel(key = this.info) {
     if (!key) {
@@ -15,11 +25,12 @@ export class Logger {
 
     switch (key) {
       case this.disable:
-        console.error = this._noop;
+        console.error = noop;
       case this.error:
-        console.warn = this._noop;
+        console.warn = noop;
       case this.warn:
-        console.log = this._noop;
+        console.info = noop;
+        console.log = noop;
       case this.info:
         break;
       default:

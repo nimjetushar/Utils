@@ -105,14 +105,25 @@ return /******/ (function(modules) { // webpackBootstrap
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Logger", function() { return Logger; });
+
+// CONCATENATED MODULE: ./core/noop.js
+/**
+ * noop
+ * @param {*} value accepts anyumber of arguments.
+ * @returns {void} return undefined
+ */
+function noop() {}
+// CONCATENATED MODULE: ./logger.js
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return logger_Logger; });
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
-var Logger =
+
+
+var logger_Logger =
 /*#__PURE__*/
 function () {
   function Logger() {
@@ -125,9 +136,6 @@ function () {
   }
 
   _createClass(Logger, [{
-    key: "_noop",
-    value: function _noop() {}
-  }, {
     key: "setlevel",
     value: function setlevel() {
       var key = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : this.info;
@@ -138,13 +146,13 @@ function () {
 
       switch (key) {
         case this.disable:
-          console.error = this._noop;
+          console.error = noop;
 
         case this.error:
-          console.warn = this._noop;
+          console.warn = noop;
 
         case this.warn:
-          console.log = this._noop;
+          console.log = noop;
 
         case this.info:
           break;
@@ -157,6 +165,8 @@ function () {
 
   return Logger;
 }();
+
+
 
 /***/ })
 /******/ ]);

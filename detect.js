@@ -1226,7 +1226,7 @@ const toString = (obj) => {
     return obj && check(obj.family) ? obj.family + suffix : '';
 };
 
-export class Detect {
+export default class Detect {
 
     constructor() {
         this.parsers = ['device_parsers', 'browser_parsers', 'os_parsers', 'mobile_os_families', 'mobile_browser_families'];
