@@ -9,7 +9,13 @@
 
 ## This utility provides basic utility functions which are mainly used in day to day coding and not ment perform various utility operations which are handled by other utility lib.
 
-Import the js files from build folder and start working.
+## Getting started:
+
+`npm i tutility --save`
+
+Import the js and start working.
+
+## [Documentation](https://nimjetushar.github.io/Utils/):
 
 ## Testing
 
