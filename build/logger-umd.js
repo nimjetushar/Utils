@@ -104,7 +104,11 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+// ESM COMPAT FLAG
 __webpack_require__.r(__webpack_exports__);
+
+// EXPORTS
+__webpack_require__.d(__webpack_exports__, "default", function() { return /* binding */ logger_Logger; });
 
 // CONCATENATED MODULE: ./core/noop.js
 /**
@@ -114,7 +118,6 @@ __webpack_require__.r(__webpack_exports__);
  */
 function noop() {}
 // CONCATENATED MODULE: ./logger.js
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return logger_Logger; });
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
@@ -122,6 +125,16 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
 
+/**
+ * Enable / disable logging across various environment
+ * new Logger().setlevel(level) where level are :-
+ * - 1 -> All console methods are enabled.
+ * - 2 -> console log and info methods are diabled while other works as expected
+ * - 3 -> console.error method will be enabled while other are disabled
+ * - 4 -> All console methods are disabled
+ * @export
+ * @class Logger
+ */
 
 var logger_Logger =
 /*#__PURE__*/
@@ -152,6 +165,7 @@ function () {
           console.warn = noop;
 
         case this.warn:
+          console.info = noop;
           console.log = noop;
 
         case this.info:

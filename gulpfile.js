@@ -4,7 +4,8 @@ const gulp = require('gulp'),
     config = require('./jsDoc.config.json');
 
 function createDoc(cb) {
-    return gulp.src(['README.md', './core/*.js', './logger.js'], { read: false }).pipe(jsdoc(config, cb));
+    return gulp.src(['README.md', './core/*.js', './logger.js'], { read: false })
+        .pipe(jsdoc(config, cb));
 }
 
 function build(cb) {
@@ -14,16 +15,20 @@ function build(cb) {
         .pipe(run('npm run build-detect-umd'))
         .pipe(run('npm run build-logger'))
         .pipe(run('npm run build-logger-umd'))
-        .pipe(run('echo build complete', cb()));
+        .pipe(run('echo build executed', cb()));
 }
 
 function buildMin(cb) {
     return run('npm run build-util-umd:min').exec()
         .pipe(run('npm run build-detect-umd:min'))
         .pipe(run('npm run build-logger-umd:min'))
-        .pipe(run('echo build min complete', cb()));
+        .pipe(run('echo build min executed', cb()));
 }
 
-exports['build:min'] = gulp.series(buildMin);
-exports.build = gulp.series(build);
+function addLicense() {
+    return gulp.src('./LICENSE').pipe(gulp.dest('./build/'));
+}
+
+exports['build:min'] = gulp.series(buildMin, addLicense);
+exports.build = gulp.series(build, addLicense);
 exports.default = gulp.series(createDoc);

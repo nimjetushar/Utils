@@ -104,7 +104,11 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+// ESM COMPAT FLAG
 __webpack_require__.r(__webpack_exports__);
+
+// EXPORTS
+__webpack_require__.d(__webpack_exports__, "default", function() { return /* binding */ Detect; });
 
 // CONCATENATED MODULE: ./core/hasKey.js
 var hasKey_hasOwnProperty = Object.prototype.hasOwnProperty;
@@ -121,7 +125,6 @@ function hasKey(obj, key) {
 
 
 // CONCATENATED MODULE: ./detect.js
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Detect; });
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
