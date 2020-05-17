@@ -14,7 +14,7 @@ import {
 } from '../index';
 import { noop } from '../core/noop';
 
-const utils = require('../build/utils');
+const utils = require('../build/utils-umd');
 
 describe('Utils', () => {
   it('should have isArray method', () => {
