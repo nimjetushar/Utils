@@ -9,11 +9,8 @@ function createDoc(cb) {
 }
 
 function build(cb) {
-    return run('npm run build-util').exec()
-        .pipe(run('npm run build-util-umd'))
-        .pipe(run('npm run build-detect'))
+    return run('npm run build-util-umd').exec()
         .pipe(run('npm run build-detect-umd'))
-        .pipe(run('npm run build-logger'))
         .pipe(run('npm run build-logger-umd'))
         .pipe(run('echo build executed', cb()));
 }
@@ -25,10 +22,6 @@ function buildMin(cb) {
         .pipe(run('echo build min executed', cb()));
 }
 
-function addLicense() {
-    return gulp.src('./LICENSE').pipe(gulp.dest('./build/'));
-}
-
-exports['build:min'] = gulp.series(buildMin, addLicense);
-exports.build = gulp.series(build, addLicense);
+exports['build:min'] = gulp.series(buildMin);
+exports.build = gulp.series(build);
 exports.default = gulp.series(createDoc);
