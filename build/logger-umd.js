@@ -136,9 +136,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
  * @class Logger
  */
 
-var logger_Logger =
-/*#__PURE__*/
-function () {
+var logger_Logger = /*#__PURE__*/function () {
   function Logger() {
     _classCallCheck(this, Logger);
 

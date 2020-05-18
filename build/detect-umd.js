@@ -1121,9 +1121,7 @@ var detect_toString = function toString(obj) {
   return obj && check(obj.family) ? obj.family + suffix : '';
 };
 
-var Detect =
-/*#__PURE__*/
-function () {
+var Detect = /*#__PURE__*/function () {
   function Detect() {
     _classCallCheck(this, Detect);
 
@@ -1207,8 +1205,10 @@ function () {
       var os = find(ua, os_parsers);
 
       if (check(os)) {
-        os.name = detect_toString(os);
-        os.version = toVersionString(os);
+        os = {
+          name: detect_toString(os),
+          version: toVersionString(os)
+        };
       } else {
         os = {};
       } // Set Device
@@ -1217,8 +1217,10 @@ function () {
       var device = find(ua, device_parsers);
 
       if (check(device)) {
-        device.name = detect_toString(device);
-        device.version = toVersionString(device);
+        device = {
+          name: detect_toString(device),
+          version: toVersionString(device)
+        };
       } else {
         device = {
           tablet: false,
@@ -1239,7 +1241,7 @@ function () {
         device.type = 'Spider';
       } else if (browser.tablet || os.tablet || device.tablet) {
         device.type = 'Tablet';
-      } else if (Object.prototype.hasOwnProperty.call(browser.family)) {
+      } else if (Object.prototype.hasOwnProperty.call(mobile_agents, browser.family)) {
         device.type = 'Mobile';
       } else {
         device.type = 'Desktop';
