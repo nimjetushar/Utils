@@ -1297,16 +1297,20 @@ export default class Detect {
         // Set OS
         let os = find(ua, os_parsers);
         if (check(os)) {
-            os.name = toString(os);
-            os.version = toVersionString(os);
+            os = {
+                name: toString(os),
+                version: toVersionString(os)
+            };
         } else {
             os = {};
         }
         // Set Device
         let device = find(ua, device_parsers);
         if (check(device)) {
-            device.name = toString(device);
-            device.version = toVersionString(device);
+            device = {
+                name: toString(device),
+                version: toVersionString(device)
+            };
         } else {
             device = {
                 tablet: false,
@@ -1326,7 +1330,7 @@ export default class Detect {
             device.type = 'Spider';
         } else if (browser.tablet || os.tablet || device.tablet) {
             device.type = 'Tablet';
-        } else if (Object.prototype.hasOwnProperty.call(browser.family)) {
+        } else if (Object.prototype.hasOwnProperty.call(mobile_agents, browser.family)) {
             device.type = 'Mobile';
         } else {
             device.type = 'Desktop';
