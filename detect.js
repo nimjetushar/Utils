@@ -1226,6 +1226,11 @@ const toString = (obj) => {
     return obj && check(obj.family) ? obj.family + suffix : '';
 };
 
+/**
+ * Detect browser and device.
+ * @export
+ * @class Detect
+ */
 export default class Detect {
 
     constructor() {
@@ -1252,6 +1257,12 @@ export default class Detect {
         return results;
     }
 
+    /**
+     * Accepts user-agent and based on that detect the browser and device
+     * @param {string} ua user-agent
+     * @returns { {source: string, browser: {name:string,version:string}, device:{name:string,version:string,type:string}, os:{name:string,version:string}} } device information
+     * @memberof Detect#
+     */
     parse(ua) {
         // Parsers Utility
         const parsers = (type) => {
@@ -1344,7 +1355,8 @@ export default class Detect {
         return {
             source,
             browser,
-            device
+            device,
+            os
         };
     }
 }

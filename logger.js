@@ -18,6 +18,12 @@ export default class Logger {
     this.disable = 4;
   }
 
+  /**
+   * Set logger level
+   * @param {number} [key=this.info] logging level
+   * @returns {void}
+   * @memberof Logger#
+   */
   setlevel(key = this.info) {
     if (!key) {
       throw new Error('Logger level is required');
