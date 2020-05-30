@@ -1,3 +1,4 @@
+/* eslint-disable sort-keys */
 /* eslint-disable camelcase, max-len */
 
 import { hasKey } from './core/hasKey';
@@ -1353,10 +1354,10 @@ export default class Detect {
 
         // Return Agent
         return {
-            source,
             browser,
             device,
-            os
+            os,
+            source
         };
     }
 }
