@@ -69,5 +69,8 @@
   },
   "jest": {
     "verbose": true
+  },
+  "dependencies": {
+    "device-detector-js": "^2.2.1"
   }
 }
