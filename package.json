@@ -64,13 +64,13 @@
     "webpack": "4.43.0",
     "webpack-cli": "3.3.11"
   },
+  "dependencies": {
+    "device-detector-js": "2.2.1"
+  },
   "resolutions": {
     "babel-core": "7.0.0-bridge"
   },
   "jest": {
     "verbose": true
-  },
-  "dependencies": {
-    "device-detector-js": "^2.2.1"
   }
 }
