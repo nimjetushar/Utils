@@ -43,7 +43,7 @@
     "tutility"
   ],
   "devDependencies": {
-    "@babel/core": "7.9.6",
+    "@babel/core": "7.10.2",
     "@babel/preset-env": "7.10.2",
     "@fourjs/eslint-config-tn": "4.2.1",
     "babel-core": "7.0.0-bridge.0",
