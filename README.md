@@ -13,7 +13,7 @@
 
 `npm i tutility --save`
 
-Import the js and start working.
+Import the js and start working. <br>
 When working with IE or older browser version which does not support es6 syntax then library needs to be included in compilation to get it compied to es5 to make it work or use file for dist. 
 
 ## [Documentation](https://nimjetushar.github.io/Utils/):
