@@ -145,6 +145,13 @@ var logger_Logger = /*#__PURE__*/function () {
     this.error = 3;
     this.disable = 4;
   }
+  /**
+   * Set logger level
+   * @param {number} [key=this.info] logging level
+   * @returns {void}
+   * @memberof Logger#
+   */
+
 
   _createClass(Logger, [{
     key: "setlevel",
