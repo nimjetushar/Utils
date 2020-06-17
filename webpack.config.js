@@ -1,4 +1,6 @@
-const path = require('path'),
+/* eslint-disable sort-keys */
+const fs = require('fs'),
+  path = require('path'),
   webpack = require('webpack');
 
 let libraryName = 'utils',
@@ -58,17 +60,15 @@ module.exports = env => {
       rules: [
         {
           test: /\.js$/,
-          exclude: /(node_modules)/,
-          use: {
-            loader: 'babel-loader'
+          loader: 'babel-loader',
+          options: {
+            configFile: path.resolve('babel.config.js')
           }
         },
         {
           test: /\.js$/,
           exclude: [/(node_modules)/, /(test)/, /(build)/],
-          use: {
-            loader: 'eslint-loader'
-          }
+          loader: 'eslint-loader'
         }
       ]
     },

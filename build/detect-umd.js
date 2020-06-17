@@ -105,31 +105,35 @@ return /******/ (function(modules) { // webpackBootstrap
 
 "use strict";
 
-Object.defineProperty(exports, "__esModule", { value: true });
-const memory_cache_1 = __webpack_require__(9);
-const cache = memory_cache_1.memoryCache();
-const getRegexInstance = (rawRegex) => {
-    const cachedRegexInstance = cache.get(rawRegex);
-    if (cachedRegexInstance)
-        return cachedRegexInstance.value;
-    const regexInstance = RegExp(`(?:^|[^A-Z0-9-_]|[^A-Z0-9-]_|sprd-)(?:${rawRegex})`, "i");
-    cache.set(rawRegex, {
-        value: regexInstance
-    });
-    return regexInstance;
-};
-exports.userAgentParser = (rawRegex, userAgent) => {
-    // TODO: find out why it fails in some browsers
-    try {
-        const regexInstance = getRegexInstance(rawRegex);
-        const match = regexInstance.exec(userAgent);
-        return match ? match.slice(1) : null;
-    }
-    catch (_a) {
-        return null;
-    }
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var memory_cache_1 = __webpack_require__(9);
+
+var cache = memory_cache_1.memoryCache();
+
+var getRegexInstance = function getRegexInstance(rawRegex) {
+  var cachedRegexInstance = cache.get(rawRegex);
+  if (cachedRegexInstance) return cachedRegexInstance.value;
+  var regexInstance = RegExp("(?:^|[^A-Z0-9-_]|[^A-Z0-9-]_|sprd-)(?:".concat(rawRegex, ")"), "i");
+  cache.set(rawRegex, {
+    value: regexInstance
+  });
+  return regexInstance;
 };
 
+exports.userAgentParser = function (rawRegex, userAgent) {
+  // TODO: find out why it fails in some browsers
+  try {
+    var regexInstance = getRegexInstance(rawRegex);
+    var match = regexInstance.exec(userAgent);
+    return match ? match.slice(1) : null;
+  } catch (_a) {
+    return null;
+  }
+};
 
 /***/ }),
 /* 1 */
@@ -137,18 +141,20 @@ exports.userAgentParser = (rawRegex, userAgent) => {
 
 "use strict";
 
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.variableReplacement = (template, variables) => {
-    const regex = new RegExp(`\\$\\d`, "g");
-    if (template === null)
-        return "";
-    return template.replace(regex, (match) => {
-        const index = parseInt(match.substr(1), 10);
-        const variable = variables[index - 1];
-        return variable || "";
-    });
-};
 
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+exports.variableReplacement = function (template, variables) {
+  var regex = new RegExp("\\$\\d", "g");
+  if (template === null) return "";
+  return template.replace(regex, function (match) {
+    var index = parseInt(match.substr(1), 10);
+    var variable = variables[index - 1];
+    return variable || "";
+  });
+};
 
 /***/ }),
 /* 2 */
@@ -156,39 +162,44 @@ exports.variableReplacement = (template, variables) => {
 
 "use strict";
 
-Object.defineProperty(exports, "__esModule", { value: true });
-const trim_1 = __webpack_require__(8);
-exports.formatVersion = (version, versionTruncation) => {
-    if (version === undefined)
-        return "";
-    const versionString = trim_1.trim(version, ". ").replace(new RegExp("_", "g"), ".");
-    const versionParts = versionString.split(".");
-    // Return if the string is not only digits once we removed the dots
-    if (!/^\d+$/.test(versionParts.join(""))) {
-        return versionString;
-    }
-    if (versionTruncation !== 0) {
-        if (Number.isInteger(parseFloat(versionString))) {
-            return parseInt(versionString, 10).toFixed(1);
-        }
-    }
-    if (versionParts.length > 1) {
-        if (versionTruncation !== null) {
-            return versionParts.slice(0, versionTruncation + 1).join(".");
-        }
-    }
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var trim_1 = __webpack_require__(8);
+
+exports.formatVersion = function (version, versionTruncation) {
+  if (version === undefined) return "";
+  var versionString = trim_1.trim(version, ". ").replace(new RegExp("_", "g"), ".");
+  var versionParts = versionString.split("."); // Return if the string is not only digits once we removed the dots
+
+  if (!/^\d+$/.test(versionParts.join(""))) {
     return versionString;
-};
-exports.parseBrowserEngineVersion = (userAgent, engine) => {
-    if (!engine)
-        return "";
-    const regex = new RegExp(`${engine}\\s*\\/?\\s*((?:(?=\\d+\\.\\d)\\d+[.\\d]*|\\d{1,7}(?=(?:\\D|$))))`, "i");
-    const match = userAgent.match(regex);
-    if (!match)
-        return "";
-    return match.pop();
+  }
+
+  if (versionTruncation !== 0) {
+    if (Number.isInteger(parseFloat(versionString))) {
+      return parseInt(versionString, 10).toFixed(1);
+    }
+  }
+
+  if (versionParts.length > 1) {
+    if (versionTruncation !== null) {
+      return versionParts.slice(0, versionTruncation + 1).join(".");
+    }
+  }
+
+  return versionString;
 };
 
+exports.parseBrowserEngineVersion = function (userAgent, engine) {
+  if (!engine) return "";
+  var regex = new RegExp("".concat(engine, "\\s*\\/?\\s*((?:(?=\\d+\\.\\d)\\d+[.\\d]*|\\d{1,7}(?=(?:\\D|$))))"), "i");
+  var match = userAgent.match(regex);
+  if (!match) return "";
+  return match.pop();
+};
 
 /***/ }),
 /* 3 */
@@ -196,89 +207,423 @@ exports.parseBrowserEngineVersion = (userAgent, engine) => {
 
 "use strict";
 
-Object.defineProperty(exports, "__esModule", { value: true });
-const version_1 = __webpack_require__(2);
-const variable_replacement_1 = __webpack_require__(1);
-const user_agent_1 = __webpack_require__(0);
-const browsers = __webpack_require__(10);
-const browserEngines = __webpack_require__(11);
-const availableBrowsers = { "2B": "2345 Browser", "36": "360 Phone Browser", "3B": "360 Browser", "AA": "Avant Browser", "AB": "ABrowse", "AF": "ANT Fresco", "AG": "ANTGalio", "AL": "Aloha Browser", "AH": "Aloha Browser Lite", "AM": "Amaya", "AO": "Amigo", "AN": "Android Browser", "AD": "AOL Shield", "AR": "Arora", "AV": "Amiga Voyager", "AW": "Amiga Aweb", "AT": "Atomic Web Browser", "AS": "Avast Secure Browser", "VG": "AVG Secure Browser", "BA": "Beaker Browser", "BM": "Beamrise", "BB": "BlackBerry Browser", "BD": "Baidu Browser", "BS": "Baidu Spark", "BI": "Basilisk", "BE": "Beonex", "BH": "BlackHawk", "BJ": "Bunjalloo", "BL": "B-Line", "BR": "Brave", "BK": "BriskBard", "BX": "BrowseX", "CA": "Camino", "CL": "CCleaner", "CC": "Coc Coc", "CD": "Comodo Dragon", "C1": "Coast", "CX": "Charon", "CE": "CM Browser", "CF": "Chrome Frame", "HC": "Headless Chrome", "CH": "Chrome", "CI": "Chrome Mobile iOS", "CK": "Conkeror", "CM": "Chrome Mobile", "CN": "CoolNovo", "CO": "CometBird", "CB": "COS Browser", "CP": "ChromePlus", "CR": "Chromium", "CY": "Cyberfox", "CS": "Cheshire", "CT": "Crusta", "CU": "Cunaguaro", "CV": "Chrome Webview", "DB": "dbrowser", "DE": "Deepnet Explorer", "DT": "Delta Browser", "DF": "Dolphin", "DO": "Dorado", "DL": "Dooble", "DI": "Dillo", "DD": "DuckDuckGo Privacy Browser", "EC": "Ecosia", "EI": "Epic", "EL": "Elinks", "EB": "Element Browser", "EZ": "eZ Browser", "EU": "EUI Browser", "EP": "GNOME Web", "ES": "Espial TV Browser", "FA": "Falkon", "FX": "Faux Browser", "F1": "Firefox Mobile iOS", "FB": "Firebird", "FD": "Fluid", "FE": "Fennec", "FF": "Firefox", "FK": "Firefox Focus", "FY": "Firefox Reality", "FR": "Firefox Rocket", "FL": "Flock", "FM": "Firefox Mobile", "FW": "Fireweb", "FN": "Fireweb Navigator", "FU": "FreeU", "GA": "Galeon", "GE": "Google Earth", "HA": "Hawk Turbo Browser", "HO": "hola! Browser", "HJ": "HotJava", "HU": "Huawei Browser", "IB": "IBrowse", "IC": "iCab", "I2": "iCab Mobile", "I1": "Iridium", "I3": "Iron Mobile", "I4": "IceCat", "ID": "IceDragon", "IV": "Isivioo", "IW": "Iceweasel", "IE": "Internet Explorer", "IM": "IE Mobile", "IR": "Iron", "JS": "Jasmine", "JI": "Jig Browser", "JO": "Jio Browser", "KB": "K.Browser", "KI": "Kindle Browser", "KM": "K-meleon", "KO": "Konqueror", "KP": "Kapiko", "KN": "Kinza", "KW": "Kiwi", "KY": "Kylo", "KZ": "Kazehakase", "LB": "Cheetah Browser", "LF": "LieBaoFast", "LG": "LG Browser", "LI": "Links", "LO": "Lovense Browser", "LU": "LuaKit", "LS": "Lunascape", "LX": "Lynx", "M1": "mCent", "MB": "MicroB", "MC": "NCSA Mosaic", "MZ": "Meizu Browser", "ME": "Mercury", "MF": "Mobile Safari", "MI": "Midori", "MO": "Mobicip", "MU": "MIUI Browser", "MS": "Mobile Silk", "MN": "Minimo", "MT": "Mint Browser", "MX": "Maxthon", "NB": "Nokia Browser", "NO": "Nokia OSS Browser", "NV": "Nokia Ovi Browser", "NX": "Nox Browser", "NE": "NetSurf", "NF": "NetFront", "NL": "NetFront Life", "NP": "NetPositive", "NS": "Netscape", "NT": "NTENT Browser", "OC": "Oculus Browser", "O1": "Opera Mini iOS", "OB": "Obigo", "OD": "Odyssey Web Browser", "OF": "Off By One", "OE": "ONE Browser", "OX": "Opera GX", "OG": "Opera Neon", "OH": "Opera Devices", "OI": "Opera Mini", "OM": "Opera Mobile", "OP": "Opera", "ON": "Opera Next", "OO": "Opera Touch", "OS": "Ordissimo", "OR": "Oregano", "OY": "Origyn Web Browser", "OV": "Openwave Mobile Browser", "OW": "OmniWeb", "OT": "Otter Browser", "PL": "Palm Blazer", "PM": "Pale Moon", "PP": "Oppo Browser", "PR": "Palm Pre", "PU": "Puffin", "PW": "Palm WebPro", "PA": "Palmscape", "PX": "Phoenix", "PO": "Polaris", "PT": "Polarity", "PS": "Microsoft Edge", "Q1": "QQ Browser Mini", "QQ": "QQ Browser", "QT": "Qutebrowser", "QZ": "QupZilla", "QM": "Qwant Mobile", "QW": "QtWebEngine", "RE": "Realme Browser", "RK": "Rekonq", "RM": "RockMelt", "SB": "Samsung Browser", "SA": "Sailfish Browser", "SC": "SEMC-Browser", "SE": "Sogou Explorer", "SF": "Safari", "SW": "SalamWeb", "SH": "Shiira", "S1": "SimpleBrowser", "SK": "Skyfire", "SS": "Seraphic Sraf", "SL": "Sleipnir", "SN": "Snowshoe", "SO": "Sogou Mobile Browser", "S2": "Splash", "SI": "Sputnik Browser", "SR": "Sunrise", "SP": "SuperBird", "SU": "Super Fast Browser", "S0": "START Internet Browser", "ST": "Streamy", "SX": "Swiftfox", "SZ": "Seznam Browser", "TO": "t-online.de Browser", "TA": "Tao Browser", "TF": "TenFourFox", "TB": "Tenta Browser", "TZ": "Tizen Browser", "TS": "TweakStyle", "UB": "UBrowser", "UC": "UC Browser", "UM": "UC Browser Mini", "UT": "UC Browser Turbo", "UZ": "Uzbl", "VI": "Vivaldi", "VV": "vivo Browser", "VB": "Vision Mobile Browser", "WI": "Wear Internet Browser", "WP": "Web Explorer", "WE": "WebPositive", "WF": "Waterfox", "WH": "Whale Browser", "WO": "wOSBrowser", "WT": "WeTab Browser", "YA": "Yandex Browser", "YL": "Yandex Browser Lite", "XI": "Xiino" };
-const browserFamilies = { "Android Browser": ["AN", "MU"], "BlackBerry Browser": ["BB"], "Baidu": ["BD", "BS"], "Amiga": ["AV", "AW"], "Chrome": ["CH", "BA", "BR", "CC", "CD", "CM", "CI", "CF", "CN", "CR", "CP", "DD", "IR", "RM", "AO", "TS", "VI", "PT", "AS", "TB", "AD", "SB", "WP", "I3", "CV", "WH", "SZ", "QW", "LF", "KW", "2B", "CE", "EC", "MT", "MS", "HA", "OC", "MZ", "BM", "KN", "SW", "M1", "FA", "TA", "AH", "CL", "SU", "EU", "UB", "LO", "VG"], "Firefox": ["FF", "FE", "FM", "SX", "FB", "PX", "MB", "EI", "WF", "CU", "TF", "QM", "FR", "I4", "GZ", "MO", "F1", "BI", "MN", "BH", "TO", "OS", "FY"], "Internet Explorer": ["IE", "IM", "PS"], "Konqueror": ["KO"], "NetFront": ["NF"], "NetSurf": ["NE"], "Nokia Browser": ["NB", "NO", "NV", "DO"], "Opera": ["OP", "OM", "OI", "ON", "OO", "OG", "OH", "O1", "OX"], "Safari": ["SF", "MF", "SO"], "Sailfish Browser": ["SA"] };
-const mobileOnlyBrowsers = ["36", "OC", "PU", "SK", "MF", "OI", "OM", "DD", "DB", "ST", "BL", "IV", "FM", "C1", "AL", "SA", "SB", "FR", "WP", "HA", "NX", "HU", "VV", "RE", "CB", "MZ", "UM", "FK", "FX", "WI", "MN", "M1", "AH", "SU", "EU", "EZ", "UT", "DT", "S0"];
-class BrowserParser {
-    constructor(options) {
-        this.options = {
-            versionTruncation: 1
-        };
-        this.parse = (userAgent) => {
-            const result = {
-                type: "",
-                name: "",
-                version: "",
-                engine: "",
-                engineVersion: ""
-            };
-            for (const browser of browsers) {
-                const match = user_agent_1.userAgentParser(browser.regex, userAgent);
-                if (!match)
-                    continue;
-                const vrpVersion = variable_replacement_1.variableReplacement(browser.version, match);
-                const version = version_1.formatVersion(vrpVersion, this.options.versionTruncation);
-                const shortVersion = version && parseFloat(version_1.formatVersion(vrpVersion, 1)) || "";
-                if (browser.engine) {
-                    result.engine = browser.engine.default;
-                    if (browser.engine && browser.engine.versions && shortVersion) {
-                        const sortedEngineVersions = Object.entries(browser.engine.versions).sort((a, b) => {
-                            return parseFloat(a[0]) > parseFloat(b[0]) ? 1 : -1;
-                        });
-                        for (const [versionThreshold, engineByVersion] of sortedEngineVersions) {
-                            if (parseFloat(versionThreshold) <= shortVersion) {
-                                result.engine = engineByVersion;
-                            }
-                        }
-                    }
+
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+function _createForOfIteratorHelper(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e2) { throw _e2; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e3) { didErr = true; err = _e3; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var version_1 = __webpack_require__(2);
+
+var variable_replacement_1 = __webpack_require__(1);
+
+var user_agent_1 = __webpack_require__(0);
+
+var browsers = __webpack_require__(10);
+
+var browserEngines = __webpack_require__(11);
+
+var availableBrowsers = {
+  "2B": "2345 Browser",
+  "36": "360 Phone Browser",
+  "3B": "360 Browser",
+  "AA": "Avant Browser",
+  "AB": "ABrowse",
+  "AF": "ANT Fresco",
+  "AG": "ANTGalio",
+  "AL": "Aloha Browser",
+  "AH": "Aloha Browser Lite",
+  "AM": "Amaya",
+  "AO": "Amigo",
+  "AN": "Android Browser",
+  "AD": "AOL Shield",
+  "AR": "Arora",
+  "AV": "Amiga Voyager",
+  "AW": "Amiga Aweb",
+  "AT": "Atomic Web Browser",
+  "AS": "Avast Secure Browser",
+  "VG": "AVG Secure Browser",
+  "BA": "Beaker Browser",
+  "BM": "Beamrise",
+  "BB": "BlackBerry Browser",
+  "BD": "Baidu Browser",
+  "BS": "Baidu Spark",
+  "BI": "Basilisk",
+  "BE": "Beonex",
+  "BH": "BlackHawk",
+  "BJ": "Bunjalloo",
+  "BL": "B-Line",
+  "BR": "Brave",
+  "BK": "BriskBard",
+  "BX": "BrowseX",
+  "CA": "Camino",
+  "CL": "CCleaner",
+  "CC": "Coc Coc",
+  "CD": "Comodo Dragon",
+  "C1": "Coast",
+  "CX": "Charon",
+  "CE": "CM Browser",
+  "CF": "Chrome Frame",
+  "HC": "Headless Chrome",
+  "CH": "Chrome",
+  "CI": "Chrome Mobile iOS",
+  "CK": "Conkeror",
+  "CM": "Chrome Mobile",
+  "CN": "CoolNovo",
+  "CO": "CometBird",
+  "CB": "COS Browser",
+  "CP": "ChromePlus",
+  "CR": "Chromium",
+  "CY": "Cyberfox",
+  "CS": "Cheshire",
+  "CT": "Crusta",
+  "CU": "Cunaguaro",
+  "CV": "Chrome Webview",
+  "DB": "dbrowser",
+  "DE": "Deepnet Explorer",
+  "DT": "Delta Browser",
+  "DF": "Dolphin",
+  "DO": "Dorado",
+  "DL": "Dooble",
+  "DI": "Dillo",
+  "DD": "DuckDuckGo Privacy Browser",
+  "EC": "Ecosia",
+  "EI": "Epic",
+  "EL": "Elinks",
+  "EB": "Element Browser",
+  "EZ": "eZ Browser",
+  "EU": "EUI Browser",
+  "EP": "GNOME Web",
+  "ES": "Espial TV Browser",
+  "FA": "Falkon",
+  "FX": "Faux Browser",
+  "F1": "Firefox Mobile iOS",
+  "FB": "Firebird",
+  "FD": "Fluid",
+  "FE": "Fennec",
+  "FF": "Firefox",
+  "FK": "Firefox Focus",
+  "FY": "Firefox Reality",
+  "FR": "Firefox Rocket",
+  "FL": "Flock",
+  "FM": "Firefox Mobile",
+  "FW": "Fireweb",
+  "FN": "Fireweb Navigator",
+  "FU": "FreeU",
+  "GA": "Galeon",
+  "GE": "Google Earth",
+  "HA": "Hawk Turbo Browser",
+  "HO": "hola! Browser",
+  "HJ": "HotJava",
+  "HU": "Huawei Browser",
+  "IB": "IBrowse",
+  "IC": "iCab",
+  "I2": "iCab Mobile",
+  "I1": "Iridium",
+  "I3": "Iron Mobile",
+  "I4": "IceCat",
+  "ID": "IceDragon",
+  "IV": "Isivioo",
+  "IW": "Iceweasel",
+  "IE": "Internet Explorer",
+  "IM": "IE Mobile",
+  "IR": "Iron",
+  "JS": "Jasmine",
+  "JI": "Jig Browser",
+  "JO": "Jio Browser",
+  "KB": "K.Browser",
+  "KI": "Kindle Browser",
+  "KM": "K-meleon",
+  "KO": "Konqueror",
+  "KP": "Kapiko",
+  "KN": "Kinza",
+  "KW": "Kiwi",
+  "KY": "Kylo",
+  "KZ": "Kazehakase",
+  "LB": "Cheetah Browser",
+  "LF": "LieBaoFast",
+  "LG": "LG Browser",
+  "LI": "Links",
+  "LO": "Lovense Browser",
+  "LU": "LuaKit",
+  "LS": "Lunascape",
+  "LX": "Lynx",
+  "M1": "mCent",
+  "MB": "MicroB",
+  "MC": "NCSA Mosaic",
+  "MZ": "Meizu Browser",
+  "ME": "Mercury",
+  "MF": "Mobile Safari",
+  "MI": "Midori",
+  "MO": "Mobicip",
+  "MU": "MIUI Browser",
+  "MS": "Mobile Silk",
+  "MN": "Minimo",
+  "MT": "Mint Browser",
+  "MX": "Maxthon",
+  "NB": "Nokia Browser",
+  "NO": "Nokia OSS Browser",
+  "NV": "Nokia Ovi Browser",
+  "NX": "Nox Browser",
+  "NE": "NetSurf",
+  "NF": "NetFront",
+  "NL": "NetFront Life",
+  "NP": "NetPositive",
+  "NS": "Netscape",
+  "NT": "NTENT Browser",
+  "OC": "Oculus Browser",
+  "O1": "Opera Mini iOS",
+  "OB": "Obigo",
+  "OD": "Odyssey Web Browser",
+  "OF": "Off By One",
+  "OE": "ONE Browser",
+  "OX": "Opera GX",
+  "OG": "Opera Neon",
+  "OH": "Opera Devices",
+  "OI": "Opera Mini",
+  "OM": "Opera Mobile",
+  "OP": "Opera",
+  "ON": "Opera Next",
+  "OO": "Opera Touch",
+  "OS": "Ordissimo",
+  "OR": "Oregano",
+  "OY": "Origyn Web Browser",
+  "OV": "Openwave Mobile Browser",
+  "OW": "OmniWeb",
+  "OT": "Otter Browser",
+  "PL": "Palm Blazer",
+  "PM": "Pale Moon",
+  "PP": "Oppo Browser",
+  "PR": "Palm Pre",
+  "PU": "Puffin",
+  "PW": "Palm WebPro",
+  "PA": "Palmscape",
+  "PX": "Phoenix",
+  "PO": "Polaris",
+  "PT": "Polarity",
+  "PS": "Microsoft Edge",
+  "Q1": "QQ Browser Mini",
+  "QQ": "QQ Browser",
+  "QT": "Qutebrowser",
+  "QZ": "QupZilla",
+  "QM": "Qwant Mobile",
+  "QW": "QtWebEngine",
+  "RE": "Realme Browser",
+  "RK": "Rekonq",
+  "RM": "RockMelt",
+  "SB": "Samsung Browser",
+  "SA": "Sailfish Browser",
+  "SC": "SEMC-Browser",
+  "SE": "Sogou Explorer",
+  "SF": "Safari",
+  "SW": "SalamWeb",
+  "SH": "Shiira",
+  "S1": "SimpleBrowser",
+  "SK": "Skyfire",
+  "SS": "Seraphic Sraf",
+  "SL": "Sleipnir",
+  "SN": "Snowshoe",
+  "SO": "Sogou Mobile Browser",
+  "S2": "Splash",
+  "SI": "Sputnik Browser",
+  "SR": "Sunrise",
+  "SP": "SuperBird",
+  "SU": "Super Fast Browser",
+  "S0": "START Internet Browser",
+  "ST": "Streamy",
+  "SX": "Swiftfox",
+  "SZ": "Seznam Browser",
+  "TO": "t-online.de Browser",
+  "TA": "Tao Browser",
+  "TF": "TenFourFox",
+  "TB": "Tenta Browser",
+  "TZ": "Tizen Browser",
+  "TS": "TweakStyle",
+  "UB": "UBrowser",
+  "UC": "UC Browser",
+  "UM": "UC Browser Mini",
+  "UT": "UC Browser Turbo",
+  "UZ": "Uzbl",
+  "VI": "Vivaldi",
+  "VV": "vivo Browser",
+  "VB": "Vision Mobile Browser",
+  "WI": "Wear Internet Browser",
+  "WP": "Web Explorer",
+  "WE": "WebPositive",
+  "WF": "Waterfox",
+  "WH": "Whale Browser",
+  "WO": "wOSBrowser",
+  "WT": "WeTab Browser",
+  "YA": "Yandex Browser",
+  "YL": "Yandex Browser Lite",
+  "XI": "Xiino"
+};
+var browserFamilies = {
+  "Android Browser": ["AN", "MU"],
+  "BlackBerry Browser": ["BB"],
+  "Baidu": ["BD", "BS"],
+  "Amiga": ["AV", "AW"],
+  "Chrome": ["CH", "BA", "BR", "CC", "CD", "CM", "CI", "CF", "CN", "CR", "CP", "DD", "IR", "RM", "AO", "TS", "VI", "PT", "AS", "TB", "AD", "SB", "WP", "I3", "CV", "WH", "SZ", "QW", "LF", "KW", "2B", "CE", "EC", "MT", "MS", "HA", "OC", "MZ", "BM", "KN", "SW", "M1", "FA", "TA", "AH", "CL", "SU", "EU", "UB", "LO", "VG"],
+  "Firefox": ["FF", "FE", "FM", "SX", "FB", "PX", "MB", "EI", "WF", "CU", "TF", "QM", "FR", "I4", "GZ", "MO", "F1", "BI", "MN", "BH", "TO", "OS", "FY"],
+  "Internet Explorer": ["IE", "IM", "PS"],
+  "Konqueror": ["KO"],
+  "NetFront": ["NF"],
+  "NetSurf": ["NE"],
+  "Nokia Browser": ["NB", "NO", "NV", "DO"],
+  "Opera": ["OP", "OM", "OI", "ON", "OO", "OG", "OH", "O1", "OX"],
+  "Safari": ["SF", "MF", "SO"],
+  "Sailfish Browser": ["SA"]
+};
+var mobileOnlyBrowsers = ["36", "OC", "PU", "SK", "MF", "OI", "OM", "DD", "DB", "ST", "BL", "IV", "FM", "C1", "AL", "SA", "SB", "FR", "WP", "HA", "NX", "HU", "VV", "RE", "CB", "MZ", "UM", "FK", "FX", "WI", "MN", "M1", "AH", "SU", "EU", "EZ", "UT", "DT", "S0"];
+
+var BrowserParser = function BrowserParser(options) {
+  var _this = this;
+
+  _classCallCheck(this, BrowserParser);
+
+  this.options = {
+    versionTruncation: 1
+  };
+
+  this.parse = function (userAgent) {
+    var result = {
+      type: "",
+      name: "",
+      version: "",
+      engine: "",
+      engineVersion: ""
+    };
+
+    var _iterator = _createForOfIteratorHelper(browsers),
+        _step;
+
+    try {
+      for (_iterator.s(); !(_step = _iterator.n()).done;) {
+        var browser = _step.value;
+
+        var _match = user_agent_1.userAgentParser(browser.regex, userAgent);
+
+        if (!_match) continue;
+        var vrpVersion = variable_replacement_1.variableReplacement(browser.version, _match);
+        var version = version_1.formatVersion(vrpVersion, _this.options.versionTruncation);
+        var shortVersion = version && parseFloat(version_1.formatVersion(vrpVersion, 1)) || "";
+
+        if (browser.engine) {
+          result.engine = browser.engine["default"];
+
+          if (browser.engine && browser.engine.versions && shortVersion) {
+            var sortedEngineVersions = Object.entries(browser.engine.versions).sort(function (a, b) {
+              return parseFloat(a[0]) > parseFloat(b[0]) ? 1 : -1;
+            });
+
+            var _iterator3 = _createForOfIteratorHelper(sortedEngineVersions),
+                _step3;
+
+            try {
+              for (_iterator3.s(); !(_step3 = _iterator3.n()).done;) {
+                var _step3$value = _slicedToArray(_step3.value, 2),
+                    versionThreshold = _step3$value[0],
+                    engineByVersion = _step3$value[1];
+
+                if (parseFloat(versionThreshold) <= shortVersion) {
+                  result.engine = engineByVersion;
                 }
-                result.type = "browser";
-                result.name = variable_replacement_1.variableReplacement(browser.name, match);
-                result.version = version;
-                break;
+              }
+            } catch (err) {
+              _iterator3.e(err);
+            } finally {
+              _iterator3.f();
             }
-            if (!result.engine) {
-                for (const browserEngine of browserEngines) {
-                    const match = RegExp(browserEngine.regex, "i").exec(userAgent);
-                    if (!match)
-                        continue;
-                    result.engine = browserEngine.name;
-                    break;
-                }
-            }
-            result.engineVersion = version_1.formatVersion(version_1.parseBrowserEngineVersion(userAgent, result.engine), this.options.versionTruncation);
-            return result;
-        };
-        this.options = Object.assign(Object.assign({}, this.options), options);
-    }
-}
-exports.default = BrowserParser;
-BrowserParser.getBrowserShortName = (browserName) => {
-    for (const [shortName, name] of Object.entries(availableBrowsers)) {
-        if (name === browserName) {
-            return shortName;
+          }
         }
+
+        result.type = "browser";
+        result.name = variable_replacement_1.variableReplacement(browser.name, _match);
+        result.version = version;
+        break;
+      }
+    } catch (err) {
+      _iterator.e(err);
+    } finally {
+      _iterator.f();
     }
-    return "";
-};
-BrowserParser.getBrowserFamily = (browserName) => {
-    const browserShortName = BrowserParser.getBrowserShortName(browserName);
-    for (const [browserFamily, browserLabels] of Object.entries(browserFamilies)) {
-        if (browserLabels.includes(browserShortName))
-            return browserFamily;
+
+    if (!result.engine) {
+      var _iterator2 = _createForOfIteratorHelper(browserEngines),
+          _step2;
+
+      try {
+        for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {
+          var browserEngine = _step2.value;
+          var match = RegExp(browserEngine.regex, "i").exec(userAgent);
+          if (!match) continue;
+          result.engine = browserEngine.name;
+          break;
+        }
+      } catch (err) {
+        _iterator2.e(err);
+      } finally {
+        _iterator2.f();
+      }
     }
-    return "";
-};
-BrowserParser.isMobileOnlyBrowser = (browserName) => {
-    return mobileOnlyBrowsers.includes(BrowserParser.getBrowserShortName(browserName));
+
+    result.engineVersion = version_1.formatVersion(version_1.parseBrowserEngineVersion(userAgent, result.engine), _this.options.versionTruncation);
+    return result;
+  };
+
+  this.options = Object.assign(Object.assign({}, this.options), options);
 };
 
+exports["default"] = BrowserParser;
+
+BrowserParser.getBrowserShortName = function (browserName) {
+  for (var _i2 = 0, _Object$entries = Object.entries(availableBrowsers); _i2 < _Object$entries.length; _i2++) {
+    var _Object$entries$_i = _slicedToArray(_Object$entries[_i2], 2),
+        shortName = _Object$entries$_i[0],
+        name = _Object$entries$_i[1];
+
+    if (name === browserName) {
+      return shortName;
+    }
+  }
+
+  return "";
+};
+
+BrowserParser.getBrowserFamily = function (browserName) {
+  var browserShortName = BrowserParser.getBrowserShortName(browserName);
+
+  for (var _i3 = 0, _Object$entries2 = Object.entries(browserFamilies); _i3 < _Object$entries2.length; _i3++) {
+    var _Object$entries2$_i = _slicedToArray(_Object$entries2[_i3], 2),
+        browserFamily = _Object$entries2$_i[0],
+        browserLabels = _Object$entries2$_i[1];
+
+    if (browserLabels.includes(browserShortName)) return browserFamily;
+  }
+
+  return "";
+};
+
+BrowserParser.isMobileOnlyBrowser = function (browserName) {
+  return mobileOnlyBrowsers.includes(BrowserParser.getBrowserShortName(browserName));
+};
+
+module.exports = exports.default;
 
 /***/ }),
 /* 4 */
@@ -286,15 +631,17 @@ BrowserParser.isMobileOnlyBrowser = (browserName) => {
 
 "use strict";
 
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.buildModel = (model) => {
-    model = model.replace(/_/g, " ");
-    model = model.replace(RegExp(" TD$", "i"), "");
-    if (model === "Build")
-        return "";
-    return model;
-};
 
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+exports.buildModel = function (model) {
+  model = model.replace(/_/g, " ");
+  model = model.replace(RegExp(" TD$", "i"), "");
+  if (model === "Build") return "";
+  return model;
+};
 
 /***/ }),
 /* 5 */
@@ -302,204 +649,261 @@ exports.buildModel = (model) => {
 
 "use strict";
 
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-const client_1 = __importDefault(__webpack_require__(7));
-const device_1 = __importDefault(__webpack_require__(22));
-const operating_system_1 = __importDefault(__webpack_require__(35));
-const vendor_fragment_1 = __importDefault(__webpack_require__(37));
-const browser_1 = __importDefault(__webpack_require__(3));
-const BotParser = __webpack_require__(39);
-const user_agent_1 = __webpack_require__(0);
-const version_compare_1 = __webpack_require__(41);
-class DeviceDetector {
-    constructor(options) {
-        // Default options
-        this.options = {
-            skipBotDetection: false,
-            versionTruncation: 1
-        };
-        this.parse = (userAgent) => {
-            var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o, _p;
-            const result = {
-                client: this.clientParser.parse(userAgent),
-                os: this.operatingSystemParser.parse(userAgent),
-                device: this.deviceParser.parse(userAgent),
-                bot: this.options.skipBotDetection ? null : this.botParser.parse(userAgent)
-            };
-            const osName = (_a = result.os) === null || _a === void 0 ? void 0 : _a.name;
-            const osVersion = (_b = result.os) === null || _b === void 0 ? void 0 : _b.version;
-            const osFamily = operating_system_1.default.getOsFamily(osName || "");
-            if (!((_c = result.device) === null || _c === void 0 ? void 0 : _c.brand)) {
-                const brand = this.vendorFragmentParser.parse(userAgent);
-                if (brand) {
-                    if (!result.device) {
-                        result.device = this.createDeviceObject();
-                    }
-                    result.device.brand = brand;
-                }
-            }
-            /**
-             * Assume all devices running iOS / Mac OS are from Apple
-             */
-            if (!((_d = result.device) === null || _d === void 0 ? void 0 : _d.brand) && ["Apple TV", "iOS", "Mac"].includes(osName || "")) {
-                if (!result.device) {
-                    result.device = this.createDeviceObject();
-                }
-                result.device.brand = "Apple";
-            }
-            /**
-             * Chrome on Android passes the device type based on the keyword 'Mobile'
-             * If it is present the device should be a smartphone, otherwise it's a tablet
-             * See https://developer.chrome.com/multidevice/user-agent#chrome_for_android_user_agent
-             */
-            if (!((_e = result.device) === null || _e === void 0 ? void 0 : _e.type) && osFamily === "Android" && browser_1.default.getBrowserFamily(((_f = result.client) === null || _f === void 0 ? void 0 : _f.name) || "") === "Chrome") {
-                if (user_agent_1.userAgentParser("Chrome/[.0-9]* Mobile", userAgent)) {
-                    if (!result.device) {
-                        result.device = this.createDeviceObject();
-                    }
-                    result.device.type = "smartphone";
-                }
-                else if (user_agent_1.userAgentParser("Chrome/[.0-9]* (?!Mobile)", userAgent)) {
-                    if (!result.device) {
-                        result.device = this.createDeviceObject();
-                    }
-                    result.device.type = "tablet";
-                }
-            }
-            /**
-             * Some user agents simply contain the fragment 'Android; Tablet;' or 'Opera Tablet', so we assume those devices are tablets
-             */
-            if (!((_g = result.device) === null || _g === void 0 ? void 0 : _g.type) && this.hasAndroidTabletFragment(userAgent) || user_agent_1.userAgentParser("Opera Tablet", userAgent)) {
-                if (!result.device) {
-                    result.device = this.createDeviceObject();
-                }
-                result.device.type = "tablet";
-            }
-            /**
-             * Some user agents simply contain the fragment 'Android; Mobile;', so we assume those devices are smartphones
-             */
-            if (!((_h = result.device) === null || _h === void 0 ? void 0 : _h.type) && this.hasAndroidMobileFragment(userAgent)) {
-                if (!result.device) {
-                    result.device = this.createDeviceObject();
-                }
-                result.device.type = "smartphone";
-            }
-            /**
-             * Android up to 3.0 was designed for smartphones only. But as 3.0, which was tablet only, was published
-             * too late, there were a bunch of tablets running with 2.x
-             * With 4.0 the two trees were merged and it is for smartphones and tablets
-             *
-             * So were are expecting that all devices running Android < 2 are smartphones
-             * Devices running Android 3.X are tablets. Device type of Android 2.X and 4.X+ are unknown
-             */
-            if (!((_j = result.device) === null || _j === void 0 ? void 0 : _j.type) && osName === "Android" && osVersion !== "") {
-                if (version_compare_1.versionCompare(osVersion, "2.0") === -1) {
-                    if (!result.device) {
-                        result.device = this.createDeviceObject();
-                    }
-                    result.device.type = "smartphone";
-                }
-                else if (version_compare_1.versionCompare(osVersion, "3.0") >= 0 && version_compare_1.versionCompare(osVersion, "4.0") === -1) {
-                    if (!result.device) {
-                        result.device = this.createDeviceObject();
-                    }
-                    result.device.type = "tablet";
-                }
-            }
-            /**
-             * All detected feature phones running android are more likely smartphones
-             */
-            if (result.device && ((_k = result.device) === null || _k === void 0 ? void 0 : _k.type) === "feature phone" && osFamily === "Android") {
-                result.device.type = "smartphone";
-            }
-            /**
-             * According to http://msdn.microsoft.com/en-us/library/ie/hh920767(v=vs.85).aspx
-             * Internet Explorer 10 introduces the "Touch" UA string token. If this token is present at the end of the
-             * UA string, the computer has touch capability, and is running Windows 8 (or later).
-             * This UA string will be transmitted on a touch-enabled system running Windows 8 (RT)
-             *
-             * As most touch enabled devices are tablets and only a smaller part are desktops/notebooks we assume that
-             * all Windows 8 touch devices are tablets.
-             */
-            if (!((_l = result.device) === null || _l === void 0 ? void 0 : _l.type)
-                && this.isToucheEnabled(userAgent)
-                && (osName === "Windows RT"
-                    || (osName === "Windows"
-                        && version_compare_1.versionCompare(osVersion, "8.0") >= 0))) {
-                if (!result.device) {
-                    result.device = this.createDeviceObject();
-                }
-                result.device.type = "tablet";
-            }
-            /**
-             * All devices running Opera TV Store are assumed to be televisions
-             */
-            if (user_agent_1.userAgentParser("Opera TV Store", userAgent)) {
-                if (!result.device) {
-                    result.device = this.createDeviceObject();
-                }
-                result.device.type = "television";
-            }
-            /**
-             * Devices running Kylo or Espital TV Browsers are assumed to be televisions
-             */
-            if (!((_m = result.device) === null || _m === void 0 ? void 0 : _m.type) && ["Kylo", "Espial TV Browser"].includes(((_o = result.client) === null || _o === void 0 ? void 0 : _o.name) || "")) {
-                if (!result.device) {
-                    result.device = this.createDeviceObject();
-                }
-                result.device.type = "television";
-            }
-            // set device type to desktop for all devices running a desktop os that were not detected as an other device type
-            if (!((_p = result.device) === null || _p === void 0 ? void 0 : _p.type) && this.isDesktop(result, osFamily)) {
-                if (!result.device) {
-                    result.device = this.createDeviceObject();
-                }
-                result.device.type = "desktop";
-            }
-            return result;
-        };
-        this.hasAndroidMobileFragment = (userAgent) => {
-            return user_agent_1.userAgentParser("Android( [\.0-9]+)?; Mobile;", userAgent);
-        };
-        this.hasAndroidTabletFragment = (userAgent) => {
-            return user_agent_1.userAgentParser("Android( [\.0-9]+)?; Tablet;", userAgent);
-        };
-        this.isDesktop = (result, osFamily) => {
-            if (!result.os) {
-                return false;
-            }
-            // Check for browsers available for mobile devices only
-            if (this.usesMobileBrowser(result.client)) {
-                return false;
-            }
-            return operating_system_1.default.getDesktopOsArray().includes(osFamily);
-        };
-        this.usesMobileBrowser = (client) => {
-            var _a, _b;
-            if (!client)
-                return false;
-            return ((_a = client) === null || _a === void 0 ? void 0 : _a.type) === "browser" && browser_1.default.isMobileOnlyBrowser((_b = client) === null || _b === void 0 ? void 0 : _b.name);
-        };
-        this.isToucheEnabled = (userAgent) => {
-            return user_agent_1.userAgentParser("Touch", userAgent);
-        };
-        this.createDeviceObject = () => ({
-            type: "",
-            brand: "",
-            model: ""
-        });
-        this.options = Object.assign(Object.assign({}, this.options), options);
-        this.clientParser = new client_1.default(this.options);
-        this.deviceParser = new device_1.default();
-        this.operatingSystemParser = new operating_system_1.default(this.options);
-        this.vendorFragmentParser = new vendor_fragment_1.default();
-        this.botParser = new BotParser();
-    }
-}
-module.exports = DeviceDetector;
 
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var __importDefault = this && this.__importDefault || function (mod) {
+  return mod && mod.__esModule ? mod : {
+    "default": mod
+  };
+};
+
+var client_1 = __importDefault(__webpack_require__(7));
+
+var device_1 = __importDefault(__webpack_require__(22));
+
+var operating_system_1 = __importDefault(__webpack_require__(35));
+
+var vendor_fragment_1 = __importDefault(__webpack_require__(37));
+
+var browser_1 = __importDefault(__webpack_require__(3));
+
+var BotParser = __webpack_require__(39);
+
+var user_agent_1 = __webpack_require__(0);
+
+var version_compare_1 = __webpack_require__(41);
+
+var DeviceDetector = function DeviceDetector(options) {
+  var _this = this;
+
+  _classCallCheck(this, DeviceDetector);
+
+  // Default options
+  this.options = {
+    skipBotDetection: false,
+    versionTruncation: 1
+  };
+
+  this.parse = function (userAgent) {
+    var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o, _p;
+
+    var result = {
+      client: _this.clientParser.parse(userAgent),
+      os: _this.operatingSystemParser.parse(userAgent),
+      device: _this.deviceParser.parse(userAgent),
+      bot: _this.options.skipBotDetection ? null : _this.botParser.parse(userAgent)
+    };
+    var osName = (_a = result.os) === null || _a === void 0 ? void 0 : _a.name;
+    var osVersion = (_b = result.os) === null || _b === void 0 ? void 0 : _b.version;
+    var osFamily = operating_system_1["default"].getOsFamily(osName || "");
+
+    if (!((_c = result.device) === null || _c === void 0 ? void 0 : _c.brand)) {
+      var brand = _this.vendorFragmentParser.parse(userAgent);
+
+      if (brand) {
+        if (!result.device) {
+          result.device = _this.createDeviceObject();
+        }
+
+        result.device.brand = brand;
+      }
+    }
+    /**
+     * Assume all devices running iOS / Mac OS are from Apple
+     */
+
+
+    if (!((_d = result.device) === null || _d === void 0 ? void 0 : _d.brand) && ["Apple TV", "iOS", "Mac"].includes(osName || "")) {
+      if (!result.device) {
+        result.device = _this.createDeviceObject();
+      }
+
+      result.device.brand = "Apple";
+    }
+    /**
+     * Chrome on Android passes the device type based on the keyword 'Mobile'
+     * If it is present the device should be a smartphone, otherwise it's a tablet
+     * See https://developer.chrome.com/multidevice/user-agent#chrome_for_android_user_agent
+     */
+
+
+    if (!((_e = result.device) === null || _e === void 0 ? void 0 : _e.type) && osFamily === "Android" && browser_1["default"].getBrowserFamily(((_f = result.client) === null || _f === void 0 ? void 0 : _f.name) || "") === "Chrome") {
+      if (user_agent_1.userAgentParser("Chrome/[.0-9]* Mobile", userAgent)) {
+        if (!result.device) {
+          result.device = _this.createDeviceObject();
+        }
+
+        result.device.type = "smartphone";
+      } else if (user_agent_1.userAgentParser("Chrome/[.0-9]* (?!Mobile)", userAgent)) {
+        if (!result.device) {
+          result.device = _this.createDeviceObject();
+        }
+
+        result.device.type = "tablet";
+      }
+    }
+    /**
+     * Some user agents simply contain the fragment 'Android; Tablet;' or 'Opera Tablet', so we assume those devices are tablets
+     */
+
+
+    if (!((_g = result.device) === null || _g === void 0 ? void 0 : _g.type) && _this.hasAndroidTabletFragment(userAgent) || user_agent_1.userAgentParser("Opera Tablet", userAgent)) {
+      if (!result.device) {
+        result.device = _this.createDeviceObject();
+      }
+
+      result.device.type = "tablet";
+    }
+    /**
+     * Some user agents simply contain the fragment 'Android; Mobile;', so we assume those devices are smartphones
+     */
+
+
+    if (!((_h = result.device) === null || _h === void 0 ? void 0 : _h.type) && _this.hasAndroidMobileFragment(userAgent)) {
+      if (!result.device) {
+        result.device = _this.createDeviceObject();
+      }
+
+      result.device.type = "smartphone";
+    }
+    /**
+     * Android up to 3.0 was designed for smartphones only. But as 3.0, which was tablet only, was published
+     * too late, there were a bunch of tablets running with 2.x
+     * With 4.0 the two trees were merged and it is for smartphones and tablets
+     *
+     * So were are expecting that all devices running Android < 2 are smartphones
+     * Devices running Android 3.X are tablets. Device type of Android 2.X and 4.X+ are unknown
+     */
+
+
+    if (!((_j = result.device) === null || _j === void 0 ? void 0 : _j.type) && osName === "Android" && osVersion !== "") {
+      if (version_compare_1.versionCompare(osVersion, "2.0") === -1) {
+        if (!result.device) {
+          result.device = _this.createDeviceObject();
+        }
+
+        result.device.type = "smartphone";
+      } else if (version_compare_1.versionCompare(osVersion, "3.0") >= 0 && version_compare_1.versionCompare(osVersion, "4.0") === -1) {
+        if (!result.device) {
+          result.device = _this.createDeviceObject();
+        }
+
+        result.device.type = "tablet";
+      }
+    }
+    /**
+     * All detected feature phones running android are more likely smartphones
+     */
+
+
+    if (result.device && ((_k = result.device) === null || _k === void 0 ? void 0 : _k.type) === "feature phone" && osFamily === "Android") {
+      result.device.type = "smartphone";
+    }
+    /**
+     * According to http://msdn.microsoft.com/en-us/library/ie/hh920767(v=vs.85).aspx
+     * Internet Explorer 10 introduces the "Touch" UA string token. If this token is present at the end of the
+     * UA string, the computer has touch capability, and is running Windows 8 (or later).
+     * This UA string will be transmitted on a touch-enabled system running Windows 8 (RT)
+     *
+     * As most touch enabled devices are tablets and only a smaller part are desktops/notebooks we assume that
+     * all Windows 8 touch devices are tablets.
+     */
+
+
+    if (!((_l = result.device) === null || _l === void 0 ? void 0 : _l.type) && _this.isToucheEnabled(userAgent) && (osName === "Windows RT" || osName === "Windows" && version_compare_1.versionCompare(osVersion, "8.0") >= 0)) {
+      if (!result.device) {
+        result.device = _this.createDeviceObject();
+      }
+
+      result.device.type = "tablet";
+    }
+    /**
+     * All devices running Opera TV Store are assumed to be televisions
+     */
+
+
+    if (user_agent_1.userAgentParser("Opera TV Store", userAgent)) {
+      if (!result.device) {
+        result.device = _this.createDeviceObject();
+      }
+
+      result.device.type = "television";
+    }
+    /**
+     * Devices running Kylo or Espital TV Browsers are assumed to be televisions
+     */
+
+
+    if (!((_m = result.device) === null || _m === void 0 ? void 0 : _m.type) && ["Kylo", "Espial TV Browser"].includes(((_o = result.client) === null || _o === void 0 ? void 0 : _o.name) || "")) {
+      if (!result.device) {
+        result.device = _this.createDeviceObject();
+      }
+
+      result.device.type = "television";
+    } // set device type to desktop for all devices running a desktop os that were not detected as an other device type
+
+
+    if (!((_p = result.device) === null || _p === void 0 ? void 0 : _p.type) && _this.isDesktop(result, osFamily)) {
+      if (!result.device) {
+        result.device = _this.createDeviceObject();
+      }
+
+      result.device.type = "desktop";
+    }
+
+    return result;
+  };
+
+  this.hasAndroidMobileFragment = function (userAgent) {
+    return user_agent_1.userAgentParser("Android( [\.0-9]+)?; Mobile;", userAgent);
+  };
+
+  this.hasAndroidTabletFragment = function (userAgent) {
+    return user_agent_1.userAgentParser("Android( [\.0-9]+)?; Tablet;", userAgent);
+  };
+
+  this.isDesktop = function (result, osFamily) {
+    if (!result.os) {
+      return false;
+    } // Check for browsers available for mobile devices only
+
+
+    if (_this.usesMobileBrowser(result.client)) {
+      return false;
+    }
+
+    return operating_system_1["default"].getDesktopOsArray().includes(osFamily);
+  };
+
+  this.usesMobileBrowser = function (client) {
+    var _a, _b;
+
+    if (!client) return false;
+    return ((_a = client) === null || _a === void 0 ? void 0 : _a.type) === "browser" && browser_1["default"].isMobileOnlyBrowser((_b = client) === null || _b === void 0 ? void 0 : _b.name);
+  };
+
+  this.isToucheEnabled = function (userAgent) {
+    return user_agent_1.userAgentParser("Touch", userAgent);
+  };
+
+  this.createDeviceObject = function () {
+    return {
+      type: "",
+      brand: "",
+      model: ""
+    };
+  };
+
+  this.options = Object.assign(Object.assign({}, this.options), options);
+  this.clientParser = new client_1["default"](this.options);
+  this.deviceParser = new device_1["default"]();
+  this.operatingSystemParser = new operating_system_1["default"](this.options);
+  this.vendorFragmentParser = new vendor_fragment_1["default"]();
+  this.botParser = new BotParser();
+};
+
+module.exports = DeviceDetector;
 
 /***/ }),
 /* 6 */
@@ -556,43 +960,73 @@ var Detect = /*#__PURE__*/function () {
 
 "use strict";
 
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-const browser_1 = __importDefault(__webpack_require__(3));
-const mobile_apps_1 = __importDefault(__webpack_require__(12));
-const feed_readers_1 = __importDefault(__webpack_require__(14));
-const libraries_1 = __importDefault(__webpack_require__(16));
-const media_players_1 = __importDefault(__webpack_require__(18));
-const personal_information_managers_1 = __importDefault(__webpack_require__(20));
-const clientParsers = [
-    feed_readers_1.default,
-    mobile_apps_1.default,
-    media_players_1.default,
-    personal_information_managers_1.default,
-    browser_1.default,
-    libraries_1.default
-];
-class ClientParser {
-    constructor(options) {
-        this.options = {
-            versionTruncation: 1
-        };
-        this.parse = (userAgent) => {
-            for (const Parser of clientParsers) {
-                const parser = new Parser(this.options);
-                const client = parser.parse(userAgent);
-                if (client.type !== "")
-                    return client;
-            }
-            return null;
-        };
-        this.options = Object.assign(Object.assign({}, this.options), options);
-    }
-}
-exports.default = ClientParser;
 
+function _createForOfIteratorHelper(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var __importDefault = this && this.__importDefault || function (mod) {
+  return mod && mod.__esModule ? mod : {
+    "default": mod
+  };
+};
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var browser_1 = __importDefault(__webpack_require__(3));
+
+var mobile_apps_1 = __importDefault(__webpack_require__(12));
+
+var feed_readers_1 = __importDefault(__webpack_require__(14));
+
+var libraries_1 = __importDefault(__webpack_require__(16));
+
+var media_players_1 = __importDefault(__webpack_require__(18));
+
+var personal_information_managers_1 = __importDefault(__webpack_require__(20));
+
+var clientParsers = [feed_readers_1["default"], mobile_apps_1["default"], media_players_1["default"], personal_information_managers_1["default"], browser_1["default"], libraries_1["default"]];
+
+var ClientParser = function ClientParser(options) {
+  var _this = this;
+
+  _classCallCheck(this, ClientParser);
+
+  this.options = {
+    versionTruncation: 1
+  };
+
+  this.parse = function (userAgent) {
+    var _iterator = _createForOfIteratorHelper(clientParsers),
+        _step;
+
+    try {
+      for (_iterator.s(); !(_step = _iterator.n()).done;) {
+        var Parser = _step.value;
+        var parser = new Parser(_this.options);
+        var client = parser.parse(userAgent);
+        if (client.type !== "") return client;
+      }
+    } catch (err) {
+      _iterator.e(err);
+    } finally {
+      _iterator.f();
+    }
+
+    return null;
+  };
+
+  this.options = Object.assign(Object.assign({}, this.options), options);
+};
+
+exports["default"] = ClientParser;
+module.exports = exports.default;
 
 /***/ }),
 /* 8 */
@@ -600,11 +1034,14 @@ exports.default = ClientParser;
 
 "use strict";
 
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.trim = (str, char) => {
-    return str.replace(new RegExp("^[" + char + "]+|[" + char + "]+$", "g"), "");
-};
 
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+exports.trim = function (str, _char) {
+  return str.replace(new RegExp("^[" + _char + "]+|[" + _char + "]+$", "g"), "");
+};
 
 /***/ }),
 /* 9 */
@@ -612,23 +1049,29 @@ exports.trim = (str, char) => {
 
 "use strict";
 
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.memoryCache = () => {
-    const memoryCacheBucket = {};
-    const set = (key, value) => {
-        memoryCacheBucket[key] = value;
-    };
-    const get = (key) => {
-        if (memoryCacheBucket.hasOwnProperty(key)) {
-            return memoryCacheBucket[key];
-        }
-    };
-    return {
-        set,
-        get
-    };
-};
 
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+exports.memoryCache = function () {
+  var memoryCacheBucket = {};
+
+  var set = function set(key, value) {
+    memoryCacheBucket[key] = value;
+  };
+
+  var get = function get(key) {
+    if (memoryCacheBucket.hasOwnProperty(key)) {
+      return memoryCacheBucket[key];
+    }
+  };
+
+  return {
+    set: set,
+    get: get
+  };
+};
 
 /***/ }),
 /* 10 */
@@ -648,38 +1091,70 @@ module.exports = JSON.parse("[{\"regex\":\"NetFront\",\"name\":\"NetFront\"},{\"
 
 "use strict";
 
-Object.defineProperty(exports, "__esModule", { value: true });
-const version_1 = __webpack_require__(2);
-const variable_replacement_1 = __webpack_require__(1);
-const user_agent_1 = __webpack_require__(0);
-const mobileApps = __webpack_require__(13);
-class MobileAppParser {
-    constructor(options) {
-        this.options = {
-            versionTruncation: 1
-        };
-        this.parse = (userAgent) => {
-            const result = {
-                type: "",
-                name: "",
-                version: ""
-            };
-            for (const mobileApp of mobileApps) {
-                const match = user_agent_1.userAgentParser(mobileApp.regex, userAgent);
-                if (!match)
-                    continue;
-                result.type = "mobile app";
-                result.name = variable_replacement_1.variableReplacement(mobileApp.name, match);
-                result.version = version_1.formatVersion(variable_replacement_1.variableReplacement(mobileApp.version, match), this.options.versionTruncation);
-                break;
-            }
-            return result;
-        };
-        this.options = Object.assign(Object.assign({}, this.options), options);
-    }
-}
-exports.default = MobileAppParser;
 
+function _createForOfIteratorHelper(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var version_1 = __webpack_require__(2);
+
+var variable_replacement_1 = __webpack_require__(1);
+
+var user_agent_1 = __webpack_require__(0);
+
+var mobileApps = __webpack_require__(13);
+
+var MobileAppParser = function MobileAppParser(options) {
+  var _this = this;
+
+  _classCallCheck(this, MobileAppParser);
+
+  this.options = {
+    versionTruncation: 1
+  };
+
+  this.parse = function (userAgent) {
+    var result = {
+      type: "",
+      name: "",
+      version: ""
+    };
+
+    var _iterator = _createForOfIteratorHelper(mobileApps),
+        _step;
+
+    try {
+      for (_iterator.s(); !(_step = _iterator.n()).done;) {
+        var mobileApp = _step.value;
+        var match = user_agent_1.userAgentParser(mobileApp.regex, userAgent);
+        if (!match) continue;
+        result.type = "mobile app";
+        result.name = variable_replacement_1.variableReplacement(mobileApp.name, match);
+        result.version = version_1.formatVersion(variable_replacement_1.variableReplacement(mobileApp.version, match), _this.options.versionTruncation);
+        break;
+      }
+    } catch (err) {
+      _iterator.e(err);
+    } finally {
+      _iterator.f();
+    }
+
+    return result;
+  };
+
+  this.options = Object.assign(Object.assign({}, this.options), options);
+};
+
+exports["default"] = MobileAppParser;
+module.exports = exports.default;
 
 /***/ }),
 /* 13 */
@@ -693,40 +1168,72 @@ module.exports = JSON.parse("[{\"regex\":\"AndroidDownloadManager(?:[ /]([\\\\d\
 
 "use strict";
 
-Object.defineProperty(exports, "__esModule", { value: true });
-const version_1 = __webpack_require__(2);
-const variable_replacement_1 = __webpack_require__(1);
-const user_agent_1 = __webpack_require__(0);
-const feedReaders = __webpack_require__(15);
-class FeedReaderParser {
-    constructor(options) {
-        this.options = {
-            versionTruncation: 1
-        };
-        this.parse = (userAgent) => {
-            const result = {
-                type: "",
-                name: "",
-                version: "",
-                url: ""
-            };
-            for (const feedReader of feedReaders) {
-                const match = user_agent_1.userAgentParser(feedReader.regex, userAgent);
-                if (!match)
-                    continue;
-                result.type = "feed reader";
-                result.name = variable_replacement_1.variableReplacement(feedReader.name, match);
-                result.version = version_1.formatVersion(variable_replacement_1.variableReplacement(feedReader.version, match), this.options.versionTruncation);
-                result.url = feedReader.url;
-                break;
-            }
-            return result;
-        };
-        this.options = Object.assign(Object.assign({}, this.options), options);
-    }
-}
-exports.default = FeedReaderParser;
 
+function _createForOfIteratorHelper(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var version_1 = __webpack_require__(2);
+
+var variable_replacement_1 = __webpack_require__(1);
+
+var user_agent_1 = __webpack_require__(0);
+
+var feedReaders = __webpack_require__(15);
+
+var FeedReaderParser = function FeedReaderParser(options) {
+  var _this = this;
+
+  _classCallCheck(this, FeedReaderParser);
+
+  this.options = {
+    versionTruncation: 1
+  };
+
+  this.parse = function (userAgent) {
+    var result = {
+      type: "",
+      name: "",
+      version: "",
+      url: ""
+    };
+
+    var _iterator = _createForOfIteratorHelper(feedReaders),
+        _step;
+
+    try {
+      for (_iterator.s(); !(_step = _iterator.n()).done;) {
+        var feedReader = _step.value;
+        var match = user_agent_1.userAgentParser(feedReader.regex, userAgent);
+        if (!match) continue;
+        result.type = "feed reader";
+        result.name = variable_replacement_1.variableReplacement(feedReader.name, match);
+        result.version = version_1.formatVersion(variable_replacement_1.variableReplacement(feedReader.version, match), _this.options.versionTruncation);
+        result.url = feedReader.url;
+        break;
+      }
+    } catch (err) {
+      _iterator.e(err);
+    } finally {
+      _iterator.f();
+    }
+
+    return result;
+  };
+
+  this.options = Object.assign(Object.assign({}, this.options), options);
+};
+
+exports["default"] = FeedReaderParser;
+module.exports = exports.default;
 
 /***/ }),
 /* 15 */
@@ -740,40 +1247,72 @@ module.exports = JSON.parse("[{\"regex\":\"Akregator(?:/(\\\\d+[\\\\.\\\\d]+))?\
 
 "use strict";
 
-Object.defineProperty(exports, "__esModule", { value: true });
-const version_1 = __webpack_require__(2);
-const variable_replacement_1 = __webpack_require__(1);
-const user_agent_1 = __webpack_require__(0);
-const libraries = __webpack_require__(17);
-class LibraryParser {
-    constructor(options) {
-        this.options = {
-            versionTruncation: 1
-        };
-        this.parse = (userAgent) => {
-            const result = {
-                type: "",
-                name: "",
-                version: "",
-                url: ""
-            };
-            for (const library of libraries) {
-                const match = user_agent_1.userAgentParser(library.regex, userAgent);
-                if (!match)
-                    continue;
-                result.type = "library";
-                result.name = variable_replacement_1.variableReplacement(library.name, match);
-                result.version = version_1.formatVersion(variable_replacement_1.variableReplacement(library.version, match), this.options.versionTruncation);
-                result.url = library.url || "";
-                break;
-            }
-            return result;
-        };
-        this.options = Object.assign(Object.assign({}, this.options), options);
-    }
-}
-exports.default = LibraryParser;
 
+function _createForOfIteratorHelper(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var version_1 = __webpack_require__(2);
+
+var variable_replacement_1 = __webpack_require__(1);
+
+var user_agent_1 = __webpack_require__(0);
+
+var libraries = __webpack_require__(17);
+
+var LibraryParser = function LibraryParser(options) {
+  var _this = this;
+
+  _classCallCheck(this, LibraryParser);
+
+  this.options = {
+    versionTruncation: 1
+  };
+
+  this.parse = function (userAgent) {
+    var result = {
+      type: "",
+      name: "",
+      version: "",
+      url: ""
+    };
+
+    var _iterator = _createForOfIteratorHelper(libraries),
+        _step;
+
+    try {
+      for (_iterator.s(); !(_step = _iterator.n()).done;) {
+        var library = _step.value;
+        var match = user_agent_1.userAgentParser(library.regex, userAgent);
+        if (!match) continue;
+        result.type = "library";
+        result.name = variable_replacement_1.variableReplacement(library.name, match);
+        result.version = version_1.formatVersion(variable_replacement_1.variableReplacement(library.version, match), _this.options.versionTruncation);
+        result.url = library.url || "";
+        break;
+      }
+    } catch (err) {
+      _iterator.e(err);
+    } finally {
+      _iterator.f();
+    }
+
+    return result;
+  };
+
+  this.options = Object.assign(Object.assign({}, this.options), options);
+};
+
+exports["default"] = LibraryParser;
+module.exports = exports.default;
 
 /***/ }),
 /* 17 */
@@ -787,38 +1326,70 @@ module.exports = JSON.parse("[{\"regex\":\"Wget(?:/(\\\\d+[\\\\.\\\\d]+))?\",\"n
 
 "use strict";
 
-Object.defineProperty(exports, "__esModule", { value: true });
-const version_1 = __webpack_require__(2);
-const variable_replacement_1 = __webpack_require__(1);
-const user_agent_1 = __webpack_require__(0);
-const mediaPlayers = __webpack_require__(19);
-class MediaPlayerParser {
-    constructor(options) {
-        this.options = {
-            versionTruncation: 1
-        };
-        this.parse = (userAgent) => {
-            const result = {
-                type: "",
-                name: "",
-                version: ""
-            };
-            for (const mediaPlayer of mediaPlayers) {
-                const match = user_agent_1.userAgentParser(mediaPlayer.regex, userAgent);
-                if (!match)
-                    continue;
-                result.type = "media player";
-                result.name = variable_replacement_1.variableReplacement(mediaPlayer.name, match);
-                result.version = version_1.formatVersion(variable_replacement_1.variableReplacement(mediaPlayer.version, match), this.options.versionTruncation);
-                break;
-            }
-            return result;
-        };
-        this.options = Object.assign(Object.assign({}, this.options), options);
-    }
-}
-exports.default = MediaPlayerParser;
 
+function _createForOfIteratorHelper(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var version_1 = __webpack_require__(2);
+
+var variable_replacement_1 = __webpack_require__(1);
+
+var user_agent_1 = __webpack_require__(0);
+
+var mediaPlayers = __webpack_require__(19);
+
+var MediaPlayerParser = function MediaPlayerParser(options) {
+  var _this = this;
+
+  _classCallCheck(this, MediaPlayerParser);
+
+  this.options = {
+    versionTruncation: 1
+  };
+
+  this.parse = function (userAgent) {
+    var result = {
+      type: "",
+      name: "",
+      version: ""
+    };
+
+    var _iterator = _createForOfIteratorHelper(mediaPlayers),
+        _step;
+
+    try {
+      for (_iterator.s(); !(_step = _iterator.n()).done;) {
+        var mediaPlayer = _step.value;
+        var match = user_agent_1.userAgentParser(mediaPlayer.regex, userAgent);
+        if (!match) continue;
+        result.type = "media player";
+        result.name = variable_replacement_1.variableReplacement(mediaPlayer.name, match);
+        result.version = version_1.formatVersion(variable_replacement_1.variableReplacement(mediaPlayer.version, match), _this.options.versionTruncation);
+        break;
+      }
+    } catch (err) {
+      _iterator.e(err);
+    } finally {
+      _iterator.f();
+    }
+
+    return result;
+  };
+
+  this.options = Object.assign(Object.assign({}, this.options), options);
+};
+
+exports["default"] = MediaPlayerParser;
+module.exports = exports.default;
 
 /***/ }),
 /* 19 */
@@ -832,38 +1403,70 @@ module.exports = JSON.parse("[{\"regex\":\"Audacious(?:[ /]([\\\\d\\\\.]+))?\",\
 
 "use strict";
 
-Object.defineProperty(exports, "__esModule", { value: true });
-const version_1 = __webpack_require__(2);
-const variable_replacement_1 = __webpack_require__(1);
-const user_agent_1 = __webpack_require__(0);
-const personalInformationManagers = __webpack_require__(21);
-class PersonalInformationManagerParser {
-    constructor(options) {
-        this.options = {
-            versionTruncation: 1
-        };
-        this.parse = (userAgent) => {
-            const result = {
-                type: "",
-                name: "",
-                version: ""
-            };
-            for (const personalInformationManager of personalInformationManagers) {
-                const match = user_agent_1.userAgentParser(personalInformationManager.regex, userAgent);
-                if (!match)
-                    continue;
-                result.type = "personal information manager";
-                result.name = variable_replacement_1.variableReplacement(personalInformationManager.name, match);
-                result.version = version_1.formatVersion(variable_replacement_1.variableReplacement(personalInformationManager.version, match), this.options.versionTruncation);
-                break;
-            }
-            return result;
-        };
-        this.options = Object.assign(Object.assign({}, this.options), options);
-    }
-}
-exports.default = PersonalInformationManagerParser;
 
+function _createForOfIteratorHelper(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var version_1 = __webpack_require__(2);
+
+var variable_replacement_1 = __webpack_require__(1);
+
+var user_agent_1 = __webpack_require__(0);
+
+var personalInformationManagers = __webpack_require__(21);
+
+var PersonalInformationManagerParser = function PersonalInformationManagerParser(options) {
+  var _this = this;
+
+  _classCallCheck(this, PersonalInformationManagerParser);
+
+  this.options = {
+    versionTruncation: 1
+  };
+
+  this.parse = function (userAgent) {
+    var result = {
+      type: "",
+      name: "",
+      version: ""
+    };
+
+    var _iterator = _createForOfIteratorHelper(personalInformationManagers),
+        _step;
+
+    try {
+      for (_iterator.s(); !(_step = _iterator.n()).done;) {
+        var personalInformationManager = _step.value;
+        var match = user_agent_1.userAgentParser(personalInformationManager.regex, userAgent);
+        if (!match) continue;
+        result.type = "personal information manager";
+        result.name = variable_replacement_1.variableReplacement(personalInformationManager.name, match);
+        result.version = version_1.formatVersion(variable_replacement_1.variableReplacement(personalInformationManager.version, match), _this.options.versionTruncation);
+        break;
+      }
+    } catch (err) {
+      _iterator.e(err);
+    } finally {
+      _iterator.f();
+    }
+
+    return result;
+  };
+
+  this.options = Object.assign(Object.assign({}, this.options), options);
+};
+
+exports["default"] = PersonalInformationManagerParser;
+module.exports = exports.default;
 
 /***/ }),
 /* 21 */
@@ -877,40 +1480,68 @@ module.exports = JSON.parse("[{\"regex\":\"Outlook-Express(?:/(\\\\d+[\\\\.\\\\d
 
 "use strict";
 
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-const cameras_1 = __importDefault(__webpack_require__(23));
-const mobiles_1 = __importDefault(__webpack_require__(25));
-const televisions_1 = __importDefault(__webpack_require__(27));
-const cars_1 = __importDefault(__webpack_require__(29));
-const consoles_1 = __importDefault(__webpack_require__(31));
-const portable_media_players_1 = __importDefault(__webpack_require__(33));
-const deviceParsers = [
-    consoles_1.default,
-    cars_1.default,
-    cameras_1.default,
-    televisions_1.default,
-    portable_media_players_1.default,
-    mobiles_1.default
-];
-class ClientParser {
-    constructor() {
-        this.parse = (userAgent) => {
-            for (const Parser of deviceParsers) {
-                const parser = new Parser();
-                const device = parser.parse(userAgent);
-                if (device.type !== "") {
-                    return device;
-                }
-            }
-            return null;
-        };
-    }
-}
-exports.default = ClientParser;
 
+function _createForOfIteratorHelper(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var __importDefault = this && this.__importDefault || function (mod) {
+  return mod && mod.__esModule ? mod : {
+    "default": mod
+  };
+};
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var cameras_1 = __importDefault(__webpack_require__(23));
+
+var mobiles_1 = __importDefault(__webpack_require__(25));
+
+var televisions_1 = __importDefault(__webpack_require__(27));
+
+var cars_1 = __importDefault(__webpack_require__(29));
+
+var consoles_1 = __importDefault(__webpack_require__(31));
+
+var portable_media_players_1 = __importDefault(__webpack_require__(33));
+
+var deviceParsers = [consoles_1["default"], cars_1["default"], cameras_1["default"], televisions_1["default"], portable_media_players_1["default"], mobiles_1["default"]];
+
+var ClientParser = function ClientParser() {
+  _classCallCheck(this, ClientParser);
+
+  this.parse = function (userAgent) {
+    var _iterator = _createForOfIteratorHelper(deviceParsers),
+        _step;
+
+    try {
+      for (_iterator.s(); !(_step = _iterator.n()).done;) {
+        var Parser = _step.value;
+        var parser = new Parser();
+        var device = parser.parse(userAgent);
+
+        if (device.type !== "") {
+          return device;
+        }
+      }
+    } catch (err) {
+      _iterator.e(err);
+    } finally {
+      _iterator.f();
+    }
+
+    return null;
+  };
+};
+
+exports["default"] = ClientParser;
+module.exports = exports.default;
 
 /***/ }),
 /* 23 */
@@ -918,44 +1549,83 @@ exports.default = ClientParser;
 
 "use strict";
 
-Object.defineProperty(exports, "__esModule", { value: true });
-const variable_replacement_1 = __webpack_require__(1);
-const user_agent_1 = __webpack_require__(0);
-const cameras = __webpack_require__(24);
-class CameraParser {
-    constructor() {
-        this.parse = (userAgent) => {
-            const result = {
-                type: "",
-                brand: "",
-                model: ""
-            };
-            for (const [brand, camera] of Object.entries(cameras)) {
-                const match = user_agent_1.userAgentParser(camera.regex, userAgent);
-                if (!match)
-                    continue;
-                result.type = "camera";
-                result.brand = brand;
-                if (camera.model) {
-                    result.model = variable_replacement_1.variableReplacement(camera.model, match).trim();
-                }
-                else if (camera.models) {
-                    for (const model of camera.models) {
-                        const modelMatch = user_agent_1.userAgentParser(model.regex, userAgent);
-                        if (!modelMatch)
-                            continue;
-                        result.model = variable_replacement_1.variableReplacement(model.model, modelMatch).trim();
-                        break;
-                    }
-                }
-                break;
-            }
-            return result;
-        };
-    }
-}
-exports.default = CameraParser;
 
+function _createForOfIteratorHelper(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e2) { throw _e2; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e3) { didErr = true; err = _e3; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
+
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var variable_replacement_1 = __webpack_require__(1);
+
+var user_agent_1 = __webpack_require__(0);
+
+var cameras = __webpack_require__(24);
+
+var CameraParser = function CameraParser() {
+  _classCallCheck(this, CameraParser);
+
+  this.parse = function (userAgent) {
+    var result = {
+      type: "",
+      brand: "",
+      model: ""
+    };
+
+    for (var _i = 0, _Object$entries = Object.entries(cameras); _i < _Object$entries.length; _i++) {
+      var _Object$entries$_i = _slicedToArray(_Object$entries[_i], 2),
+          brand = _Object$entries$_i[0],
+          camera = _Object$entries$_i[1];
+
+      var match = user_agent_1.userAgentParser(camera.regex, userAgent);
+      if (!match) continue;
+      result.type = "camera";
+      result.brand = brand;
+
+      if (camera.model) {
+        result.model = variable_replacement_1.variableReplacement(camera.model, match).trim();
+      } else if (camera.models) {
+        var _iterator = _createForOfIteratorHelper(camera.models),
+            _step;
+
+        try {
+          for (_iterator.s(); !(_step = _iterator.n()).done;) {
+            var model = _step.value;
+            var modelMatch = user_agent_1.userAgentParser(model.regex, userAgent);
+            if (!modelMatch) continue;
+            result.model = variable_replacement_1.variableReplacement(model.model, modelMatch).trim();
+            break;
+          }
+        } catch (err) {
+          _iterator.e(err);
+        } finally {
+          _iterator.f();
+        }
+      }
+
+      break;
+    }
+
+    return result;
+  };
+};
+
+exports["default"] = CameraParser;
+module.exports = exports.default;
 
 /***/ }),
 /* 24 */
@@ -969,59 +1639,104 @@ module.exports = JSON.parse("{\"Nikon\":{\"regex\":\"Coolpix S800c\",\"device\":
 
 "use strict";
 
-Object.defineProperty(exports, "__esModule", { value: true });
-const variable_replacement_1 = __webpack_require__(1);
-const user_agent_1 = __webpack_require__(0);
-const model_1 = __webpack_require__(4);
-const mobiles = __webpack_require__(26);
-class MobileParser {
-    constructor() {
-        this.parse = (userAgent) => {
-            const result = {
-                type: "",
-                brand: "",
-                model: ""
-            };
-            for (const [brand, mobile] of Object.entries(mobiles)) {
-                const match = user_agent_1.userAgentParser(mobile.regex, userAgent);
-                if (!match)
-                    continue;
-                result.type = mobile.device;
-                result.brand = brand;
-                if (mobile.model) {
-                    result.model = model_1.buildModel(variable_replacement_1.variableReplacement(mobile.model, match)).trim();
-                }
-                else if (mobile.models) {
-                    for (const model of mobile.models) {
-                        const modelMatch = user_agent_1.userAgentParser(model.regex, userAgent);
-                        if (!modelMatch)
-                            continue;
-                        result.model = model_1.buildModel(variable_replacement_1.variableReplacement(model.model, modelMatch)).trim();
-                        if (model.device) {
-                            result.type = model.device;
-                        }
-                        if (model.brand) {
-                            result.brand = model.brand;
-                        }
-                        break;
-                    }
-                }
-                break;
-            }
-            // Sanitize device type
-            if (result.type === "tv") {
-                result.type = result.type.replace("tv", "television");
-            }
-            // Sanitize device brand
-            if (result.brand === "Unknown") {
-                result.brand = "";
-            }
-            return result;
-        };
-    }
-}
-exports.default = MobileParser;
 
+function _createForOfIteratorHelper(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e2) { throw _e2; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e3) { didErr = true; err = _e3; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
+
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var variable_replacement_1 = __webpack_require__(1);
+
+var user_agent_1 = __webpack_require__(0);
+
+var model_1 = __webpack_require__(4);
+
+var mobiles = __webpack_require__(26);
+
+var MobileParser = function MobileParser() {
+  _classCallCheck(this, MobileParser);
+
+  this.parse = function (userAgent) {
+    var result = {
+      type: "",
+      brand: "",
+      model: ""
+    };
+
+    for (var _i = 0, _Object$entries = Object.entries(mobiles); _i < _Object$entries.length; _i++) {
+      var _Object$entries$_i = _slicedToArray(_Object$entries[_i], 2),
+          brand = _Object$entries$_i[0],
+          mobile = _Object$entries$_i[1];
+
+      var match = user_agent_1.userAgentParser(mobile.regex, userAgent);
+      if (!match) continue;
+      result.type = mobile.device;
+      result.brand = brand;
+
+      if (mobile.model) {
+        result.model = model_1.buildModel(variable_replacement_1.variableReplacement(mobile.model, match)).trim();
+      } else if (mobile.models) {
+        var _iterator = _createForOfIteratorHelper(mobile.models),
+            _step;
+
+        try {
+          for (_iterator.s(); !(_step = _iterator.n()).done;) {
+            var model = _step.value;
+            var modelMatch = user_agent_1.userAgentParser(model.regex, userAgent);
+            if (!modelMatch) continue;
+            result.model = model_1.buildModel(variable_replacement_1.variableReplacement(model.model, modelMatch)).trim();
+
+            if (model.device) {
+              result.type = model.device;
+            }
+
+            if (model.brand) {
+              result.brand = model.brand;
+            }
+
+            break;
+          }
+        } catch (err) {
+          _iterator.e(err);
+        } finally {
+          _iterator.f();
+        }
+      }
+
+      break;
+    } // Sanitize device type
+
+
+    if (result.type === "tv") {
+      result.type = result.type.replace("tv", "television");
+    } // Sanitize device brand
+
+
+    if (result.brand === "Unknown") {
+      result.brand = "";
+    }
+
+    return result;
+  };
+};
+
+exports["default"] = MobileParser;
+module.exports = exports.default;
 
 /***/ }),
 /* 26 */
@@ -1035,50 +1750,92 @@ module.exports = JSON.parse("{\"Tunisie Telecom\":{\"regex\":\"StarTrail TT[);/ 
 
 "use strict";
 
-Object.defineProperty(exports, "__esModule", { value: true });
-const variable_replacement_1 = __webpack_require__(1);
-const user_agent_1 = __webpack_require__(0);
-const model_1 = __webpack_require__(4);
-const televisions = __webpack_require__(28);
-class TelevisionParser {
-    constructor() {
-        this.parse = (userAgent) => {
-            const result = {
-                type: "",
-                brand: "",
-                model: ""
-            };
-            if (!this.isHbbTv(userAgent))
-                return result;
-            result.type = "television";
-            for (const [brand, television] of Object.entries(televisions)) {
-                const match = user_agent_1.userAgentParser(television.regex, userAgent);
-                if (!match)
-                    continue;
-                result.brand = brand;
-                if (television.model) {
-                    result.model = model_1.buildModel(variable_replacement_1.variableReplacement(television.model, match)).trim();
-                }
-                else if (television.models) {
-                    for (const model of television.models) {
-                        const modelMatch = user_agent_1.userAgentParser(model.regex, userAgent);
-                        if (!modelMatch)
-                            continue;
-                        result.model = model_1.buildModel(variable_replacement_1.variableReplacement(model.model, modelMatch)).trim();
-                        break;
-                    }
-                }
-                break;
-            }
-            return result;
-        };
-        this.isHbbTv = (userAgent) => {
-            return user_agent_1.userAgentParser("HbbTV\/([1-9]{1}(?:\.[0-9]{1}){1,2})", userAgent);
-        };
-    }
-}
-exports.default = TelevisionParser;
 
+function _createForOfIteratorHelper(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e2) { throw _e2; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e3) { didErr = true; err = _e3; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
+
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var variable_replacement_1 = __webpack_require__(1);
+
+var user_agent_1 = __webpack_require__(0);
+
+var model_1 = __webpack_require__(4);
+
+var televisions = __webpack_require__(28);
+
+var TelevisionParser = function TelevisionParser() {
+  var _this = this;
+
+  _classCallCheck(this, TelevisionParser);
+
+  this.parse = function (userAgent) {
+    var result = {
+      type: "",
+      brand: "",
+      model: ""
+    };
+    if (!_this.isHbbTv(userAgent)) return result;
+    result.type = "television";
+
+    for (var _i = 0, _Object$entries = Object.entries(televisions); _i < _Object$entries.length; _i++) {
+      var _Object$entries$_i = _slicedToArray(_Object$entries[_i], 2),
+          brand = _Object$entries$_i[0],
+          television = _Object$entries$_i[1];
+
+      var match = user_agent_1.userAgentParser(television.regex, userAgent);
+      if (!match) continue;
+      result.brand = brand;
+
+      if (television.model) {
+        result.model = model_1.buildModel(variable_replacement_1.variableReplacement(television.model, match)).trim();
+      } else if (television.models) {
+        var _iterator = _createForOfIteratorHelper(television.models),
+            _step;
+
+        try {
+          for (_iterator.s(); !(_step = _iterator.n()).done;) {
+            var model = _step.value;
+            var modelMatch = user_agent_1.userAgentParser(model.regex, userAgent);
+            if (!modelMatch) continue;
+            result.model = model_1.buildModel(variable_replacement_1.variableReplacement(model.model, modelMatch)).trim();
+            break;
+          }
+        } catch (err) {
+          _iterator.e(err);
+        } finally {
+          _iterator.f();
+        }
+      }
+
+      break;
+    }
+
+    return result;
+  };
+
+  this.isHbbTv = function (userAgent) {
+    return user_agent_1.userAgentParser("HbbTV\/([1-9]{1}(?:\.[0-9]{1}){1,2})", userAgent);
+  };
+};
+
+exports["default"] = TelevisionParser;
+module.exports = exports.default;
 
 /***/ }),
 /* 28 */
@@ -1092,35 +1849,64 @@ module.exports = JSON.parse("{\"Airties\":{\"regex\":\"Airties\",\"device\":\"tv
 
 "use strict";
 
-Object.defineProperty(exports, "__esModule", { value: true });
-const variable_replacement_1 = __webpack_require__(1);
-const user_agent_1 = __webpack_require__(0);
-const cars = __webpack_require__(30);
-class CarParser {
-    constructor() {
-        this.parse = (userAgent) => {
-            const result = {
-                type: "",
-                brand: "",
-                model: ""
-            };
-            for (const [brand, car] of Object.entries(cars)) {
-                const match = user_agent_1.userAgentParser(car.regex, userAgent);
-                if (!match)
-                    continue;
-                result.type = "car";
-                result.brand = brand;
-                if (car.model) {
-                    result.model = variable_replacement_1.variableReplacement(car.model, match).trim();
-                }
-                break;
-            }
-            return result;
-        };
-    }
-}
-exports.default = CarParser;
 
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var variable_replacement_1 = __webpack_require__(1);
+
+var user_agent_1 = __webpack_require__(0);
+
+var cars = __webpack_require__(30);
+
+var CarParser = function CarParser() {
+  _classCallCheck(this, CarParser);
+
+  this.parse = function (userAgent) {
+    var result = {
+      type: "",
+      brand: "",
+      model: ""
+    };
+
+    for (var _i = 0, _Object$entries = Object.entries(cars); _i < _Object$entries.length; _i++) {
+      var _Object$entries$_i = _slicedToArray(_Object$entries[_i], 2),
+          brand = _Object$entries$_i[0],
+          car = _Object$entries$_i[1];
+
+      var match = user_agent_1.userAgentParser(car.regex, userAgent);
+      if (!match) continue;
+      result.type = "car";
+      result.brand = brand;
+
+      if (car.model) {
+        result.model = variable_replacement_1.variableReplacement(car.model, match).trim();
+      }
+
+      break;
+    }
+
+    return result;
+  };
+};
+
+exports["default"] = CarParser;
+module.exports = exports.default;
 
 /***/ }),
 /* 30 */
@@ -1134,44 +1920,83 @@ module.exports = JSON.parse("{\"Tesla\":{\"regex\":\"QtCarBrowser\",\"device\":\
 
 "use strict";
 
-Object.defineProperty(exports, "__esModule", { value: true });
-const variable_replacement_1 = __webpack_require__(1);
-const user_agent_1 = __webpack_require__(0);
-const consoles = __webpack_require__(32);
-class ConsoleParser {
-    constructor() {
-        this.parse = (userAgent) => {
-            const result = {
-                type: "",
-                brand: "",
-                model: ""
-            };
-            for (const [brand, gameConsole] of Object.entries(consoles)) {
-                const match = user_agent_1.userAgentParser(gameConsole.regex, userAgent);
-                if (!match)
-                    continue;
-                result.type = gameConsole.device;
-                result.brand = brand;
-                if (gameConsole.model) {
-                    result.model = variable_replacement_1.variableReplacement(gameConsole.model, match).trim();
-                }
-                else if (gameConsole.models) {
-                    for (const model of gameConsole.models) {
-                        const modelMatch = user_agent_1.userAgentParser(model.regex, userAgent);
-                        if (!modelMatch)
-                            continue;
-                        result.model = variable_replacement_1.variableReplacement(model.model, modelMatch).trim();
-                        break;
-                    }
-                }
-                break;
-            }
-            return result;
-        };
-    }
-}
-exports.default = ConsoleParser;
 
+function _createForOfIteratorHelper(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e2) { throw _e2; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e3) { didErr = true; err = _e3; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
+
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var variable_replacement_1 = __webpack_require__(1);
+
+var user_agent_1 = __webpack_require__(0);
+
+var consoles = __webpack_require__(32);
+
+var ConsoleParser = function ConsoleParser() {
+  _classCallCheck(this, ConsoleParser);
+
+  this.parse = function (userAgent) {
+    var result = {
+      type: "",
+      brand: "",
+      model: ""
+    };
+
+    for (var _i = 0, _Object$entries = Object.entries(consoles); _i < _Object$entries.length; _i++) {
+      var _Object$entries$_i = _slicedToArray(_Object$entries[_i], 2),
+          brand = _Object$entries$_i[0],
+          gameConsole = _Object$entries$_i[1];
+
+      var match = user_agent_1.userAgentParser(gameConsole.regex, userAgent);
+      if (!match) continue;
+      result.type = gameConsole.device;
+      result.brand = brand;
+
+      if (gameConsole.model) {
+        result.model = variable_replacement_1.variableReplacement(gameConsole.model, match).trim();
+      } else if (gameConsole.models) {
+        var _iterator = _createForOfIteratorHelper(gameConsole.models),
+            _step;
+
+        try {
+          for (_iterator.s(); !(_step = _iterator.n()).done;) {
+            var model = _step.value;
+            var modelMatch = user_agent_1.userAgentParser(model.regex, userAgent);
+            if (!modelMatch) continue;
+            result.model = variable_replacement_1.variableReplacement(model.model, modelMatch).trim();
+            break;
+          }
+        } catch (err) {
+          _iterator.e(err);
+        } finally {
+          _iterator.f();
+        }
+      }
+
+      break;
+    }
+
+    return result;
+  };
+};
+
+exports["default"] = ConsoleParser;
+module.exports = exports.default;
 
 /***/ }),
 /* 32 */
@@ -1185,44 +2010,83 @@ module.exports = JSON.parse("{\"Archos\":{\"regex\":\"Archos.*GAMEPAD([2]?)\",\"
 
 "use strict";
 
-Object.defineProperty(exports, "__esModule", { value: true });
-const variable_replacement_1 = __webpack_require__(1);
-const user_agent_1 = __webpack_require__(0);
-const portableMediaPlayers = __webpack_require__(34);
-class PortableMediaPlayersParser {
-    constructor() {
-        this.parse = (userAgent) => {
-            const result = {
-                type: "",
-                brand: "",
-                model: ""
-            };
-            for (const [brand, portableMediaPlayer] of Object.entries(portableMediaPlayers)) {
-                const match = user_agent_1.userAgentParser(portableMediaPlayer.regex, userAgent);
-                if (!match)
-                    continue;
-                result.type = portableMediaPlayer.device;
-                result.brand = brand;
-                if (portableMediaPlayer.model) {
-                    result.model = variable_replacement_1.variableReplacement(portableMediaPlayer.model, match).trim();
-                }
-                else if (portableMediaPlayer.models) {
-                    for (const model of portableMediaPlayer.models) {
-                        const modelMatch = user_agent_1.userAgentParser(model.regex, userAgent);
-                        if (!modelMatch)
-                            continue;
-                        result.model = variable_replacement_1.variableReplacement(model.model, modelMatch).trim();
-                        break;
-                    }
-                }
-                break;
-            }
-            return result;
-        };
-    }
-}
-exports.default = PortableMediaPlayersParser;
 
+function _createForOfIteratorHelper(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e2) { throw _e2; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e3) { didErr = true; err = _e3; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
+
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var variable_replacement_1 = __webpack_require__(1);
+
+var user_agent_1 = __webpack_require__(0);
+
+var portableMediaPlayers = __webpack_require__(34);
+
+var PortableMediaPlayersParser = function PortableMediaPlayersParser() {
+  _classCallCheck(this, PortableMediaPlayersParser);
+
+  this.parse = function (userAgent) {
+    var result = {
+      type: "",
+      brand: "",
+      model: ""
+    };
+
+    for (var _i = 0, _Object$entries = Object.entries(portableMediaPlayers); _i < _Object$entries.length; _i++) {
+      var _Object$entries$_i = _slicedToArray(_Object$entries[_i], 2),
+          brand = _Object$entries$_i[0],
+          portableMediaPlayer = _Object$entries$_i[1];
+
+      var match = user_agent_1.userAgentParser(portableMediaPlayer.regex, userAgent);
+      if (!match) continue;
+      result.type = portableMediaPlayer.device;
+      result.brand = brand;
+
+      if (portableMediaPlayer.model) {
+        result.model = variable_replacement_1.variableReplacement(portableMediaPlayer.model, match).trim();
+      } else if (portableMediaPlayer.models) {
+        var _iterator = _createForOfIteratorHelper(portableMediaPlayer.models),
+            _step;
+
+        try {
+          for (_iterator.s(); !(_step = _iterator.n()).done;) {
+            var model = _step.value;
+            var modelMatch = user_agent_1.userAgentParser(model.regex, userAgent);
+            if (!modelMatch) continue;
+            result.model = variable_replacement_1.variableReplacement(model.model, modelMatch).trim();
+            break;
+          }
+        } catch (err) {
+          _iterator.e(err);
+        } finally {
+          _iterator.f();
+        }
+      }
+
+      break;
+    }
+
+    return result;
+  };
+};
+
+exports["default"] = PortableMediaPlayersParser;
+module.exports = exports.default;
 
 /***/ }),
 /* 34 */
@@ -1236,78 +2100,249 @@ module.exports = JSON.parse("{\"Apple\":{\"regex\":\"(?:Apple-)?iPod\",\"device\
 
 "use strict";
 
-Object.defineProperty(exports, "__esModule", { value: true });
-const version_1 = __webpack_require__(2);
-const variable_replacement_1 = __webpack_require__(1);
-const user_agent_1 = __webpack_require__(0);
-const operatingSystems = __webpack_require__(36);
-const desktopOsArray = ["AmigaOS", "IBM", "GNU/Linux", "Mac", "Unix", "Windows", "BeOS", "Chrome OS"];
-const shortOsNames = { "AIX": "AIX", "AND": "Android", "AMG": "AmigaOS", "ATV": "Apple TV", "ARL": "Arch Linux", "BTR": "BackTrack", "SBA": "Bada", "BEO": "BeOS", "BLB": "BlackBerry OS", "QNX": "BlackBerry Tablet OS", "BMP": "Brew", "CES": "CentOS", "COS": "Chrome OS", "CYN": "CyanogenMod", "DEB": "Debian", "DFB": "DragonFly", "FED": "Fedora", "FOS": "Firefox OS", "FIR": "Fire OS", "BSD": "FreeBSD", "GNT": "Gentoo", "GTV": "Google TV", "HPX": "HP-UX", "HAI": "Haiku OS", "IRI": "IRIX", "INF": "Inferno", "KOS": "KaiOS", "KNO": "Knoppix", "KBT": "Kubuntu", "LIN": "GNU\/Linux", "LBT": "Lubuntu", "VLN": "VectorLinux", "MAC": "Mac", "MAE": "Maemo", "MDR": "Mandriva", "SMG": "MeeGo", "MCD": "MocorDroid", "MIN": "Mint", "MLD": "MildWild", "MOR": "MorphOS", "NBS": "NetBSD", "MTK": "MTK \/ Nucleus", "WII": "Nintendo", "NDS": "Nintendo Mobile", "OS2": "OS\/2", "T64": "OSF1", "OBS": "OpenBSD", "ORD": "Ordissimo", "PSP": "PlayStation Portable", "PS3": "PlayStation", "RHT": "Red Hat", "ROS": "RISC OS", "REM": "Remix OS", "RZD": "RazoDroiD", "SAB": "Sabayon", "SSE": "SUSE", "SAF": "Sailfish OS", "SLW": "Slackware", "SOS": "Solaris", "SYL": "Syllable", "SYM": "Symbian", "SYS": "Symbian OS", "S40": "Symbian OS Series 40", "S60": "Symbian OS Series 60", "SY3": "Symbian^3", "TDX": "ThreadX", "TIZ": "Tizen", "UBT": "Ubuntu", "WTV": "WebTV", "WIN": "Windows", "WCE": "Windows CE", "WIO": "Windows IoT", "WMO": "Windows Mobile", "WPH": "Windows Phone", "WRT": "Windows RT", "XBX": "Xbox", "XBT": "Xubuntu", "YNS": "YunOs", "IOS": "iOS", "POS": "palmOS", "WOS": "webOS" };
-const osFamilies = { "Android": ["AND", "CYN", "FIR", "REM", "RZD", "MLD", "MCD", "YNS"], "AmigaOS": ["AMG", "MOR"], "Apple TV": ["ATV"], "BlackBerry": ["BLB", "QNX"], "Brew": ["BMP"], "BeOS": ["BEO", "HAI"], "Chrome OS": ["COS"], "Firefox OS": ["FOS", "KOS"], "Gaming Console": ["WII", "PS3"], "Google TV": ["GTV"], "IBM": ["OS2"], "iOS": ["IOS"], "RISC OS": ["ROS"], "GNU\/Linux": ["LIN", "ARL", "DEB", "KNO", "MIN", "UBT", "KBT", "XBT", "LBT", "FED", "RHT", "VLN", "MDR", "GNT", "SAB", "SLW", "SSE", "CES", "BTR", "SAF", "ORD"], "Mac": ["MAC"], "Mobile Gaming Console": ["PSP", "NDS", "XBX"], "Real-time OS": ["MTK", "TDX"], "Other Mobile": ["WOS", "POS", "SBA", "TIZ", "SMG", "MAE"], "Symbian": ["SYM", "SYS", "SY3", "S60", "S40"], "Unix": ["SOS", "AIX", "HPX", "BSD", "NBS", "OBS", "DFB", "SYL", "IRI", "T64", "INF"], "WebTV": ["WTV"], "Windows": ["WIN"], "Windows Mobile": ["WPH", "WMO", "WCE", "WRT", "WIO"] };
-class OperatingSystemParser {
-    constructor(options) {
-        this.options = {
-            versionTruncation: 1
-        };
-        this.parse = (userAgent) => {
-            const result = {
-                name: "",
-                version: "",
-                platform: this.parsePlatform(userAgent)
-            };
-            for (const operatingSystem of operatingSystems) {
-                const match = user_agent_1.userAgentParser(operatingSystem.regex, userAgent);
-                if (!match)
-                    continue;
-                result.name = variable_replacement_1.variableReplacement(operatingSystem.name, match);
-                result.version = version_1.formatVersion(variable_replacement_1.variableReplacement(operatingSystem.version, match), this.options.versionTruncation);
-                if (result.name === "lubuntu") {
-                    result.name = "Lubuntu";
-                }
-                if (result.name === "debian") {
-                    result.name = "Debian";
-                }
-                if (result.name === "YunOS") {
-                    result.name = "YunOs";
-                }
-                return result;
-            }
-            return null;
-        };
-        this.parsePlatform = (userAgent) => {
-            if (user_agent_1.userAgentParser("arm", userAgent)) {
-                return "ARM";
-            }
-            if (user_agent_1.userAgentParser("WOW64|x64|win64|amd64|x86_64", userAgent)) {
-                return "x64";
-            }
-            if (user_agent_1.userAgentParser("i[0-9]86|i86pc", userAgent)) {
-                return "x86";
-            }
-            return "";
-        };
-        this.options = Object.assign(Object.assign({}, this.options), options);
-    }
-}
-exports.default = OperatingSystemParser;
-OperatingSystemParser.getDesktopOsArray = () => desktopOsArray;
-OperatingSystemParser.getOsFamily = (osName) => {
-    const osShortName = OperatingSystemParser.getOsShortName(osName);
-    for (const [osFamily, shortNames] of Object.entries(osFamilies)) {
-        if (shortNames.includes(osShortName)) {
-            return osFamily;
-        }
-    }
-    return "";
+
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+function _createForOfIteratorHelper(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var version_1 = __webpack_require__(2);
+
+var variable_replacement_1 = __webpack_require__(1);
+
+var user_agent_1 = __webpack_require__(0);
+
+var operatingSystems = __webpack_require__(36);
+
+var desktopOsArray = ["AmigaOS", "IBM", "GNU/Linux", "Mac", "Unix", "Windows", "BeOS", "Chrome OS"];
+var shortOsNames = {
+  "AIX": "AIX",
+  "AND": "Android",
+  "AMG": "AmigaOS",
+  "ATV": "Apple TV",
+  "ARL": "Arch Linux",
+  "BTR": "BackTrack",
+  "SBA": "Bada",
+  "BEO": "BeOS",
+  "BLB": "BlackBerry OS",
+  "QNX": "BlackBerry Tablet OS",
+  "BMP": "Brew",
+  "CES": "CentOS",
+  "COS": "Chrome OS",
+  "CYN": "CyanogenMod",
+  "DEB": "Debian",
+  "DFB": "DragonFly",
+  "FED": "Fedora",
+  "FOS": "Firefox OS",
+  "FIR": "Fire OS",
+  "BSD": "FreeBSD",
+  "GNT": "Gentoo",
+  "GTV": "Google TV",
+  "HPX": "HP-UX",
+  "HAI": "Haiku OS",
+  "IRI": "IRIX",
+  "INF": "Inferno",
+  "KOS": "KaiOS",
+  "KNO": "Knoppix",
+  "KBT": "Kubuntu",
+  "LIN": "GNU\/Linux",
+  "LBT": "Lubuntu",
+  "VLN": "VectorLinux",
+  "MAC": "Mac",
+  "MAE": "Maemo",
+  "MDR": "Mandriva",
+  "SMG": "MeeGo",
+  "MCD": "MocorDroid",
+  "MIN": "Mint",
+  "MLD": "MildWild",
+  "MOR": "MorphOS",
+  "NBS": "NetBSD",
+  "MTK": "MTK \/ Nucleus",
+  "WII": "Nintendo",
+  "NDS": "Nintendo Mobile",
+  "OS2": "OS\/2",
+  "T64": "OSF1",
+  "OBS": "OpenBSD",
+  "ORD": "Ordissimo",
+  "PSP": "PlayStation Portable",
+  "PS3": "PlayStation",
+  "RHT": "Red Hat",
+  "ROS": "RISC OS",
+  "REM": "Remix OS",
+  "RZD": "RazoDroiD",
+  "SAB": "Sabayon",
+  "SSE": "SUSE",
+  "SAF": "Sailfish OS",
+  "SLW": "Slackware",
+  "SOS": "Solaris",
+  "SYL": "Syllable",
+  "SYM": "Symbian",
+  "SYS": "Symbian OS",
+  "S40": "Symbian OS Series 40",
+  "S60": "Symbian OS Series 60",
+  "SY3": "Symbian^3",
+  "TDX": "ThreadX",
+  "TIZ": "Tizen",
+  "UBT": "Ubuntu",
+  "WTV": "WebTV",
+  "WIN": "Windows",
+  "WCE": "Windows CE",
+  "WIO": "Windows IoT",
+  "WMO": "Windows Mobile",
+  "WPH": "Windows Phone",
+  "WRT": "Windows RT",
+  "XBX": "Xbox",
+  "XBT": "Xubuntu",
+  "YNS": "YunOs",
+  "IOS": "iOS",
+  "POS": "palmOS",
+  "WOS": "webOS"
 };
-OperatingSystemParser.getOsShortName = (osName) => {
-    for (const [shortName, name] of Object.entries(shortOsNames)) {
-        if (name === osName)
-            return shortName;
-    }
-    return "";
+var osFamilies = {
+  "Android": ["AND", "CYN", "FIR", "REM", "RZD", "MLD", "MCD", "YNS"],
+  "AmigaOS": ["AMG", "MOR"],
+  "Apple TV": ["ATV"],
+  "BlackBerry": ["BLB", "QNX"],
+  "Brew": ["BMP"],
+  "BeOS": ["BEO", "HAI"],
+  "Chrome OS": ["COS"],
+  "Firefox OS": ["FOS", "KOS"],
+  "Gaming Console": ["WII", "PS3"],
+  "Google TV": ["GTV"],
+  "IBM": ["OS2"],
+  "iOS": ["IOS"],
+  "RISC OS": ["ROS"],
+  "GNU\/Linux": ["LIN", "ARL", "DEB", "KNO", "MIN", "UBT", "KBT", "XBT", "LBT", "FED", "RHT", "VLN", "MDR", "GNT", "SAB", "SLW", "SSE", "CES", "BTR", "SAF", "ORD"],
+  "Mac": ["MAC"],
+  "Mobile Gaming Console": ["PSP", "NDS", "XBX"],
+  "Real-time OS": ["MTK", "TDX"],
+  "Other Mobile": ["WOS", "POS", "SBA", "TIZ", "SMG", "MAE"],
+  "Symbian": ["SYM", "SYS", "SY3", "S60", "S40"],
+  "Unix": ["SOS", "AIX", "HPX", "BSD", "NBS", "OBS", "DFB", "SYL", "IRI", "T64", "INF"],
+  "WebTV": ["WTV"],
+  "Windows": ["WIN"],
+  "Windows Mobile": ["WPH", "WMO", "WCE", "WRT", "WIO"]
 };
 
+var OperatingSystemParser = function OperatingSystemParser(options) {
+  var _this = this;
+
+  _classCallCheck(this, OperatingSystemParser);
+
+  this.options = {
+    versionTruncation: 1
+  };
+
+  this.parse = function (userAgent) {
+    var result = {
+      name: "",
+      version: "",
+      platform: _this.parsePlatform(userAgent)
+    };
+
+    var _iterator = _createForOfIteratorHelper(operatingSystems),
+        _step;
+
+    try {
+      for (_iterator.s(); !(_step = _iterator.n()).done;) {
+        var operatingSystem = _step.value;
+        var match = user_agent_1.userAgentParser(operatingSystem.regex, userAgent);
+        if (!match) continue;
+        result.name = variable_replacement_1.variableReplacement(operatingSystem.name, match);
+        result.version = version_1.formatVersion(variable_replacement_1.variableReplacement(operatingSystem.version, match), _this.options.versionTruncation);
+
+        if (result.name === "lubuntu") {
+          result.name = "Lubuntu";
+        }
+
+        if (result.name === "debian") {
+          result.name = "Debian";
+        }
+
+        if (result.name === "YunOS") {
+          result.name = "YunOs";
+        }
+
+        return result;
+      }
+    } catch (err) {
+      _iterator.e(err);
+    } finally {
+      _iterator.f();
+    }
+
+    return null;
+  };
+
+  this.parsePlatform = function (userAgent) {
+    if (user_agent_1.userAgentParser("arm", userAgent)) {
+      return "ARM";
+    }
+
+    if (user_agent_1.userAgentParser("WOW64|x64|win64|amd64|x86_64", userAgent)) {
+      return "x64";
+    }
+
+    if (user_agent_1.userAgentParser("i[0-9]86|i86pc", userAgent)) {
+      return "x86";
+    }
+
+    return "";
+  };
+
+  this.options = Object.assign(Object.assign({}, this.options), options);
+};
+
+exports["default"] = OperatingSystemParser;
+
+OperatingSystemParser.getDesktopOsArray = function () {
+  return desktopOsArray;
+};
+
+OperatingSystemParser.getOsFamily = function (osName) {
+  var osShortName = OperatingSystemParser.getOsShortName(osName);
+
+  for (var _i = 0, _Object$entries = Object.entries(osFamilies); _i < _Object$entries.length; _i++) {
+    var _Object$entries$_i = _slicedToArray(_Object$entries[_i], 2),
+        osFamily = _Object$entries$_i[0],
+        shortNames = _Object$entries$_i[1];
+
+    if (shortNames.includes(osShortName)) {
+      return osFamily;
+    }
+  }
+
+  return "";
+};
+
+OperatingSystemParser.getOsShortName = function (osName) {
+  for (var _i2 = 0, _Object$entries2 = Object.entries(shortOsNames); _i2 < _Object$entries2.length; _i2++) {
+    var _Object$entries2$_i = _slicedToArray(_Object$entries2[_i2], 2),
+        shortName = _Object$entries2$_i[0],
+        name = _Object$entries2$_i[1];
+
+    if (name === osName) return shortName;
+  }
+
+  return "";
+};
+
+module.exports = exports.default;
 
 /***/ }),
 /* 36 */
@@ -1321,26 +2356,63 @@ module.exports = JSON.parse("[{\"regex\":\"Tizen[ /]?(\\\\d+[\\\\.\\\\d]+)?\",\"
 
 "use strict";
 
-Object.defineProperty(exports, "__esModule", { value: true });
-const user_agent_1 = __webpack_require__(0);
-const vendorFragments = __webpack_require__(38);
-class VendorFragmentParser {
-    constructor() {
-        this.parse = (userAgent) => {
-            for (const [brand, vendorFragment] of Object.entries(vendorFragments)) {
-                for (const regex of vendorFragment) {
-                    const match = user_agent_1.userAgentParser(regex, userAgent);
-                    if (!match)
-                        continue;
-                    return brand;
-                }
-            }
-            return "";
-        };
-    }
-}
-exports.default = VendorFragmentParser;
 
+function _createForOfIteratorHelper(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e2) { throw _e2; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e3) { didErr = true; err = _e3; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
+
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var user_agent_1 = __webpack_require__(0);
+
+var vendorFragments = __webpack_require__(38);
+
+var VendorFragmentParser = function VendorFragmentParser() {
+  _classCallCheck(this, VendorFragmentParser);
+
+  this.parse = function (userAgent) {
+    for (var _i = 0, _Object$entries = Object.entries(vendorFragments); _i < _Object$entries.length; _i++) {
+      var _Object$entries$_i = _slicedToArray(_Object$entries[_i], 2),
+          brand = _Object$entries$_i[0],
+          vendorFragment = _Object$entries$_i[1];
+
+      var _iterator = _createForOfIteratorHelper(vendorFragment),
+          _step;
+
+      try {
+        for (_iterator.s(); !(_step = _iterator.n()).done;) {
+          var regex = _step.value;
+          var match = user_agent_1.userAgentParser(regex, userAgent);
+          if (!match) continue;
+          return brand;
+        }
+      } catch (err) {
+        _iterator.e(err);
+      } finally {
+        _iterator.f();
+      }
+    }
+
+    return "";
+  };
+};
+
+exports["default"] = VendorFragmentParser;
+module.exports = exports.default;
 
 /***/ }),
 /* 38 */
@@ -1354,32 +2426,54 @@ module.exports = JSON.parse("{\"Dell\":[\"MDDR(JS)?\",\"MDDC(JS)?\",\"MDDS(JS)?\
 
 "use strict";
 
-const user_agent_1 = __webpack_require__(0);
-const bots = __webpack_require__(40);
-class BotParser {
-    constructor() {
-        this.parse = (userAgent) => {
-            var _a, _b, _c, _d;
-            for (const bot of bots) {
-                const match = user_agent_1.userAgentParser(bot.regex, userAgent);
-                if (!match)
-                    continue;
-                return {
-                    name: bot.name,
-                    category: bot.category || "",
-                    url: bot.url || "",
-                    producer: {
-                        name: ((_b = (_a = bot) === null || _a === void 0 ? void 0 : _a.producer) === null || _b === void 0 ? void 0 : _b.name) || "",
-                        url: ((_d = (_c = bot) === null || _c === void 0 ? void 0 : _c.producer) === null || _d === void 0 ? void 0 : _d.url) || ""
-                    }
-                };
-            }
-            return null;
-        };
-    }
-}
-module.exports = BotParser;
 
+function _createForOfIteratorHelper(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var user_agent_1 = __webpack_require__(0);
+
+var bots = __webpack_require__(40);
+
+var BotParser = function BotParser() {
+  _classCallCheck(this, BotParser);
+
+  this.parse = function (userAgent) {
+    var _a, _b, _c, _d;
+
+    var _iterator = _createForOfIteratorHelper(bots),
+        _step;
+
+    try {
+      for (_iterator.s(); !(_step = _iterator.n()).done;) {
+        var bot = _step.value;
+        var match = user_agent_1.userAgentParser(bot.regex, userAgent);
+        if (!match) continue;
+        return {
+          name: bot.name,
+          category: bot.category || "",
+          url: bot.url || "",
+          producer: {
+            name: ((_b = (_a = bot) === null || _a === void 0 ? void 0 : _a.producer) === null || _b === void 0 ? void 0 : _b.name) || "",
+            url: ((_d = (_c = bot) === null || _c === void 0 ? void 0 : _c.producer) === null || _d === void 0 ? void 0 : _d.url) || ""
+          }
+        };
+      }
+    } catch (err) {
+      _iterator.e(err);
+    } finally {
+      _iterator.f();
+    }
+
+    return null;
+  };
+};
+
+module.exports = BotParser;
 
 /***/ }),
 /* 40 */
@@ -1393,118 +2487,133 @@ module.exports = JSON.parse("[{\"regex\":\"360Spider(-Image|-Video)?\",\"name\":
 
 "use strict";
 
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.versionCompare = (v1, v2, operator) => {
-    //      discuss at: http://locutus.io/php/version_compare/
-    //      original by: Philippe Jausions (http://pear.php.net/user/jausions)
-    //      original by: Aidan Lister (http://aidanlister.com/)
-    //      reimplemented by: Kankrelune (http://www.webfaktory.info/)
-    //      improved by: Brett Zamir (http://brett-zamir.me)
-    //      improved by: Scott Baker
-    //      improved by: Theriault (https://github.com/Theriault)
-    //      example 1: version_compare('8.2.5rc', '8.2.5a')
-    //      returns 1: 1
-    //      example 2: version_compare('8.2.50', '8.2.52', '<')
-    //      returns 2: true
-    //      example 3: version_compare('5.3.0-dev', '5.3.0')
-    //      returns 3: -1
-    //      example 4: version_compare('4.1.0.52','4.01.0.51')
-    //      returns 4: 1
-    // Important: compare must be initialized at 0.
-    let i;
-    let x;
-    let compare = 0;
-    // vm maps textual PHP versions to negatives so they're less than 0.
-    // PHP currently defines these as CASE-SENSITIVE. It is important to
-    // leave these as negatives so that they can come before numerical versions
-    // and as if no letters were there to begin with.
-    // (1alpha is < 1 and < 1.1 but > 1dev1)
-    // If a non-numerical value can't be mapped to this table, it receives
-    // -7 as its value.
-    const vm = {
-        "dev": -6,
-        "alpha": -5,
-        "a": -5,
-        "beta": -4,
-        "b": -4,
-        "RC": -3,
-        "rc": -3,
-        "#": -2,
-        "p": 1,
-        "pl": 1
-    };
-    // This function will be called to prepare each version argument.
-    // It replaces every _, -, and + with a dot.
-    // It surrounds any nonsequence of numbers/dots with dots.
-    // It replaces sequences of dots with a single dot.
-    //    version_compare('4..0', '4.0') === 0
-    // Important: A string of 0 length needs to be converted into a value
-    // even less than an unexisting value in vm (-7), hence [-8].
-    // It's also important to not strip spaces because of this.
-    //   version_compare('', ' ') === 1
-    const prepVersion = (v) => {
-        v = ("" + v).replace(/[_\-+]/g, ".");
-        v = v.replace(/([^.\d]+)/g, ".$1.").replace(/\.{2,}/g, ".");
-        return (!v.length ? [-8] : v.split("."));
-    };
-    // This converts a version component to a number.
-    // Empty component becomes 0.
-    // Non-numerical component becomes a negative number.
-    // Numerical component becomes itself as an integer.
-    const numVersion = (v) => {
-        return !v ? 0 : (isNaN(v) ? vm[v] || -7 : parseInt(v, 10));
-    };
-    v1 = prepVersion(v1);
-    v2 = prepVersion(v2);
-    x = Math.max(v1.length, v2.length);
-    for (i = 0; i < x; i++) {
-        if (v1[i] === v2[i]) {
-            continue;
-        }
-        v1[i] = numVersion(v1[i]);
-        v2[i] = numVersion(v2[i]);
-        if (v1[i] < v2[i]) {
-            compare = -1;
-            break;
-        }
-        else if (v1[i] > v2[i]) {
-            compare = 1;
-            break;
-        }
-    }
-    if (!operator) {
-        return compare;
-    }
-    // Important: operator is CASE-SENSITIVE.
-    // "No operator" seems to be treated as "<."
-    // Any other values seem to make the function return null.
-    switch (operator) {
-        case ">":
-        case "gt":
-            return (compare > 0);
-        case ">=":
-        case "ge":
-            return (compare >= 0);
-        case "<=":
-        case "le":
-            return (compare <= 0);
-        case "===":
-        case "=":
-        case "eq":
-            return (compare === 0);
-        case "<>":
-        case "!==":
-        case "ne":
-            return (compare !== 0);
-        case "":
-        case "<":
-        case "lt":
-            return (compare < 0);
-        default:
-            return null;
-    }
-};
 
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+exports.versionCompare = function (v1, v2, operator) {
+  //      discuss at: http://locutus.io/php/version_compare/
+  //      original by: Philippe Jausions (http://pear.php.net/user/jausions)
+  //      original by: Aidan Lister (http://aidanlister.com/)
+  //      reimplemented by: Kankrelune (http://www.webfaktory.info/)
+  //      improved by: Brett Zamir (http://brett-zamir.me)
+  //      improved by: Scott Baker
+  //      improved by: Theriault (https://github.com/Theriault)
+  //      example 1: version_compare('8.2.5rc', '8.2.5a')
+  //      returns 1: 1
+  //      example 2: version_compare('8.2.50', '8.2.52', '<')
+  //      returns 2: true
+  //      example 3: version_compare('5.3.0-dev', '5.3.0')
+  //      returns 3: -1
+  //      example 4: version_compare('4.1.0.52','4.01.0.51')
+  //      returns 4: 1
+  // Important: compare must be initialized at 0.
+  var i;
+  var x;
+  var compare = 0; // vm maps textual PHP versions to negatives so they're less than 0.
+  // PHP currently defines these as CASE-SENSITIVE. It is important to
+  // leave these as negatives so that they can come before numerical versions
+  // and as if no letters were there to begin with.
+  // (1alpha is < 1 and < 1.1 but > 1dev1)
+  // If a non-numerical value can't be mapped to this table, it receives
+  // -7 as its value.
+
+  var vm = {
+    "dev": -6,
+    "alpha": -5,
+    "a": -5,
+    "beta": -4,
+    "b": -4,
+    "RC": -3,
+    "rc": -3,
+    "#": -2,
+    "p": 1,
+    "pl": 1
+  }; // This function will be called to prepare each version argument.
+  // It replaces every _, -, and + with a dot.
+  // It surrounds any nonsequence of numbers/dots with dots.
+  // It replaces sequences of dots with a single dot.
+  //    version_compare('4..0', '4.0') === 0
+  // Important: A string of 0 length needs to be converted into a value
+  // even less than an unexisting value in vm (-7), hence [-8].
+  // It's also important to not strip spaces because of this.
+  //   version_compare('', ' ') === 1
+
+  var prepVersion = function prepVersion(v) {
+    v = ("" + v).replace(/[_\-+]/g, ".");
+    v = v.replace(/([^.\d]+)/g, ".$1.").replace(/\.{2,}/g, ".");
+    return !v.length ? [-8] : v.split(".");
+  }; // This converts a version component to a number.
+  // Empty component becomes 0.
+  // Non-numerical component becomes a negative number.
+  // Numerical component becomes itself as an integer.
+
+
+  var numVersion = function numVersion(v) {
+    return !v ? 0 : isNaN(v) ? vm[v] || -7 : parseInt(v, 10);
+  };
+
+  v1 = prepVersion(v1);
+  v2 = prepVersion(v2);
+  x = Math.max(v1.length, v2.length);
+
+  for (i = 0; i < x; i++) {
+    if (v1[i] === v2[i]) {
+      continue;
+    }
+
+    v1[i] = numVersion(v1[i]);
+    v2[i] = numVersion(v2[i]);
+
+    if (v1[i] < v2[i]) {
+      compare = -1;
+      break;
+    } else if (v1[i] > v2[i]) {
+      compare = 1;
+      break;
+    }
+  }
+
+  if (!operator) {
+    return compare;
+  } // Important: operator is CASE-SENSITIVE.
+  // "No operator" seems to be treated as "<."
+  // Any other values seem to make the function return null.
+
+
+  switch (operator) {
+    case ">":
+    case "gt":
+      return compare > 0;
+
+    case ">=":
+    case "ge":
+      return compare >= 0;
+
+    case "<=":
+    case "le":
+      return compare <= 0;
+
+    case "===":
+    case "=":
+    case "eq":
+      return compare === 0;
+
+    case "<>":
+    case "!==":
+    case "ne":
+      return compare !== 0;
+
+    case "":
+    case "<":
+    case "lt":
+      return compare < 0;
+
+    default:
+      return null;
+  }
+};
 
 /***/ })
 /******/ ]);
