@@ -10,13 +10,17 @@ import {
   setDataToSession,
   isEqual,
   isFunction,
-  hasKey
+  hasKey,
+  noop
 } from '../index';
-import { noop } from '../core/noop';
-
 const utils = require('../build/utils-umd');
 
 describe('Utils', () => {
+
+  it('should have utility in umd', () => {
+    expect(utils).toBeDefined();
+  });
+
   it('should have isArray method', () => {
     expect(isArray).toBeDefined();
     expect(utils.isArray).toBeDefined();
