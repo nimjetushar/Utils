@@ -60,9 +60,11 @@ module.exports = env => {
       rules: [
         {
           test: /\.js$/,
-          loader: 'babel-loader',
-          options: {
-            configFile: path.resolve('babel.config.js')
+          use: {
+            loader: 'babel-loader',
+            options: {
+              configFile: path.resolve('babel.config.js')
+            }
           }
         },
         {

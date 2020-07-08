@@ -29,6 +29,12 @@ function buildUmdMin(cb) {
         .pipe(run('echo build min executed', cb()));
 }
 
+function moveFiles(cb) {
+    return gulp.src(['README.md', 'package.json', 'LICENSE'])
+        .pipe(gulp.dest('build'), cb);
+}
+
+exports['build:all'] = gulp.parallel(build, buildUmd, buildUmdMin, moveFiles);
 exports['build:min'] = gulp.series(buildUmdMin);
 exports.build = gulp.parallel(build, buildUmd);
 exports.default = gulp.series(createDoc);
