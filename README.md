@@ -14,19 +14,16 @@
 
 `npm i tutility --save`
 
-Import the js and start working. <br>
-When working with IE or older browser version which does not support es6 syntax then library needs to be included in compilation to get it compied to es5 to make it work or use file for dist. 
+Import the js as required </br>
+`import { deepCopy, isEqual, ... } 'tutility/utils'` for utilities </br>
+`import Detect 'tutility/utils'` for browser detect utility </br>
+`import Logger 'tutility/utils'` for logger </br>
 
-## [Documentation](https://nimjetushar.github.io/Utils/):
-
-## Testing
-
-Use index.html from sample for testing the utility into the console.
+## [Documentation](https://nimjetushar.github.io/Utils/)
+[Here](https://nimjetushar.github.io/Utils/) you can find api documentation
 
 ## Dependencies
-
 [![devDependencies Status](https://david-dm.org/nimjetushar/utils/dev-status.svg)](https://david-dm.org/nimjetushar/utils?type=dev)
 
 ## Licence
-
 [![GitHub license](https://img.shields.io/github/license/nimjetushar/Utils.svg?style=popout)](https://github.com/nimjetushar/Utils/blob/master/LICENSE)
