@@ -61,7 +61,7 @@
     "gulp-jsdoc3": "3.0.0",
     "gulp-run": "1.7.1",
     "jest": "26.1.0",
-    "webpack": "4.44.1",
+    "webpack": "4.44.2",
     "webpack-cli": "3.3.12"
   },
   "jest": {
