@@ -12,3 +12,4 @@ export * from './core/isFunction';
 export * from './core/hasKey';
 export * from './core/multiSort';
 export * from './core/noop';
+export * from './core/debounce';

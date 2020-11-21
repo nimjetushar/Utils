@@ -11,7 +11,8 @@ import {
   isEqual,
   isFunction,
   hasKey,
-  noop
+  noop,
+  debounce
 } from '../index';
 const utils = require('../build/utils-umd');
 
@@ -74,5 +75,9 @@ describe('Utils', () => {
 
   it('should have noop method', () => {
     expect(noop).toBeDefined();
+  });
+
+  it('should have debounce method', () => {
+    expect(debounce).toBeDefined();
   });
 });
