@@ -126,6 +126,7 @@ __webpack_require__.d(__webpack_exports__, "isFunction", function() { return /* 
 __webpack_require__.d(__webpack_exports__, "hasKey", function() { return /* reexport */ hasKey; });
 __webpack_require__.d(__webpack_exports__, "sort", function() { return /* reexport */ sort; });
 __webpack_require__.d(__webpack_exports__, "noop", function() { return /* reexport */ noop; });
+__webpack_require__.d(__webpack_exports__, "debounce", function() { return /* reexport */ debounce; });
 
 // CONCATENATED MODULE: ./core/deepClone.js
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
@@ -700,7 +701,35 @@ function sort(data, comparator) {
  * @returns {void} return undefined
  */
 function noop() {}
+// CONCATENATED MODULE: ./core/debounce.js
+/**
+ * add debounce time for passef function
+ * @export
+ * @param {Function} func Function for which debounce need to be added
+ * @param {number} [timeout=300] wait period before function trigger
+ * @return {Function} debounced function with wait for trigger until timeout
+ */
+function debounce(func) {
+  var timeout = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 300;
+  var timer;
+  return function () {
+    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    var next = function next() {
+      return func.apply(void 0, args);
+    };
+
+    if (timer) {
+      clearTimeout(timer);
+    }
+
+    timer = setTimeout(next, timeout > 0 ? timeout : 300);
+  };
+}
 // CONCATENATED MODULE: ./index.js
+
 
 
 

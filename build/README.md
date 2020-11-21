@@ -16,8 +16,8 @@
 
 Import the js as required </br>
 `import { deepCopy, isEqual, ... } 'tutility/utils'` for utilities </br>
-`import Detect 'tutility/utils'` for browser detect utility </br>
-`import Logger 'tutility/utils'` for logger </br>
+`import Detect 'tutility/detect'` for browser detect utility </br>
+`import Logger 'tutility/logger'` for logger </br>
 
 ## [Documentation](https://nimjetushar.github.io/Utils/)
 [Here](https://nimjetushar.github.io/Utils/) you can find api documentation
