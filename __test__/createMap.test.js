@@ -32,6 +32,6 @@ describe('createMap', () => {
       'key'
     );
 
-    expect(obj['123']).toEqual({ key: '123', name: 'name1' });
+    expect(obj['123']).toStrictEqual({ key: '123', name: 'name1' });
   });
 });

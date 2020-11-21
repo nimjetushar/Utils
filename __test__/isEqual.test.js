@@ -1,3 +1,4 @@
+/* eslint-disable no-new-object */
 import { isEqual } from '../core/isEqual';
 
 describe('isEqual', () => {
@@ -135,6 +136,6 @@ describe('isEqual', () => {
             constructor(param) { this.param = param; }
         }
 
-        expect(new Class1(1)).toEqual(new Class2(1));
+        expect(new Class1(1)).toStrictEqual(new Class2(1));
     });
 });

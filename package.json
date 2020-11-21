@@ -21,7 +21,7 @@
     "test-with-coverage-ci": "jest --coverage && cat ./coverage/lcov.info | codacy-coverage -t 5bce5aece0e04478b72ff03a0a6d530d",
     "doc": "gulp",
     "deploy-doc": "npm run doc && gh-pages -d docs",
-    "lint": "eslint core/* index.js logger.js detect.js"
+    "lint": "eslint core/* index.js logger.js detect.js __test__"
   },
   "repository": {
     "type": "git",

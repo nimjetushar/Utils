@@ -5,7 +5,7 @@ describe('deepCopy', () => {
   it('should verify variable to be deep copy', () => {
     const data = { id: 123, name: 'name' };
     const clonedObj = deepCopy({}, data);
-    expect(data).toEqual(clonedObj);
+    expect(data).toStrictEqual(clonedObj);
 
     clonedObj.id = 100;
     const isChanged = data.id !== clonedObj.id;
@@ -15,7 +15,7 @@ describe('deepCopy', () => {
   it('should copy complex variable', () => {
     const data = { id: 123, name: ['a', 'v', 'd'], obj: { a: 299, list: [1, 2, 3, 4, 34, 35, 75] } };
     const clonedObj = deepCopy({}, data);
-    expect(data).toEqual(clonedObj);
+    expect(data).toStrictEqual(clonedObj);
 
     clonedObj.id = 100;
     clonedObj.name.push('t');
@@ -38,6 +38,6 @@ describe('deepCopy', () => {
   });
 
   it('should merge object', () => {
-    expect(deepCopy({}, { test: 'test' }, { demo: 'demo' }, { 1: 123 })).toEqual({ test: 'test', demo: 'demo', 1: 123 });
+    expect(deepCopy({}, { test: 'test' }, { demo: 'demo' }, { '1': 123 })).toStrictEqual({ '1': 123, demo: 'demo', test: 'test' });
   });
 });
