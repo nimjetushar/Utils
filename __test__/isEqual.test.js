@@ -136,6 +136,7 @@ describe('isEqual', () => {
             constructor(param) { this.param = param; }
         }
 
-        expect(new Class1(1)).toStrictEqual(new Class2(1));
+        // eslint-disable-next-line jest/prefer-strict-equal
+        expect(new Class1(1)).toEqual(new Class2(1));
     });
 });
