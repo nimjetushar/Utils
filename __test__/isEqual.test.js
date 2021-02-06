@@ -1,5 +1,5 @@
 /* eslint-disable no-new-object */
-import { isEqual } from '../core/isEqual';
+import { isEqual } from '../build/utils';
 
 describe('isEqual', () => {
     it('should compare number', () => {

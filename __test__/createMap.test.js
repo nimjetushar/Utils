@@ -1,4 +1,4 @@
-import { createMap } from '../core/createMap';
+import { createMap } from '../build/utils';
 
 describe('createMap', () => {
   it('should check for undefined', () => {

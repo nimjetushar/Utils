@@ -1,4 +1,4 @@
-import { isBoolean } from '../core/isBoolean';
+import { isBoolean } from '../build/utils';
 
 describe('isBoolean', () => {
   it('should check for boolean true/false', () => {

@@ -1,5 +1,5 @@
-import { deepCopy } from '../core/deepClone';
-import { isEqual } from '../core/isEqual';
+import { deepCopy } from '../build/utils';
+import { isEqual } from '../build/utils';
 
 describe('deepCopy', () => {
   it('should verify variable to be deep copy', () => {

@@ -1,4 +1,4 @@
-import { hasKey } from '../core/hasKey';
+import { hasKey } from '../build/utils';
 
 describe('has Key', () => {
     it('should return a function', () => {

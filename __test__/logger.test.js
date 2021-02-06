@@ -1,4 +1,4 @@
-import Logger from '../logger';
+import Logger from '../build/logger';
 
 const nativeCodeStr = '[native code]';
 

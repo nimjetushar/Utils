@@ -1,4 +1,4 @@
-import { debounce } from '../core/debounce';
+import { debounce } from '../build/utils';
 
 describe('debounce', () => {
     it('should be defined', () => {
