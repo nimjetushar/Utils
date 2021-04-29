@@ -1,0 +1,25 @@
+version: 2
+updates:
+- package-ecosystem: npm
+  directory: "/"
+  schedule:
+    interval: monthly
+    time: "23:30"
+  open-pull-requests-limit: 40
+  ignore:
+  - dependency-name: webpack-cli
+    versions:
+    - 4.3.1
+    - 4.4.0
+  - dependency-name: "@babel/preset-env"
+    versions:
+    - 7.12.11
+  - dependency-name: eslint
+    versions:
+    - 7.16.0
+  - dependency-name: babel-loader
+    versions:
+    - 8.2.2
+  - dependency-name: webpack
+    versions:
+    - 4.44.2
