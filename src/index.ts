@@ -13,6 +13,3 @@ export { isArray } from './core/isArray';
 // export * from './core/multiSort';
 // export * from './core/noop';
 // export * from './core/debounce';
-
-
-export const test = 'rest'

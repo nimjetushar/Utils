@@ -32,33 +32,20 @@
     "tutility"
   ],
   "devDependencies": {
-    "@babel/core": "^7.15.5",
-    "@babel/node": "^7.15.4",
-    "@babel/preset-env": "^7.15.4",
     "@typescript-eslint/eslint-plugin": "4.30.0",
     "@typescript-eslint/parser": "4.30.0",
     "codacy-coverage": "3.4.0",
+    "copy-webpack-plugin": "9.0.1",
     "device-detector-js": "2.2.7",
     "eslint": "7.32.0",
     "gh-pages": "3.1.0",
     "gulp": "4.0.2",
     "gulp-jsdoc3": "3.0.0",
     "gulp-run": "1.7.1",
-    "jest": "^27.1.0",
+    "jest": "27.1.0",
     "ts-loader": "9.2.5",
     "typescript": "4.4.2",
     "webpack": "5.52.0",
     "webpack-cli": "4.8.0"
-  },
-  "jest": {
-    "verbose": true,
-    "moduleFileExtensions": [
-      "js",
-      "mjs"
-    ],
-    "transform": {
-      "^.+\\.js$": "babel-jest",
-      "^.+\\.mjs$": "babel-jest"
-    }
   }
 }

@@ -1,4 +1,4 @@
-import { createMap } from '../build';
+import { createMap } from '../build'
 
 describe('createMap', () => {
   it('should check for undefined', () => {

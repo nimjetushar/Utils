@@ -1,13 +1,16 @@
-const path = require('path');
+const path = require('path'),
+  CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
   devtool: 'source-map',
   mode: 'production',
-  entry: './src/index.ts',
+  entry: {
+    index: './src/index.ts'
+  },
   module: {
     rules: [
       {
-        test: /\.ts?$/,
+        test: /\.tsx?$/,
         use: 'ts-loader',
         exclude: /node_modules/
       }
@@ -17,7 +20,14 @@ module.exports = {
     extensions: ['.ts', '.js']
   },
   output: {
-    filename: 'index.js',
+    filename: '[name].js',
     path: path.resolve(__dirname, 'build')
-  }
+  },
+  plugins: [
+    new CopyWebpackPlugin({
+      patterns: [
+        'README.md'
+      ]
+    }),
+  ]
 };
