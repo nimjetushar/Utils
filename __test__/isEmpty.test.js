@@ -1,4 +1,4 @@
-import { isEmptyObject } from '../build/utils';
+import { isEmptyObject } from '../build';
 
 describe('isEmpty', () => {
   it('should check for empty object', () => {

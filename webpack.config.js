@@ -1,4 +1,3 @@
-/* eslint-disable sort-keys */
 const path = require('path');
 
 module.exports = {
@@ -18,7 +17,7 @@ module.exports = {
     extensions: ['.ts', '.js']
   },
   output: {
-    filename: 'utils.js',
+    filename: 'index.js',
     path: path.resolve(__dirname, 'build')
   }
 };

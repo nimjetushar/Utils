@@ -1,4 +1,4 @@
-import { isDefined } from '../build/utils';
+import { isDefined } from '../build';
 
 describe('isDefined', () => {
   it('should check variable is defined', () => {

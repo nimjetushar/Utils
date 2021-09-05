@@ -1,4 +1,4 @@
-import { isArray } from '../build/utils';
+import { isArray } from '../build';
 
 describe('isArray', () => {
   it('should return a function', () => {

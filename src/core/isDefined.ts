@@ -3,8 +3,4 @@
  * @param {*} data Source data which need to be identitied if Array or not.
  * @returns {boolean} status as true if Array and false if not.
  */
-function isDefined(data: any) {
-  return !(data == null || data === '');
-}
-
-export { isDefined };
+export const isDefined = (data: unknown): boolean => !(data == null || data === '')

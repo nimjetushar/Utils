@@ -1,4 +1,4 @@
-import { noop } from '../build/utils';
+import { noop } from '../build';
 
 describe('test noop', () => {
     it('should return nothing', () => {

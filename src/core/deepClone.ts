@@ -41,15 +41,16 @@ function _isPlainObject(obj: any) {
  * @param {Array<T>} sourceN - Additional objects containing properties to merge in.
  * @returns {T} Deep copied object containing all the properties of passed parameters.
  */
-function deepCopy(_clone: any, _copy: any) {
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+export const deepCopy = (...args: any[]): boolean => {
   let options,
     src,
     copy,
     copyIsArray,
     clone,
     i = 1,
-    target = arguments[0] || {};
-  const length = arguments.length;
+    target = args[0] || {};
+  const length = args.length;
 
   // Handle case when target is a string or something (possible in deep copy)
   if (typeof target !== 'object' && !_isFunction(target)) {
@@ -58,7 +59,7 @@ function deepCopy(_clone: any, _copy: any) {
 
   for (; i < length; i++) {
     // Only deal with non-null/undefined values
-    if ((options = arguments[i]) !== null) {
+    if ((options = args[i]) !== null) {
       // Extend the base object
       for (const name in options) {
         src = target[name];
@@ -96,5 +97,3 @@ function deepCopy(_clone: any, _copy: any) {
   // Return the modified object
   return target;
 }
-
-export { deepCopy };

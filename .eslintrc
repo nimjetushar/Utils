@@ -1,8 +1,15 @@
 {
-  "extends": [
-    "@fourjs/eslint-config-tn",
-    "@fourjs/eslint-config-tn/jest"
+  "root": true,
+  "parser": "@typescript-eslint/parser",
+  "plugins": [
+    "@typescript-eslint"
   ],
-  "parser": "babel-eslint",
-  "rules": {}
+  "extends": [
+    "eslint:recommended",
+    "plugin:@typescript-eslint/eslint-recommended",
+    "plugin:@typescript-eslint/recommended"
+  ],
+  "rules": {
+    "@typescript-eslint/no-explicit-any": 0
+  }
 }

@@ -3,7 +3,7 @@
  * @param {*} obj Source data which need to be validated.
  * @returns {boolean} status as true if not an empty Object and false if empty.
  */
-function isEmptyObject(obj: any) {
+export const isEmptyObject = (obj: unknown): boolean => {
   if (typeof obj != 'object') {
     throw new Error('Invalid data type requires object');
   }
@@ -12,5 +12,3 @@ function isEmptyObject(obj: any) {
   }
   return true;
 }
-
-export { isEmptyObject };

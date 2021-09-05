@@ -14,7 +14,7 @@ import {
   noop,
   debounce
 } from '../index';
-const utils = require('../build/utils-umd');
+const utils = require('../build-umd');
 
 describe('Utils', () => {
 
