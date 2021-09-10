@@ -1,5 +1,6 @@
 const path = require('path'),
-  CopyWebpackPlugin = require('copy-webpack-plugin');
+  CopyWebpackPlugin = require('copy-webpack-plugin'),
+  { CleanWebpackPlugin } = require('clean-webpack-plugin');;
 
 module.exports = {
   devtool: 'source-map',
@@ -10,10 +11,13 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.tsx?$/,
-        use: 'ts-loader',
-        exclude: /node_modules/
-      }
+        test: /\.ts$/,
+        loader: 'ts-loader'
+      },
+      // {
+      //   test: /\.js$/,
+      //   loader: 'babel-loader'
+      // }
     ]
   },
   resolve: {
@@ -24,10 +28,12 @@ module.exports = {
     path: path.resolve(__dirname, 'build')
   },
   plugins: [
+    new CleanWebpackPlugin(),
     new CopyWebpackPlugin({
       patterns: [
-        'README.md'
+        'README.md',
+        'LICENSE'
       ]
-    }),
+    })
   ]
 };
