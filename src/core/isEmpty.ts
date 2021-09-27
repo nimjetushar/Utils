@@ -7,7 +7,7 @@ export const isEmptyObject = (obj: unknown): boolean => {
   if (typeof obj != 'object') {
     throw new Error('Invalid data type requires object');
   }
-  for (const name in obj) {
+  for (const _name in obj) {
     return false;
   }
   return true;

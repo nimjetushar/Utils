@@ -1,6 +1,6 @@
 const path = require('path'),
   CopyWebpackPlugin = require('copy-webpack-plugin'),
-  { CleanWebpackPlugin } = require('clean-webpack-plugin');;
+  { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 module.exports = {
   devtool: 'source-map',
@@ -12,12 +12,9 @@ module.exports = {
     rules: [
       {
         test: /\.ts$/,
-        loader: 'ts-loader'
-      },
-      // {
-      //   test: /\.js$/,
-      //   loader: 'babel-loader'
-      // }
+        loader: 'ts-loader',
+        exclude: /node_modules/
+      }
     ]
   },
   resolve: {

@@ -1,0 +1,14 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.isObject = void 0;
+/**
+ * Verifies if passed argument is Object or not
+ * @param {*} value Argument which needs to be validated
+ * @returns {boolean} return true if passed argument is Object
+ */
+function isObject(value) {
+    const type = typeof value;
+    return value != null && (type === 'object' || type === 'function');
+}
+exports.isObject = isObject;
+//# sourceMappingURL=isObject.js.map
