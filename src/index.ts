@@ -1,4 +1,13 @@
-export { isArray } from './core/isArray';
 export { createMap } from './core/createMap';
-
-export const a = 'asdfasdf';
+export { debounce } from './core/debounce';
+export { deepCopy } from './core/deepClone';
+export { hasKey } from './core/hasKey';
+export { isArray } from './core/isArray';
+export { isBoolean } from './core/isBoolean';
+export { isDefined } from './core/isDefined';
+export { isEmptyObject } from './core/isEmpty';
+export { isEqual } from './core/isEqual';
+export { isFunction } from './core/isFunction';
+export { isObject } from './core/isObject';
+export { sort } from './core/multiSort';
+export { noop } from './core/noop';
