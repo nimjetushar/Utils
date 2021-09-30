@@ -1,6 +1,3 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.isBoolean = void 0;
 /**
  * Identifies if argument is boolean or not.
  * @param {*} value Source data which is defined or not.
@@ -9,5 +6,5 @@ exports.isBoolean = void 0;
 function isBoolean(value) {
     return value === true || value === false;
 }
-exports.isBoolean = isBoolean;
+export { isBoolean };
 //# sourceMappingURL=isBoolean.js.map

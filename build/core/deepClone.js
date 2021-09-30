@@ -1,6 +1,3 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.deepCopy = void 0;
 const _getProto = Object.getPrototypeOf, _class2type = {}, _toString = _class2type.toString, _hasOwn = _class2type.hasOwnProperty, _fnToString = _hasOwn.toString, _ObjectFunctionString = _fnToString.call(Object);
 function _isFunction(obj) {
     // Support: Chrome <=57, Firefox <=52
@@ -32,7 +29,7 @@ function _isPlainObject(obj) {
  * @returns {T} Deep copied object containing all the properties of passed parameters.
  */
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-const deepCopy = (...args) => {
+export const deepCopy = (...args) => {
     let options, src, copy, copyIsArray, clone, i = 1, target = args[0] || {};
     const length = args.length;
     // Handle case when target is a string or something (possible in deep copy)
@@ -62,7 +59,7 @@ const deepCopy = (...args) => {
                         clone = src && _isPlainObject(src) ? src : {};
                     }
                     // Never move original objects, clone them
-                    target[name] = (0, exports.deepCopy)(clone, copy);
+                    target[name] = deepCopy(clone, copy);
                     // Don't bring in undefined values
                 }
                 else if (copy !== undefined) {
@@ -74,5 +71,4 @@ const deepCopy = (...args) => {
     // Return the modified object
     return target;
 };
-exports.deepCopy = deepCopy;
 //# sourceMappingURL=deepClone.js.map

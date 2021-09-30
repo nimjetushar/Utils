@@ -1,35 +1,48 @@
 const _ls = window.sessionStorage;
 
-/**
- * Sets passed data into session storage against key.
- * @param {sting} key key against which data need to be stored into session storage.
- * @param {*} data Data need to be stored in storage.
- * @return {void}
- */
-function setDataToSession(key: string, data: any) {
-  _ls.setItem(key, JSON.stringify(data));
-}
+export class SessionStorage {
 
-/**
- * Fetches data from session storage for passed key.
- * @param {*} key For which data needs be fetched.
- * @returns {*} data which is stored against key.
- */
-function getDataFromSession(key: string) {
-  const data = _ls.getItem(key);
-  if (data == null) {
-    return data;
+  /**
+   * Sets passed data into session storage against key.
+   *
+   * @static
+   * @param {string} key key against which data need to be stored into session storage.
+   * @param {*} data Data need to be stored in storage.
+   * @memberof SessionStorage
+   */
+  static setDataToSession(key: string, data: any): void {
+    _ls.setItem(key, JSON.stringify(data));
   }
-  return JSON.parse(data);
-}
 
-/**
- * Removes particular data for the key from storage.
- * @param {*} key Data which need to be removed / deleted.
- * @returns {void}
- */
-function removeItemFromSession(key: string) {
-  return _ls.removeItem(key);
-}
+  /**
+   * Fetches data from session storage for passed key.
+   *
+   * @static
+   * @param {string} key For which data needs be fetched.
+   * @return {*}  {unknown} data which is stored against key.
+   * @memberof SessionStorage
+   */
+  static getDataFromSession(key: string): unknown {
+    const data = _ls.getItem(key);
+    if (data == null) {
+      return data;
+    }
+    try {
+      return JSON.parse(data);
+    } catch {
+      return data;
+    }
+  }
 
-export { setDataToSession, getDataFromSession, removeItemFromSession };
+  /**
+   * Removes particular data for the key from storage.
+   *
+   * @static
+   * @param {string} key Data which need to be removed / deleted.
+   * @return {*}  {void}
+   * @memberof SessionStorage
+   */
+  static removeItemFromSession(key: string): void {
+    return _ls.removeItem(key);
+  }
+}

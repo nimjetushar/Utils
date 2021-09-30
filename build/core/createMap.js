@@ -1,7 +1,4 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.createMap = void 0;
-const isArray_1 = require("./isArray");
+import { isArray } from './isArray';
 /**
  * Creates map {unique value data} for array of object {data} taking supplied key {objKey} into consideration.
  * @param {Array} data Array Object who's map is to be created.
@@ -9,9 +6,9 @@ const isArray_1 = require("./isArray");
  * @returns {Object} map of data element with respect to specified {objKey} where key is the objKey and
  * value is specific element.
  */
-const createMap = (data, objKey) => {
+export const createMap = (data, objKey) => {
     const map = {};
-    if ((0, isArray_1.isArray)(data)) {
+    if (isArray(data)) {
         let i;
         const len = data.length;
         for (i = 0; i < len; i++) {
@@ -29,5 +26,4 @@ const createMap = (data, objKey) => {
     }
     return map;
 };
-exports.createMap = createMap;
 //# sourceMappingURL=createMap.js.map

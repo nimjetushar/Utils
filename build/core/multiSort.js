@@ -1,6 +1,3 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.sort = void 0;
 function getSortMethod(..._a) {
     const _args = Array.prototype.slice.call(arguments);
     return (a, b) => {
@@ -20,7 +17,7 @@ function getSortMethod(..._a) {
         return 0;
     };
 }
-function sort(data, comparator) {
+export function sort(data, comparator) {
     const formatedComp = [];
     for (let item of comparator) {
         if (!['-', '+'].includes(item[0])) {
@@ -30,5 +27,4 @@ function sort(data, comparator) {
     }
     return data.sort(getSortMethod(...formatedComp));
 }
-exports.sort = sort;
 //# sourceMappingURL=multiSort.js.map

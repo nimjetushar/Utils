@@ -1,4 +1,4 @@
-import { noop } from './core/noop';
+import { noop } from './noop';
 
 /**
  * Enable / disable logging across various environment
@@ -10,21 +10,20 @@ import { noop } from './core/noop';
  * @export
  * @class Logger
  */
-export default class Logger {
-  constructor() {
-    this.info = 1;
-    this.warn = 2;
-    this.error = 3;
-    this.disable = 4;
-  }
+export class Logger {
+
+  private info = 1;
+  private warn = 2;
+  private error = 3;
+  private disable = 4;
 
   /**
    * Set logger level
+   *
    * @param {number} [key=this.info] logging level
-   * @returns {void}
-   * @memberof Logger#
+   * @memberof Logger
    */
-  setlevel(key = this.info) {
+  setlevel(key: number = this.info) {
     if (!key) {
       throw new Error('Logger level is required');
     }

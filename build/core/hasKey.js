@@ -1,6 +1,3 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.hasKey = void 0;
 const hasOwnProperty = Object.prototype.hasOwnProperty;
 /**
  * Identifies if a particular key is present into Object or not and based on this returns boolean.
@@ -11,5 +8,5 @@ const hasOwnProperty = Object.prototype.hasOwnProperty;
 function hasKey(obj, key) {
     return obj !== null && hasOwnProperty.call(obj, key);
 }
-exports.hasKey = hasKey;
+export { hasKey };
 //# sourceMappingURL=hasKey.js.map

@@ -1,37 +1,46 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.removeItemFromSession = exports.getDataFromSession = exports.setDataToSession = void 0;
 const _ls = window.sessionStorage;
-/**
- * Sets passed data into session storage against key.
- * @param {sting} key key against which data need to be stored into session storage.
- * @param {*} data Data need to be stored in storage.
- * @return {void}
- */
-function setDataToSession(key, data) {
-    _ls.setItem(key, JSON.stringify(data));
-}
-exports.setDataToSession = setDataToSession;
-/**
- * Fetches data from session storage for passed key.
- * @param {*} key For which data needs be fetched.
- * @returns {*} data which is stored against key.
- */
-function getDataFromSession(key) {
-    const data = _ls.getItem(key);
-    if (data == null) {
-        return data;
+export class SessionStorage {
+    /**
+     * Sets passed data into session storage against key.
+     *
+     * @static
+     * @param {string} key key against which data need to be stored into session storage.
+     * @param {*} data Data need to be stored in storage.
+     * @memberof SessionStorage
+     */
+    static setDataToSession(key, data) {
+        _ls.setItem(key, JSON.stringify(data));
     }
-    return JSON.parse(data);
+    /**
+     * Fetches data from session storage for passed key.
+     *
+     * @static
+     * @param {string} key For which data needs be fetched.
+     * @return {*}  {unknown} data which is stored against key.
+     * @memberof SessionStorage
+     */
+    static getDataFromSession(key) {
+        const data = _ls.getItem(key);
+        if (data == null) {
+            return data;
+        }
+        try {
+            return JSON.parse(data);
+        }
+        catch (_a) {
+            return data;
+        }
+    }
+    /**
+     * Removes particular data for the key from storage.
+     *
+     * @static
+     * @param {string} key Data which need to be removed / deleted.
+     * @return {*}  {void}
+     * @memberof SessionStorage
+     */
+    static removeItemFromSession(key) {
+        return _ls.removeItem(key);
+    }
 }
-exports.getDataFromSession = getDataFromSession;
-/**
- * Removes particular data for the key from storage.
- * @param {*} key Data which need to be removed / deleted.
- * @returns {void}
- */
-function removeItemFromSession(key) {
-    return _ls.removeItem(key);
-}
-exports.removeItemFromSession = removeItemFromSession;
 //# sourceMappingURL=sessionOperations.js.map
