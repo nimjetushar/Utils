@@ -6,15 +6,15 @@ import {
     isDefined,
     isEmptyObject,
     isObject,
-    setDataToLocal,
-    setDataToSession,
     isEqual,
     isFunction,
     hasKey,
     noop,
-    debounce
-} from '../index';
-const utils = require('../build-umd');
+    debounce,
+    SessionStorage,
+    LocalStorage
+} from '../build';
+const utils = require('../build/index-umd');
 
 describe('Utils', () => {
 
@@ -54,11 +54,11 @@ describe('Utils', () => {
     });
 
     it('should have setDataToLocal method', () => {
-        expect(setDataToLocal).toBeDefined();
+        expect(LocalStorage).toBeDefined();
     });
 
     it('should have setDataToSession method', () => {
-        expect(setDataToSession).toBeDefined();
+        expect(SessionStorage).toBeDefined();
     });
 
     it('should have isEqual method', () => {
