@@ -25,7 +25,10 @@ function compileToUmd() {
             moduleName: "utils",
             entry: "./build/index.js"
         }))
-        .pipe(babel())
+        .pipe(babel({
+            "presets": ["@babel/preset-env"],
+            "plugins": ["transform-object-assign"]
+        }))
         .pipe(rename('index-umd.js'))
         .pipe(gulp.dest('./build'))
 }
@@ -39,4 +42,5 @@ function moveFiles(cb) {
         .pipe(gulp.dest('build'), cb);
 }
 
+exports.compileToUmd = compileToUmd;
 exports.default = gulp.series(clean, compileTs, compileToUmd, moveFiles);

@@ -1,6 +1,8 @@
+"use strict";
+
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('device-detector-js')) : typeof define === 'function' && define.amd ? define(['exports', 'device-detector-js'], factory) : (global = global || self, factory(global.utils = {}, global.DeviceDetector));
-})(this, function (exports, DeviceDetector) {
+})(void 0, function (exports, DeviceDetector) {
   'use strict';
 
   DeviceDetector = DeviceDetector && DeviceDetector.hasOwnProperty('default') ? DeviceDetector['default'] : DeviceDetector;
