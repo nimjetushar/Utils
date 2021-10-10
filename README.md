@@ -15,9 +15,9 @@
 `npm i tutility --save`
 
 Import the js as required </br>
-`import { deepCopy, isEqual, ... } 'tutility/utils'` for utilities </br>
-`import Detect 'tutility/detect'` for browser detect utility </br>
-`import Logger 'tutility/logger'` for logger </br>
+`import { deepCopy, isEqual, ... } 'tutility'` for utilities </br>
+`import Detect 'tutility'` for browser detect utility </br>
+`import Logger 'tutility'` for logger </br>
 
 ## [Documentation](https://nimjetushar.github.io/Utils/)
 [Here](https://nimjetushar.github.io/Utils/) you can find api documentation
