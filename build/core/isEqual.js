@@ -1,13 +1,19 @@
-import { isFunction } from './isFunction';
-import { isObject } from './isObject';
-import { hasKey as has } from './hasKey';
-const SymbolProto = typeof Symbol !== 'undefined' ? Symbol.prototype : null, nativeKeys = Object.keys, toString = Object.prototype.toString, hasEnumBug = !{ toString: null }.propertyIsEnumerable.call('toString', null), nonEnumerableProps = ['valueOf', 'isPrototypeOf', 'toString',
-    'propertyIsEnumerable', 'hasOwnProperty', 'toLocaleString'];
+import { isFunction } from "./isFunction";
+import { isObject } from "./isObject";
+import { hasKey as has } from "./hasKey";
+const SymbolProto = typeof Symbol !== "undefined" ? Symbol.prototype : null, nativeKeys = Object.keys, toString = Object.prototype.toString, hasEnumBug = !{ toString: null }.propertyIsEnumerable.call("toString", null), nonEnumerableProps = [
+    "valueOf",
+    "isPrototypeOf",
+    "toString",
+    "propertyIsEnumerable",
+    "hasOwnProperty",
+    "toLocaleString",
+];
 function collectNonEnumProps(obj, keys) {
     let nonEnumIdx = nonEnumerableProps.length;
-    const constructor = obj.constructor, proto = isFunction(constructor) && constructor.prototype || Object.prototype;
+    const constructor = obj.constructor, proto = (isFunction(constructor) && constructor.prototype) || Object.prototype;
     // Constructor is a special case.
-    let prop = 'constructor';
+    let prop = "constructor";
     if (has(obj, prop) && !keys.includes(prop)) {
         keys.push(prop);
     }
@@ -54,7 +60,7 @@ function eq(a, b, aStack, bStack) {
     }
     // Exhaust primitive checks
     const type = typeof a;
-    if (type !== 'function' && type !== 'object' && typeof b !== 'object') {
+    if (type !== "function" && type !== "object" && typeof b !== "object") {
         return false;
     }
     // eslint-disable-next-line no-use-before-define
@@ -69,13 +75,14 @@ function deepEq(a, b, aStack, bStack) {
     }
     switch (className) {
         // Strings, numbers, regular expressions, dates, and booleans are compared by value.
-        case '[object RegExp]':
+        case "[object RegExp]":
         // RegExps are coerced to strings for comparison (Note: '' + /a/i === '/a/i')
-        case '[object String]':
+        // eslint-disable-next-line no-fallthrough
+        case "[object String]":
             // Primitives and their corresponding object wrappers are equivalent; thus, `"5"` is
             // equivalent to `new String("5")`.
-            return '' + a === '' + b;
-        case '[object Number]':
+            return "" + a === "" + b;
+        case "[object Number]":
             // `NaN`s are equivalent, but non-reflexive.
             // Object(NaN) is equivalent to NaN.
             if (+a !== +a) {
@@ -83,26 +90,30 @@ function deepEq(a, b, aStack, bStack) {
             }
             // An `egal` comparison is performed for other numeric values.
             return +a === 0 ? 1 / +a === 1 / b : +a === +b;
-        case '[object Date]':
-        case '[object Boolean]':
+        case "[object Date]":
+        case "[object Boolean]":
             // Coerce dates and booleans to numeric primitive values. Dates are compared by their
             // millisecond representations. Note that invalid dates with millisecond representations
             // of `NaN` are not equivalent.
             return +a === +b;
-        case '[object Symbol]':
+        case "[object Symbol]":
             return SymbolProto.valueOf.call(a) === SymbolProto.valueOf.call(b);
     }
-    const areArrays = className === '[object Array]';
+    const areArrays = className === "[object Array]";
     if (!areArrays) {
-        if (typeof a !== 'object' || typeof b !== 'object') {
+        if (typeof a !== "object" || typeof b !== "object") {
             return false;
         }
         // Objects with different constructors are not equivalent, but `Object`s or `Array`s
         // from different frames are.
         const aCtor = a.constructor, bCtor = b.constructor;
-        if (aCtor !== bCtor && !(isFunction(aCtor) && aCtor instanceof aCtor &&
-            isFunction(bCtor) && bCtor instanceof bCtor) &&
-            ('constructor' in a && 'constructor' in b)) {
+        if (aCtor !== bCtor &&
+            !(isFunction(aCtor) &&
+                aCtor instanceof aCtor &&
+                isFunction(bCtor) &&
+                bCtor instanceof bCtor) &&
+            "constructor" in a &&
+            "constructor" in b) {
             return false;
         }
     }
@@ -165,5 +176,5 @@ function deepEq(a, b, aStack, bStack) {
  * @param {*} param2 Parameter 2
  * @returns {boolean} true if both parameter are equal
  */
-export const isEqual = eq;
+export { eq as isEqual };
 //# sourceMappingURL=isEqual.js.map

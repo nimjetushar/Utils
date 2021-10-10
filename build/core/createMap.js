@@ -1,4 +1,4 @@
-import { isArray } from './isArray';
+import { isArray } from "./isArray";
 /**
  * Creates map {unique value data} for array of object {data} taking supplied key {objKey} into consideration.
  * @param {Array} data Array Object who's map is to be created.
@@ -6,7 +6,7 @@ import { isArray } from './isArray';
  * @returns {Object} map of data element with respect to specified {objKey} where key is the objKey and
  * value is specific element.
  */
-export const createMap = (data, objKey) => {
+export function createMap(data, objKey) {
     const map = {};
     if (isArray(data)) {
         let i;
@@ -22,8 +22,8 @@ export const createMap = (data, objKey) => {
         }
     }
     else {
-        throw new Error('Required Array');
+        throw new Error("Required Array");
     }
     return map;
-};
+}
 //# sourceMappingURL=createMap.js.map

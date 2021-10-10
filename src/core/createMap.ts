@@ -1,4 +1,4 @@
-import { isArray } from './isArray';
+import { isArray } from "./isArray";
 
 /**
  * Creates map {unique value data} for array of object {data} taking supplied key {objKey} into consideration.
@@ -7,7 +7,7 @@ import { isArray } from './isArray';
  * @returns {Object} map of data element with respect to specified {objKey} where key is the objKey and
  * value is specific element.
  */
-export const createMap = <T>(data: T[], objKey: string): { [key: string]: T } => {
+export function createMap<T>(data: T[], objKey: string): { [key: string]: T } {
   const map: { [key: string]: T } = {};
   if (isArray(data)) {
     let i;
@@ -21,7 +21,7 @@ export const createMap = <T>(data: T[], objKey: string): { [key: string]: T } =>
       }
     }
   } else {
-    throw new Error('Required Array');
+    throw new Error("Required Array");
   }
   return map;
 }

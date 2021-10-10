@@ -1,3 +1,4 @@
+/* eslint-disable no-fallthrough */
 import { noop } from './noop';
 /**
  * Enable / disable logging across various environment

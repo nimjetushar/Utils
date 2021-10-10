@@ -3,8 +3,7 @@
  * @param {*} value Source data which is defined or not.
  * @returns {boolean} status as true if defined and false if not.
  */
-function isBoolean(value) {
+export function isBoolean(value) {
     return value === true || value === false;
 }
-export { isBoolean };
 //# sourceMappingURL=isBoolean.js.map

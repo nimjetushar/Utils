@@ -7,7 +7,7 @@ export declare class SessionStorage {
      * @param {*} data Data need to be stored in storage.
      * @memberof SessionStorage
      */
-    static setDataToSession(key: string, data: any): void;
+    static setDataToSession(key: string, data: unknown): void;
     /**
      * Fetches data from session storage for passed key.
      *

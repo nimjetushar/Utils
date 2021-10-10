@@ -26,9 +26,9 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
    * @returns {boolean} status as true if Array and false if not.
    */
 
-  var isArray = function isArray(data) {
-    return _typeof(data) === 'object' && data instanceof Array;
-  };
+  function isArray(data) {
+    return _typeof(data) === "object" && data instanceof Array;
+  }
   /**
    * Creates map {unique value data} for array of object {data} taking supplied key {objKey} into consideration.
    * @param {Array} data Array Object who's map is to be created.
@@ -38,7 +38,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
    */
 
 
-  var createMap = function createMap(data, objKey) {
+  function createMap(data, objKey) {
     var map = {};
 
     if (isArray(data)) {
@@ -55,11 +55,11 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
         }
       }
     } else {
-      throw new Error('Required Array');
+      throw new Error("Required Array");
     }
 
     return map;
-  };
+  }
   /**
    * add debounce time for passef function
    * @export
@@ -101,12 +101,12 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
     // In some browsers, typeof returns "function" for HTML <object> elements
     // (i.e., `typeof document.createElement( "object" ) === "function"`).
     // We don't want to classify *any* DOM node as a function.
-    return typeof obj === 'function' && typeof obj.nodeType !== 'number';
+    return typeof obj === "function" && typeof obj.nodeType !== "number";
   }
 
   function _isPlainObject(obj) {
     // Detect obvious negatives
-    if (!obj || _toString.call(obj) !== '[object Object]') {
+    if (!obj || _toString.call(obj) !== "[object Object]") {
       return false;
     }
 
@@ -118,8 +118,8 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
     } // Objects with prototype are plain iff they were constructed by a global Object function
 
 
-    var Ctor = _hasOwn.call(proto, 'constructor') && proto.constructor;
-    return typeof Ctor === 'function' && _fnToString.call(Ctor) === _ObjectFunctionString;
+    var Ctor = _hasOwn.call(proto, "constructor") && proto.constructor;
+    return typeof Ctor === "function" && _fnToString.call(Ctor) === _ObjectFunctionString;
   }
   /**
    * Creates deep copy of all the passed object merging all the data into 1st parameter ( target object ).
@@ -131,7 +131,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
 
 
-  var deepCopy = function deepCopy() {
+  function deepCopy() {
     var options,
         src,
         copy,
@@ -141,7 +141,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
         target = (arguments.length <= 0 ? undefined : arguments[0]) || {};
     var length = arguments.length; // Handle case when target is a string or something (possible in deep copy)
 
-    if (_typeof(target) !== 'object' && !_isFunction(target)) {
+    if (_typeof(target) !== "object" && !_isFunction(target)) {
       target = {};
     }
 
@@ -178,7 +178,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
 
 
     return target;
-  };
+  }
   /**
    * Detect browser and device.
    * @export
@@ -237,9 +237,9 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
    */
 
 
-  var isDefined = function isDefined(data) {
-    return !(data == null || data === '');
-  };
+  function isDefined(data) {
+    return !(data == null || data === "");
+  }
   /**
    * Identifies if Object is empty or not.
    * @param {*} obj Source data which need to be validated.
@@ -247,9 +247,9 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
    */
 
 
-  var isEmptyObject = function isEmptyObject(obj) {
-    if (_typeof(obj) != 'object') {
-      throw new Error('Invalid data type requires object');
+  function isEmptyObject(obj) {
+    if (_typeof(obj) != "object") {
+      throw new Error("Invalid data type requires object");
     }
 
     for (var _name in obj) {
@@ -257,7 +257,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
     }
 
     return true;
-  };
+  }
   /**
    * Identifies if passed argument is function or not.
    * @param {*} param Parameter which needs to be validated.
@@ -266,7 +266,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
 
 
   function isFunction(param) {
-    return typeof param === 'function' || false;
+    return typeof param === "function" || false;
   }
   /**
    * Verifies if passed argument is Object or not
@@ -278,23 +278,23 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
   function isObject(value) {
     var type = _typeof(value);
 
-    return value != null && (type === 'object' || type === 'function');
+    return value != null && (type === "object" || type === "function");
   }
 
-  var SymbolProto = typeof Symbol !== 'undefined' ? Symbol.prototype : null,
+  var SymbolProto = typeof Symbol !== "undefined" ? Symbol.prototype : null,
       nativeKeys = Object.keys,
       toString = Object.prototype.toString,
       hasEnumBug = !{
     toString: null
-  }.propertyIsEnumerable.call('toString', null),
-      nonEnumerableProps = ['valueOf', 'isPrototypeOf', 'toString', 'propertyIsEnumerable', 'hasOwnProperty', 'toLocaleString'];
+  }.propertyIsEnumerable.call("toString", null),
+      nonEnumerableProps = ["valueOf", "isPrototypeOf", "toString", "propertyIsEnumerable", "hasOwnProperty", "toLocaleString"];
 
   function collectNonEnumProps(obj, keys) {
     var nonEnumIdx = nonEnumerableProps.length;
     var constructor = obj.constructor,
         proto = isFunction(constructor) && constructor.prototype || Object.prototype; // Constructor is a special case.
 
-    var prop = 'constructor';
+    var prop = "constructor";
 
     if (hasKey(obj, prop) && !keys.includes(prop)) {
       keys.push(prop);
@@ -355,7 +355,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
 
     var type = _typeof(a);
 
-    if (type !== 'function' && type !== 'object' && _typeof(b) !== 'object') {
+    if (type !== "function" && type !== "object" && _typeof(b) !== "object") {
       return false;
     } // eslint-disable-next-line no-use-before-define
 
@@ -374,14 +374,15 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
 
     switch (className) {
       // Strings, numbers, regular expressions, dates, and booleans are compared by value.
-      case '[object RegExp]': // RegExps are coerced to strings for comparison (Note: '' + /a/i === '/a/i')
+      case "[object RegExp]": // RegExps are coerced to strings for comparison (Note: '' + /a/i === '/a/i')
+      // eslint-disable-next-line no-fallthrough
 
-      case '[object String]':
+      case "[object String]":
         // Primitives and their corresponding object wrappers are equivalent; thus, `"5"` is
         // equivalent to `new String("5")`.
-        return '' + a === '' + b;
+        return "" + a === "" + b;
 
-      case '[object Number]':
+      case "[object Number]":
         // `NaN`s are equivalent, but non-reflexive.
         // Object(NaN) is equivalent to NaN.
         if (+a !== +a) {
@@ -391,21 +392,21 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
 
         return +a === 0 ? 1 / +a === 1 / b : +a === +b;
 
-      case '[object Date]':
-      case '[object Boolean]':
+      case "[object Date]":
+      case "[object Boolean]":
         // Coerce dates and booleans to numeric primitive values. Dates are compared by their
         // millisecond representations. Note that invalid dates with millisecond representations
         // of `NaN` are not equivalent.
         return +a === +b;
 
-      case '[object Symbol]':
+      case "[object Symbol]":
         return SymbolProto.valueOf.call(a) === SymbolProto.valueOf.call(b);
     }
 
-    var areArrays = className === '[object Array]';
+    var areArrays = className === "[object Array]";
 
     if (!areArrays) {
-      if (_typeof(a) !== 'object' || _typeof(b) !== 'object') {
+      if (_typeof(a) !== "object" || _typeof(b) !== "object") {
         return false;
       } // Objects with different constructors are not equivalent, but `Object`s or `Array`s
       // from different frames are.
@@ -414,7 +415,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
       var aCtor = a.constructor,
           bCtor = b.constructor;
 
-      if (aCtor !== bCtor && !(isFunction(aCtor) && aCtor instanceof aCtor && isFunction(bCtor) && bCtor instanceof bCtor) && 'constructor' in a && 'constructor' in b) {
+      if (aCtor !== bCtor && !(isFunction(aCtor) && aCtor instanceof aCtor && isFunction(bCtor) && bCtor instanceof bCtor) && "constructor" in a && "constructor" in b) {
         return false;
       }
     } // Assume equality for cyclic structures. The algorithm for detecting cyclic
@@ -478,15 +479,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
     bStack.pop();
     return true;
   }
-  /**
-   * Compares two parameter of same type and returns true if equal.
-   * @param {*} param1 Parameter 1
-   * @param {*} param2 Parameter 2
-   * @returns {boolean} true if both parameter are equal
-   */
 
-
-  var isEqual = eq;
   var _ls = window.localStorage;
 
   var LocalStorage = /*#__PURE__*/function () {
@@ -558,6 +551,8 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
 
 
   function noop() {}
+  /* eslint-disable no-fallthrough */
+
   /**
    * Enable / disable logging across various environment
    * new Logger().setlevel(level) where level are :-
@@ -617,13 +612,15 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
     }]);
 
     return Logger;
-  }();
+  }(); // eslint-disable-next-line @typescript-eslint/no-unused-vars
+
 
   function getSortMethod() {
     for (var _len2 = arguments.length, _a = new Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
       _a[_key2] = arguments[_key2];
     }
 
+    // eslint-disable-next-line prefer-rest-params
     var _args = Array.prototype.slice.call(arguments);
 
     return function (a, b) {
@@ -632,10 +629,10 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
             bx = b[_args[x].substring(1)],
             cx = void 0;
 
-        ax = typeof ax == 'string' ? ax.toLowerCase() : ax / 1;
-        bx = typeof bx == 'string' ? bx.toLowerCase() : bx / 1;
+        ax = typeof ax == "string" ? ax.toLowerCase() : ax / 1;
+        bx = typeof bx == "string" ? bx.toLowerCase() : bx / 1;
 
-        if (_args[x].substring(0, 1) == '-') {
+        if (_args[x].substring(0, 1) == "-") {
           cx = ax;
           ax = bx;
           bx = cx;
@@ -649,6 +646,16 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
       return 0;
     };
   }
+  /**
+   * sort array based on multiple criteria
+   *
+   * @export
+   * @template T
+   * @param {T[]} data
+   * @param {string[]} comparator
+   * @return {*}  {T[]}
+   */
+
 
   function sort(data, comparator) {
     var formatedComp = [];
@@ -660,7 +667,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
       for (_iterator.s(); !(_step = _iterator.n()).done;) {
         var item = _step.value;
 
-        if (!['-', '+'].includes(item[0])) {
+        if (!["-", "+"].includes(item[0])) {
           item = "+".concat(item);
         }
 
@@ -748,7 +755,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
   exports.isBoolean = isBoolean;
   exports.isDefined = isDefined;
   exports.isEmptyObject = isEmptyObject;
-  exports.isEqual = isEqual;
+  exports.isEqual = eq;
   exports.isFunction = isFunction;
   exports.isObject = isObject;
   exports.LocalStorage = LocalStorage;

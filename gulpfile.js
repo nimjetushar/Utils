@@ -8,7 +8,7 @@ const gulp = require('gulp'),
     rename = require('gulp-rename');
 
 function createDoc(cb) {
-    return gulp.src(['README.md', './core/*.js', './logger.js', './detect.js'], { read: false })
+    return gulp.src(['README.md', './build/core/*.js'], { read: false })
         .pipe(jsdoc(config, cb));
 }
 
@@ -43,4 +43,5 @@ function moveFiles(cb) {
 }
 
 exports.compileToUmd = compileToUmd;
+exports.generateDoc = createDoc;
 exports.default = gulp.series(clean, compileTs, compileToUmd, moveFiles);

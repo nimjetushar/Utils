@@ -10,12 +10,12 @@ function _isFunction(obj: any) {
   // In some browsers, typeof returns "function" for HTML <object> elements
   // (i.e., `typeof document.createElement( "object" ) === "function"`).
   // We don't want to classify *any* DOM node as a function.
-  return typeof obj === 'function' && typeof obj.nodeType !== 'number';
+  return typeof obj === "function" && typeof obj.nodeType !== "number";
 }
 
 function _isPlainObject(obj: any) {
   // Detect obvious negatives
-  if (!obj || _toString.call(obj) !== '[object Object]') {
+  if (!obj || _toString.call(obj) !== "[object Object]") {
     return false;
   }
 
@@ -27,9 +27,9 @@ function _isPlainObject(obj: any) {
   }
 
   // Objects with prototype are plain iff they were constructed by a global Object function
-  const Ctor = _hasOwn.call(proto, 'constructor') && proto.constructor;
+  const Ctor = _hasOwn.call(proto, "constructor") && proto.constructor;
   return (
-    typeof Ctor === 'function' &&
+    typeof Ctor === "function" &&
     _fnToString.call(Ctor) === _ObjectFunctionString
   );
 }
@@ -42,7 +42,7 @@ function _isPlainObject(obj: any) {
  * @returns {T} Deep copied object containing all the properties of passed parameters.
  */
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-export const deepCopy = (...args: any[]): boolean => {
+export function deepCopy(...args: any[]): boolean {
   let options,
     src,
     copy,
@@ -53,7 +53,7 @@ export const deepCopy = (...args: any[]): boolean => {
   const length = args.length;
 
   // Handle case when target is a string or something (possible in deep copy)
-  if (typeof target !== 'object' && !_isFunction(target)) {
+  if (typeof target !== "object" && !_isFunction(target)) {
     target = {};
   }
 

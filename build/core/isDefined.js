@@ -3,5 +3,7 @@
  * @param {*} data Source data which need to be identitied if Array or not.
  * @returns {boolean} status as true if Array and false if not.
  */
-export const isDefined = (data) => !(data == null || data === '');
+export function isDefined(data) {
+    return !(data == null || data === "");
+}
 //# sourceMappingURL=isDefined.js.map

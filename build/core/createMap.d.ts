@@ -5,6 +5,6 @@
  * @returns {Object} map of data element with respect to specified {objKey} where key is the objKey and
  * value is specific element.
  */
-export declare const createMap: <T>(data: T[], objKey: string) => {
+export declare function createMap<T>(data: T[], objKey: string): {
     [key: string]: T;
 };

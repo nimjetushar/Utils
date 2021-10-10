@@ -3,5 +3,4 @@
  * @param {*} value Argument which needs to be validated
  * @returns {boolean} return true if passed argument is Object
  */
-declare function isObject(value: any): boolean;
-export { isObject };
+export declare function isObject(value: any): boolean;

@@ -4,5 +4,4 @@
  * @param {string} key Property which need to be verified into source object.
  * @returns {boolean} true if key exists and false if not.
  */
-declare function hasKey(obj: Object, key: string): boolean;
-export { hasKey };
+export declare function hasKey(obj: any, key: string): boolean;

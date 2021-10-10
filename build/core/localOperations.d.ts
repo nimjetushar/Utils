@@ -7,7 +7,7 @@ export declare class LocalStorage {
      * @param {*} data Data need to be stored in storage.
      * @memberof LocalStorage
      */
-    static setDataToLocal(key: string, data: any): void;
+    static setDataToLocal(key: string, data: unknown): void;
     /**
      * Fetches data from local storage for passed key.
      *

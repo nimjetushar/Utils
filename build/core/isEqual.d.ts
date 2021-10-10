@@ -5,5 +5,4 @@ declare function eq(a: any, b: any, aStack?: unknown, bStack?: unknown): boolean
  * @param {*} param2 Parameter 2
  * @returns {boolean} true if both parameter are equal
  */
-export declare const isEqual: typeof eq;
-export {};
+export { eq as isEqual };

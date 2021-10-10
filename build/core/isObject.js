@@ -3,9 +3,8 @@
  * @param {*} value Argument which needs to be validated
  * @returns {boolean} return true if passed argument is Object
  */
-function isObject(value) {
+export function isObject(value) {
     const type = typeof value;
-    return value != null && (type === 'object' || type === 'function');
+    return value != null && (type === "object" || type === "function");
 }
-export { isObject };
 //# sourceMappingURL=isObject.js.map

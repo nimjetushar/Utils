@@ -10,7 +10,7 @@
     "test": "jest",
     "test-with-coverage": "jest --coverage && codacy-coverage -t 5bce5aece0e04478b72ff03a0a6d530d < ./coverage/lcov.info",
     "test-with-coverage-ci": "jest --coverage && cat ./coverage/lcov.info | codacy-coverage -t 5bce5aece0e04478b72ff03a0a6d530d",
-    "doc": "gulp",
+    "doc": "gulp generateDoc",
     "deploy-doc": "npm run doc && gh-pages -d docs",
     "lint": "eslint ./src --ext .ts",
     "jest": "jest --init"
