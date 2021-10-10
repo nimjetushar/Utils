@@ -3,4 +3,4 @@
  * @param {*} value accepts anyumber of arguments.
  * @returns {void} return undefined
  */
-export function noop() { }
+export const noop = (): void => undefined;

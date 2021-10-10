@@ -3,7 +3,7 @@
  * @param {*} value Source data which is defined or not.
  * @returns {boolean} status as true if defined and false if not.
  */
-function isBoolean(value: any) {
+function isBoolean(value: any): boolean {
   return value === true || value === false;
 }
 

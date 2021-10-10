@@ -36,7 +36,7 @@ function keyList(obj: any): string[] {
     return keysArr;
 }
 
-function eq(a: any, b: any, aStack?: unknown, bStack?: unknown) {
+function eq(a: any, b: any, aStack?: unknown, bStack?: unknown): boolean {
     // Identical objects are equal. `0 === -0`, but they aren't identical.
     // See the [Harmony `egal` proposal](http://wiki.ecmascript.org/doku.php?id=harmony:egal).
     if (a === b) { return a !== 0 || 1 / a === 1 / b; }
@@ -61,6 +61,7 @@ function deepEq(a: any, b: any, aStack: any, bStack: any) {
         // Strings, numbers, regular expressions, dates, and booleans are compared by value.
         case '[object RegExp]':
         // RegExps are coerced to strings for comparison (Note: '' + /a/i === '/a/i')
+        // eslint-disable-next-line no-fallthrough
         case '[object String]':
             // Primitives and their corresponding object wrappers are equivalent; thus, `"5"` is
             // equivalent to `new String("5")`.

@@ -6,8 +6,6 @@ const hasOwnProperty = Object.prototype.hasOwnProperty;
  * @param {string} key Property which need to be verified into source object.
  * @returns {boolean} true if key exists and false if not.
  */
-function hasKey(obj: Object, key: string) {
-    return obj !== null && hasOwnProperty.call(obj, key);
+export function hasKey(obj: any, key: string): boolean {
+  return obj !== null && hasOwnProperty.call(obj, key);
 }
-
-export { hasKey };

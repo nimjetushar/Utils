@@ -1,3 +1,4 @@
+/* eslint-disable no-fallthrough */
 import { noop } from './noop';
 
 /**
@@ -23,7 +24,7 @@ export class Logger {
    * @param {number} [key=this.info] logging level
    * @memberof Logger
    */
-  setlevel(key: number = this.info) {
+  setlevel(key: number = this.info): void {
     if (!key) {
       throw new Error('Logger level is required');
     }

@@ -10,7 +10,7 @@ export class LocalStorage {
    * @param {*} data Data need to be stored in storage.
    * @memberof LocalStorage
    */
-  static setDataToLocal(key: string, data: any): void {
+  static setDataToLocal(key: string, data: unknown): void {
     _ls.setItem(key, JSON.stringify(data));
   }
 
