@@ -1,5 +1,5 @@
 /* eslint-disable max-len */
-import Detect from '../build/detect';
+import { Detect } from '../build';
 
 describe('detect.js', () => {
     let detect;

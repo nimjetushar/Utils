@@ -1,4 +1,4 @@
-import { isObject } from '../build/utils';
+import { isObject } from '../build';
 
 describe('isObject', () => {
   it('should check for null', () => {

@@ -1,4 +1,4 @@
-import { isFunction } from '../build/utils';
+import { isFunction } from '../build';
 
 describe('isFunction', () => {
     it('should return a true for functions', () => {

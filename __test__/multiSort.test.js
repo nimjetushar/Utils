@@ -1,4 +1,4 @@
-import { sort } from '../build/utils';
+import { sort } from '../build';
 
 const list = [
     { name: 'z - test item', price: '99.99', priority: 0, rating: 2, reviews: 309 },
