@@ -22,8 +22,5 @@ Import the js as required </br>
 ## [Documentation](https://nimjetushar.github.io/Utils/)
 [Here](https://nimjetushar.github.io/Utils/) you can find api documentation
 
-## Dependencies
-[![devDependencies Status](https://david-dm.org/nimjetushar/utils/dev-status.svg)](https://david-dm.org/nimjetushar/utils?type=dev)
-
 ## Licence
 [![GitHub license](https://img.shields.io/github/license/nimjetushar/Utils.svg?style=popout)](https://github.com/nimjetushar/Utils/blob/master/LICENSE)
