@@ -15,15 +15,12 @@
 `npm i tutility --save`
 
 Import the js as required </br>
-`import { deepCopy, isEqual, ... } 'tutility/utils'` for utilities </br>
-`import Detect 'tutility/detect'` for browser detect utility </br>
-`import Logger 'tutility/logger'` for logger </br>
+`import { deepCopy, isEqual, ... } 'tutility'` for utilities </br>
+`import Detect 'tutility'` for browser detect utility </br>
+`import Logger 'tutility'` for logger </br>
 
 ## [Documentation](https://nimjetushar.github.io/Utils/)
 [Here](https://nimjetushar.github.io/Utils/) you can find api documentation
-
-## Dependencies
-[![devDependencies Status](https://david-dm.org/nimjetushar/utils/dev-status.svg)](https://david-dm.org/nimjetushar/utils?type=dev)
 
 ## Licence
 [![GitHub license](https://img.shields.io/github/license/nimjetushar/Utils.svg?style=popout)](https://github.com/nimjetushar/Utils/blob/master/LICENSE)
