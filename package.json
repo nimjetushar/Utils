@@ -1,6 +1,6 @@
 {
   "name": "tutility",
-  "version": "4.2.0",
+  "version": "5.0.0",
   "description": "Utility functions",
   "main": "index.js",
   "scripts": {
@@ -11,8 +11,7 @@
     "test-with-coverage": "jest --coverage && codacy-coverage -t 5bce5aece0e04478b72ff03a0a6d530d < ./coverage/lcov.info",
     "test-with-coverage-ci": "jest --coverage && cat ./coverage/lcov.info | codacy-coverage -t 5bce5aece0e04478b72ff03a0a6d530d",
     "deploy": "gulp generateDoc",
-    "lint": "eslint ./src --ext .ts",
-    "jest": "jest --init"
+    "lint": "eslint ./src --ext .ts"
   },
   "repository": {
     "type": "git",

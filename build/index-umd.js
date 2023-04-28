@@ -22,12 +22,12 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
   DeviceDetector = DeviceDetector && DeviceDetector.hasOwnProperty('default') ? DeviceDetector['default'] : DeviceDetector;
   /**
    * Identifies if argument is Array or not.
-   * @param {*} data Source data which need to be identitied if Array or not.
+   * @param {*} object Source data which need to be identitied if Array or not.
    * @returns {boolean} status as true if Array and false if not.
    */
 
-  function isArray(data) {
-    return _typeof(data) === "object" && data instanceof Array;
+  function isArray(object) {
+    return _typeof(object) === "object" && object instanceof Array;
   }
   /**
    * Creates map {unique value data} for array of object {data} taking supplied key {objKey} into consideration.
@@ -222,37 +222,37 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
   }
   /**
    * Identifies if argument is boolean or not.
-   * @param {*} value Source data which is defined or not.
+   * @param {*} object Source data which is defined or not.
    * @returns {boolean} status as true if defined and false if not.
    */
 
 
-  function isBoolean(value) {
-    return value === true || value === false;
+  function isBoolean(object) {
+    return object === true || object === false;
   }
   /**
    * Identifies if argument is defined or not that is its value should not be null, undefined or ''.
-   * @param {*} data Source data which need to be identitied if Array or not.
+   * @param {*} object Source data which need to be identitied if Array or not.
    * @returns {boolean} status as true if Array and false if not.
    */
 
 
-  function isDefined(data) {
-    return !(data == null || data === "");
+  function isUndefined(object) {
+    return object == null || object === "";
   }
   /**
    * Identifies if Object is empty or not.
-   * @param {*} obj Source data which need to be validated.
+   * @param {*} object Source data which need to be validated.
    * @returns {boolean} status as true if not an empty Object and false if empty.
    */
 
 
-  function isEmptyObject(obj) {
-    if (_typeof(obj) != "object") {
+  function isEmptyObject(object) {
+    if (_typeof(object) != "object") {
       throw new Error("Invalid data type requires object");
     }
 
-    for (var _name in obj) {
+    for (var _name in object) {
       return false;
     }
 
@@ -260,25 +260,25 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
   }
   /**
    * Identifies if passed argument is function or not.
-   * @param {*} param Parameter which needs to be validated.
+   * @param {*} object Parameter which needs to be validated.
    * @returns {boolean} return true is parameter is function.
    */
 
 
-  function isFunction(param) {
-    return typeof param === "function" || false;
+  function isFunction(object) {
+    return typeof object === "function" || false;
   }
   /**
    * Verifies if passed argument is Object or not
-   * @param {*} value Argument which needs to be validated
+   * @param {*} object Argument which needs to be validated
    * @returns {boolean} return true if passed argument is Object
    */
 
 
-  function isObject(value) {
-    var type = _typeof(value);
+  function isObject(object) {
+    var type = _typeof(object);
 
-    return value != null && (type === "object" || type === "function");
+    return object != null && (type === "object" || type === "function");
   }
 
   var SymbolProto = typeof Symbol !== "undefined" ? Symbol.prototype : null,
@@ -753,7 +753,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
   exports.hasKey = hasKey;
   exports.isArray = isArray;
   exports.isBoolean = isBoolean;
-  exports.isDefined = isDefined;
+  exports.isUndefined = isUndefined;
   exports.isEmptyObject = isEmptyObject;
   exports.isEqual = eq;
   exports.isFunction = isFunction;

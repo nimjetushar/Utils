@@ -1,1 +1,1 @@
-{"version":3,"file":"isFunction.js","sourceRoot":"","sources":["../../src/core/isFunction.ts"],"names":[],"mappings":"AAAA;;;;GAIG;AACH,MAAM,UAAU,UAAU,CAAC,KAAU;IACnC,OAAO,OAAO,KAAK,KAAK,UAAU,IAAI,KAAK,CAAC;AAC9C,CAAC"}
+{"version":3,"file":"isFunction.js","sourceRoot":"","sources":["../../src/core/isFunction.ts"],"names":[],"mappings":"AAAA;;;;GAIG;AACH,MAAM,UAAU,UAAU,CAAC,MAAW;IACpC,OAAO,OAAO,MAAM,KAAK,UAAU,IAAI,KAAK,CAAC;AAC/C,CAAC"}

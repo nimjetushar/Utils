@@ -1,1 +1,1 @@
-{"version":3,"file":"isArray.js","sourceRoot":"","sources":["../../src/core/isArray.ts"],"names":[],"mappings":"AAAA;;;;GAIG;AACH,MAAM,UAAU,OAAO,CAAC,IAAS;IAC/B,OAAO,OAAO,IAAI,KAAK,QAAQ,IAAI,IAAI,YAAY,KAAK,CAAC;AAC3D,CAAC"}
+{"version":3,"file":"isArray.js","sourceRoot":"","sources":["../../src/core/isArray.ts"],"names":[],"mappings":"AAAA;;;;GAIG;AACH,MAAM,UAAU,OAAO,CAAC,MAAW;IACjC,OAAO,OAAO,MAAM,KAAK,QAAQ,IAAI,MAAM,YAAY,KAAK,CAAC;AAC/D,CAAC"}

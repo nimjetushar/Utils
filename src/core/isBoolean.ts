@@ -1,8 +1,8 @@
 /**
  * Identifies if argument is boolean or not.
- * @param {*} value Source data which is defined or not.
+ * @param {*} object Source data which is defined or not.
  * @returns {boolean} status as true if defined and false if not.
  */
-export function isBoolean(value: any): boolean {
-  return value === true || value === false;
+export function isBoolean(object: any): object is boolean {
+  return object === true || object === false;
 }

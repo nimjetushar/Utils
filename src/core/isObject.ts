@@ -1,9 +1,9 @@
 /**
  * Verifies if passed argument is Object or not
- * @param {*} value Argument which needs to be validated
+ * @param {*} object Argument which needs to be validated
  * @returns {boolean} return true if passed argument is Object
  */
-export function isObject(value: any): boolean {
-  const type = typeof value;
-  return value != null && (type === "object" || type === "function");
+export function isObject(object: any): boolean {
+  const type = typeof object;
+  return object != null && (type === "object" || type === "function");
 }

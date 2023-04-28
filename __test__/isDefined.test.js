@@ -1,15 +1,17 @@
-import { isDefined } from '../build';
+import { isUndefined } from "../build";
 
-describe('isDefined', () => {
-  it('should check variable is defined', () => {
+describe("isDefined", () => {
+  it("should check variable is defined", () => {
     const data1 = undefined,
       data2 = null,
-      data3 = '',
+      data3 = "",
       data4 = 12,
-      data5 = 'demo',
+      data5 = "demo",
       data6 = {},
       data7 = [],
       data8 = false;
+
+    const isDefined = (d) => !isUndefined(d);
 
     expect(isDefined(data1)).toBeFalsy();
     expect(isDefined(data2)).toBeFalsy();

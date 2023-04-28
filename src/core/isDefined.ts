@@ -1,8 +1,8 @@
 /**
  * Identifies if argument is defined or not that is its value should not be null, undefined or ''.
- * @param {*} data Source data which need to be identitied if Array or not.
+ * @param {*} object Source data which need to be identitied if Array or not.
  * @returns {boolean} status as true if Array and false if not.
  */
-export function isDefined(data: any): boolean {
-  return !(data == null || data === "");
+export function isUndefined(object: any): object is null | undefined {
+  return object == null || object === "";
 }
