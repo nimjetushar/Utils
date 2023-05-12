@@ -5,7 +5,7 @@ orbs:
   node: circleci/node@5.1.0
 
 jobs:
-  example-job:
+  utils-job:
     docker:
       # replace with your preferred image
       - image: cimg/base:stable
