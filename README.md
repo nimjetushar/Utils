@@ -7,7 +7,7 @@
 ![npm](https://img.shields.io/npm/v/tutility)
 ![GitHub pull requests](https://img.shields.io/github/issues-pr/nimjetushar/Utils.svg)
 </br>
-[![CircleCI](https://dl.circleci.com/status-badge/img/gh/nimjetushar/Utils/tree/circleci-project-setup.svg?style=svg)](https://dl.circleci.com/status-badge/redirect/gh/nimjetushar/Utils/tree/circleci-project-setup)
+[![CircleCI](https://dl.circleci.com/status-badge/img/gh/nimjetushar/Utils/tree/master.svg?style=svg)](https://dl.circleci.com/status-badge/redirect/gh/nimjetushar/Utils/tree/master)
 
 ## This utility provides basic utility functions which are mainly used in day to day coding and not ment perform various utility operations which are handled by other utility lib.
 
