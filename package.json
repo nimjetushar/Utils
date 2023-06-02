@@ -33,7 +33,7 @@
     "tutility"
   ],
   "devDependencies": {
-    "@babel/core": "7.15.5",
+    "@babel/core": "7.22.1",
     "@babel/preset-env": "7.15.6",
     "@typescript-eslint/eslint-plugin": "4.32.0",
     "@typescript-eslint/parser": "4.32.0",
