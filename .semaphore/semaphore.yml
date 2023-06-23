@@ -5,14 +5,16 @@ agent:
     type: e1-standard-2
     os_image: ubuntu2004
 blocks:
-  - name: Test
+  - name: Continuity check
     task:
       jobs:
-        - name: Test
+        - name: Validation
           commands:
             - checkout
-            - sem-version node 18
+            - sem-version node 12
+            - cache restore
             - npm install
+            - cache store
             - npm run lint
             - npm run build
             - npm run test-with-coverage
