@@ -42,7 +42,7 @@
     "codacy-coverage": "3.4.0",
     "del": "6.0.0",
     "device-detector-js": "3.0.3",
-    "eslint": "7.32.0",
+    "eslint": "8.43.0",
     "gulp": "4.0.2",
     "gulp-babel": "8.0.0",
     "gulp-jsdoc3": "3.0.0",
