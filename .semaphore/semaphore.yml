@@ -15,7 +15,5 @@ blocks:
             - cache restore
             - npm install
             - cache store
-        - name: 'Job #2'
-          commands:
             - npm run lint
             - npm run test
