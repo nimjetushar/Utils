@@ -16,4 +16,5 @@ blocks:
             - npm install
             - cache store
             - npm run lint
-            - npm run test
+            - npm run build
+            - npm run test-with-coverage-ci
