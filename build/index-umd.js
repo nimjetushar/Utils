@@ -745,6 +745,17 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
 
     return SessionStorage;
   }();
+  /**
+   * returns random string which can be used as an unique identifier
+   *
+   * @export
+   * @return {*}  {string}
+   */
+
+
+  function getUiqueIdentifier() {
+    return Math.random().toString(16).slice(2);
+  }
 
   exports.createMap = createMap;
   exports.debounce = debounce;
@@ -763,6 +774,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
   exports.sort = sort;
   exports.noop = noop;
   exports.SessionStorage = SessionStorage;
+  exports.getUiqueIdentifier = getUiqueIdentifier;
   Object.defineProperty(exports, '__esModule', {
     value: true
   });

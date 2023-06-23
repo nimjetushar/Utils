@@ -15,4 +15,5 @@ export { Logger } from "./core/logger";
 export { sort } from "./core/multiSort";
 export { noop } from "./core/noop";
 export { SessionStorage } from "./core/sessionOperations";
+export { getUiqueIdentifier } from "./core/getUniqueidentifier";
 //# sourceMappingURL=index.js.map
