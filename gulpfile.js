@@ -1,7 +1,6 @@
 const gulp = require("gulp"),
   jsdoc = require("gulp-jsdoc3"),
   config = require("./jsDoc.config.json"),
-  del = require("del"),
   rollup = require("gulp-rollup"),
   babel = require("gulp-babel"),
   { exec } = require("child_process"),
@@ -41,8 +40,9 @@ function compileToUmd() {
     .pipe(gulp.dest("./build"));
 }
 
-function clean() {
-  return del("build", { force: true });
+async function clean() {
+  const { deleteSync } = await import('del')
+  return deleteSync("build", { force: true });
 }
 
 function moveFiles(cb) {

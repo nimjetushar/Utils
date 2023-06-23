@@ -11,8 +11,7 @@
     "test-with-coverage": "jest --coverage && codacy-coverage -t 5bce5aece0e04478b72ff03a0a6d530d < ./coverage/lcov.info",
     "test-with-coverage-ci": "jest --coverage && cat ./coverage/lcov.info | codacy-coverage -t 5bce5aece0e04478b72ff03a0a6d530d",
     "deploy": "gulp generateDoc",
-    "lint": "eslint ./src --ext .ts",
-    "jest": "jest --init"
+    "lint": "eslint ./src --ext .ts"
   },
   "repository": {
     "type": "git",
@@ -36,13 +35,13 @@
   "devDependencies": {
     "@babel/core": "7.15.5",
     "@babel/preset-env": "7.15.6",
-    "@typescript-eslint/eslint-plugin": "4.32.0",
+    "@typescript-eslint/eslint-plugin": "4.33.0",
     "@typescript-eslint/parser": "4.32.0",
     "babel-core": "6.26.3",
-    "babel-jest": "27.2.2",
+    "babel-jest": "29.5.0",
     "babel-plugin-transform-object-assign": "6.22.0",
     "codacy-coverage": "3.4.0",
-    "del": "6.0.0",
+    "del": "7.0.0",
     "device-detector-js": "2.2.7",
     "eslint": "7.32.0",
     "gulp": "4.0.2",
