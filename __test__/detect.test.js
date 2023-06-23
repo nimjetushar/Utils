@@ -106,7 +106,7 @@ describe('detect.js', () => {
         expect(data.os.version).toStrictEqual('10.0');
         expect(data.device.type).toStrictEqual('smartphone');
         expect(data.device.brand).toStrictEqual('Samsung');
-        expect(data.device.model).toStrictEqual('SM-A205U');
+        expect(data.device.model).toStrictEqual('Galaxy A20');
 
         ua = 'Mozilla/5.0 (Linux; Android 10; SM-A102U) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.83 Mobile Safari/537.36';
         data = detect.parse(ua);
@@ -116,7 +116,7 @@ describe('detect.js', () => {
         expect(data.os.version).toStrictEqual('10.0');
         expect(data.device.type).toStrictEqual('smartphone');
         expect(data.device.brand).toStrictEqual('Samsung');
-        expect(data.device.model).toStrictEqual('SM-A102U');
+        expect(data.device.model).toStrictEqual('Galaxy A10e');
 
         ua = 'Mozilla/5.0 (Linux; Android 10; SM-N960U) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.83 Mobile Safari/537.36';
         data = detect.parse(ua);
@@ -126,7 +126,7 @@ describe('detect.js', () => {
         expect(data.os.version).toStrictEqual('10.0');
         expect(data.device.type).toStrictEqual('phablet');
         expect(data.device.brand).toStrictEqual('Samsung');
-        expect(data.device.model).toStrictEqual('GALAXY Note 9');
+        expect(data.device.model).toStrictEqual('Galaxy Note 9');
 
         ua = 'Mozilla/5.0 (Linux; Android 10; LM-Q720) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.83 Mobile Safari/537.36';
         data = detect.parse(ua);
