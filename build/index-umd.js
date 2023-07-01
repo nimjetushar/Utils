@@ -232,13 +232,23 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
   }
   /**
    * Identifies if argument is defined or not that is its value should not be null, undefined or ''.
-   * @param {*} object Source data which need to be identitied if Array or not.
-   * @returns {boolean} status as true if Array and false if not.
+   * @param {*} object Source data which need to be identitied if defined or not.
+   * @returns {boolean} returns true if undefined or null or empty string.
    */
 
 
   function isUndefined(object) {
     return object == null || object === "";
+  }
+  /**
+   * Identifies if argument is defined or not that is its value should not be null, undefined or ''.
+   * @param {*} object Source data which need to be identitied if defined or not.
+   * @returns {boolean} returns false if undefined or null or empty string.
+   */
+
+
+  function isDefined(object) {
+    return !isUndefined(object);
   }
   /**
    * Identifies if Object is empty or not.
@@ -765,6 +775,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
   exports.isArray = isArray;
   exports.isBoolean = isBoolean;
   exports.isUndefined = isUndefined;
+  exports.isDefined = isDefined;
   exports.isEmptyObject = isEmptyObject;
   exports.isEqual = eq;
   exports.isFunction = isFunction;

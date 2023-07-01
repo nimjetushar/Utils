@@ -5,7 +5,7 @@ export { Detect } from "./core/detect";
 export { hasKey } from "./core/hasKey";
 export { isArray } from "./core/isArray";
 export { isBoolean } from "./core/isBoolean";
-export { isUndefined } from "./core/isDefined";
+export { isUndefined, isDefined } from "./core/isDefined";
 export { isEmptyObject } from "./core/isEmpty";
 export { isEqual } from "./core/isEqual";
 export { isFunction } from "./core/isFunction";

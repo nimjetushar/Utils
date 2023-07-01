@@ -4,6 +4,7 @@ import {
   deepCopy,
   isBoolean,
   isUndefined,
+  isDefined,
   isEmptyObject,
   isObject,
   isEqual,
@@ -40,8 +41,12 @@ describe("Utils", () => {
     expect(isBoolean).toBeDefined();
   });
 
-  it("should have isDefined method", () => {
+  it("should have isUndefined method", () => {
     expect(isUndefined).toBeDefined();
+  });
+
+  it("should have isDefined method", () => {
+    expect(isDefined).toBeDefined();
   });
 
   it("should have isEmptyObject method", () => {
