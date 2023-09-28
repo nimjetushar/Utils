@@ -15,4 +15,4 @@ blocks:
             - npm install
             - npm run lint
             - npm run build
-            - npm run test-with-coverage
+            - npm run test
