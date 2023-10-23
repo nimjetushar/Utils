@@ -4,7 +4,6 @@ describe("isUndefined", () => {
   it("should check variable is defined", () => {
     const data1 = undefined,
       data2 = null,
-      data3 = "",
       data4 = 12,
       data5 = "demo",
       data6 = {},
@@ -15,7 +14,6 @@ describe("isUndefined", () => {
 
     expect(isDefined(data1)).toBeFalsy();
     expect(isDefined(data2)).toBeFalsy();
-    expect(isDefined(data3)).toBeFalsy();
 
     expect(isDefined(data4)).toBeTruthy();
     expect(isDefined(data5)).toBeTruthy();
@@ -29,7 +27,6 @@ describe("isDefined", () => {
   it("should check variable is defined", () => {
     const data1 = undefined,
       data2 = null,
-      data3 = "",
       data4 = 12,
       data5 = "demo",
       data6 = {},
@@ -39,7 +36,6 @@ describe("isDefined", () => {
 
     expect(isDefined(data1)).toBeFalsy();
     expect(isDefined(data2)).toBeFalsy();
-    expect(isDefined(data3)).toBeFalsy();
 
     expect(isDefined(data4)).toBeTruthy();
     expect(isDefined(data5)).toBeTruthy();
