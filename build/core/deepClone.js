@@ -28,7 +28,6 @@ function _isPlainObject(obj) {
  * @param {Array<T>} sourceN - Additional objects containing properties to merge in.
  * @returns {T} Deep copied object containing all the properties of passed parameters.
  */
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export function deepCopy(...args) {
     let options, src, copy, copyIsArray, clone, i = 1, target = args[0] || {};
     const length = args.length;

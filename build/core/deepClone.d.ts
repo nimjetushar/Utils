@@ -5,4 +5,4 @@
  * @param {Array<T>} sourceN - Additional objects containing properties to merge in.
  * @returns {T} Deep copied object containing all the properties of passed parameters.
  */
-export declare function deepCopy(...args: any[]): boolean;
+export declare function deepCopy(...args: any[]): any;
